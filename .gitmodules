@@ -7,4 +7,5 @@
 	url = https://github.com/getpelican/pelican-plugins.git
 [submodule "plugins/pelican_json_feed"]
 	path = plugins/pelican_json_feed
-	url = https://github.com/andrewheiss/pelican_json_feed.git
+	url = https://github.com/crossjam/pelican_json_feed.git
+	branch = crossjam/mpr
