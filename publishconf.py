@@ -18,6 +18,7 @@ RELATIVE_URLS = False
 
 FEED_ALL_ATOM = "feed/atom.xml"
 FEED_ALL_RSS = "feed/rss.xml"
+FEED_ALL_JSON = "feed/feed.json"
 FEED_MAX_ITEMS = 10
 
 DELETE_OUTPUT_DIRECTORY = True

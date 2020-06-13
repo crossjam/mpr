@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*- #
 
 
-PLUGIN_PATHS = ["/Users/crossjam/gitrepos/pelican-plugins"]
-PLUGINS = ["summary"]
+PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins"]
+PLUGINS = ["summary", "pelican_json_feed"]
 
 MARKDOWN = {"extension_configs": {"pyembed.markdown": {}}}
 
@@ -69,7 +69,9 @@ GITHUB_URL = "https://github.com/crossjam"
 
 DEFAULT_PAGINATION = 40
 # THEME = "crowsfoot"
-THEME = "crossjam-svbhack"
+# THEME = "crossjam-svbhack"
+THEME = "themes/crossjam-svbhack"
+
 SITEURL = "http://localhost:8080"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 

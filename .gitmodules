@@ -1,0 +1,10 @@
+[submodule "themes/crossjam-svbhack"]
+	path = themes/crossjam-svbhack
+	url = git@github.com:crossjam/pelican-svbhack.git
+	branch = crossjam/mpr
+[submodule "plugins/pelican-plugins"]
+	path = plugins/pelican-plugins
+	url = https://github.com/getpelican/pelican-plugins.git
+[submodule "plugins/pelican_json_feed"]
+	path = plugins/pelican_json_feed
+	url = https://github.com/andrewheiss/pelican_json_feed.git
