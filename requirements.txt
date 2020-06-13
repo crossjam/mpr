@@ -1,0 +1,7 @@
+pelican
+Markdown
+pyembed
+pyembed-markdown
+typogrify
+smartypants
+

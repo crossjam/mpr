@@ -1,0 +1,17 @@
+Title: The 26th Book: Watchmen
+Date: 2008-12-29 19:28
+Author: crossjam
+Category: Uncategorized
+Slug: the_26th_book_watchmen
+Status: published
+
+<img src="http://crossjam.net/mpr/media/watchmen-cover.png" alt="watchmen-cover.png" border="0" width="200" height="310" align="left" style="margin: 10px;" />Wow! I knew <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i> was great, but I had forgotten how great. The upcoming movie has a heck of a high standard against which it will be measured. I almost didn't include it in my books completed list since <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i> is technically a "graphic novel", but after re-reading it I realized that it is so richly complex, the term novel is definitely applicable.
+
+The surface story is the murder mystery of The Comedian, a costumed crusader. Layers are added by putting masked heroes into a realistic context, complete with clear literary statements on political and cultural themes. These aren't superheroes but mere humans with all their strengths and frailties, modulo Dr. Manhattan who injects an element of the metaphysical. A classic mid-50's style horror comic is deftly woven throughout the book. Each chapter concludes with a more text driven segment, that provides a lot of backstory. The mystery folds in multiple tragic twists and eventually turns into a deeper and more horrific conspiracy, with a disturbing ending. Amazingly efficient, every last word, last frame, and every last image of <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i> contributes to the power of the story. As in every great work, <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i> rewards repeated close reading. <em>Hit the <a href="http://en.wikipedia.org/wiki/Watchmen">Wikipedia  article for Watchmen</a> to get a sense of how closely the novel can be read. Beware spoilers!!</em>
+
+But <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen's</a></i> unique strength is in the depth of of its character development. Obviously the time and attention given to the major characters, The Comedian, Rorschach, NiteOwl (elder and junior), Dr. Manhattan, Silk Spectre, Ozymandias, etc. pays off. But Alan Moore and Dave Gibbons make even minor characters have a big impact. The whole thread built around <em>Marooned</em>, a Tale of the Black Freighter is truly brilliant and many an author can learn something about how to put a minor arc to great use. <em>Marooned</em> stands on its own as a story, gives weight to a number of minor characters, foreshadows the larger drama, and questions the final resolution.
+
+Finally, the ultimate evidence of the power of the characters is the emotions that Rorschach, arguably the protagonist of the story, engenders.  He's a reactionary nutball, certifiably psychotic, and almost completely unsympathetic. Somehow, in revealing his backstory <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i> makes him more vile, more pathetic, and more human. To the very end, he bitterly holds to his ideals, which in American culture is always enobling. Yet given the final outcome, and Rorschach's eventual end, can he be viewed as anything but a fool despite possibly having the last laugh?
+
+Anyone who thinks of comics as only about "underwear perverts" will have their world shattered by <i><a href="http://www.amazon.com/gp/product/0930289234">Watchmen</a></i>.
+

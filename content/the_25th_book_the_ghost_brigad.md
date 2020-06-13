@@ -1,0 +1,17 @@
+Title: The 25th Book: The Ghost Brigades
+Date: 2009-01-02 17:17
+Author: crossjam
+Category: Uncategorized
+Slug: the_25th_book_the_ghost_brigad
+Status: published
+
+<i><a href="http://www.amazon.com/gp/product/0765354063"><img src="http://crossjam.net/mpr/media/The Ghost Brigades Cover.jpg" alt="The Ghost Brigades Cover.jpg" border="0" width="200" height="303" align="left" style="margin: 10px;" /> </a></i> While <i><a href="http://www.amazon.com/gp/product/0765348276">Old Man's War</a></i> was a revelation, <i><a href="http://www.amazon.com/gp/product/0765354063">The Ghost Brigades</a></i> is a worthy successor. Originally I thought <i><a href="http://www.amazon.com/gp/product/0765354063">The Ghost Brigades</a></i> fell a little short of Old Man's War, but upon some reflection I think it might be just as good if not better.
+
+The Ghost Brigades continues in John Scalzi's world of the Colonial Defense Forces protecting spacefaring colonists from an exceedingly hostile galaxy. The sequel moves into a deeper exploration of the CDF's Special Forces, a.ka. <i><a href="http://www.amazon.com/gp/product/0765354063">The Ghost Brigades</a></i>, radically augmented humans bred from the womb to take on the really dirty tasks of space warfare. Members of the Ghost Brigades are synthesized from gene lines harvested from CDF volunteers who die before getting their new bodies. They're old, it happens. Because of this, and the augmented capabilities they receive, Special Forces are considered to be a bit freakish.
+
+The protagonist, Jared Dirac, is an odd case even amongst this band of post-humans. Through a confluence of highly damaging treason against the Colonial Union and "consciousness transfer" technology, Jared is technically a clone of a high profile traitor, Charles Boutin. However, failing to initially reveal any knowledge that could lead to the capture Boutin, Jared is simply entered into the Special Forces. This gives Scalzi, in homage to Heinlein, room to explore how troops train, adapt to their technology, and ultimately bond. Eventually Jared enters into his tour of duty, sees a couple of harrowing missions and ultimately becomes key in a high risk plot to eliminate Boutin.
+
+Where The Ghost Brigades diverges somewhat from Old Man's War is a clearer emphasis on some of the ethical, political, and philosophical conundrums hinted at in Old Man's War. For example, the odd status of the Special Forces as post-humans definitely comes to the fore. While Old Man's War was a good end-to-end tale, the originality of its fundamental premise, the wisdom of old age fused into engineered warfaring youth, is the critical hook. That trick can't be relied on in <i><a href="http://www.amazon.com/gp/product/0765354063">The Ghost Brigades</a></i>, but the reward is deeper exploration of what it says about humanity to take old people and recycle them into soldiers, to create post-human super soldiers who haven't experienced adolescence before seeing battle, and to willy-nilly record and transfer consciousness between physical bodies. Not to mention various devious tactics employed by a number of the main characters.
+
+So while I'm sure there are plenty of folks who think <i><a href="http://www.amazon.com/gp/product/0765354063">The Ghost Brigades</a></i>, by virtue of being a sequel, can't stand up to <i><a href="http://www.amazon.com/gp/product/0765348276">Old Man's War</a></i>, I actually think it does quite well.
+

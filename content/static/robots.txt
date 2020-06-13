@@ -1,0 +1,17 @@
+User-agent: *
+
+Disallow: /wp/mpr/feed/
+Disallow: /wp/mpr/trackback/
+Disallow: /wp/mpr/wp-admin/
+Disallow: /wp/mpr/wp-content/
+Disallow: /wp/mpr/wp-includes/
+Disallow: /wp/mpr/xmlrpc.php
+Disallow: /wp/mpr/wp-
+
+Disallow: /wp/nmh/feed/
+Disallow: /wp/nmh/trackback/
+Disallow: /wp/nmh/wp-admin/
+Disallow: /wp/nmh/wp-content/
+Disallow: /wp/nmh/wp-includes/
+Disallow: /wp/nmh/xmlrpc.php
+Disallow: /wp/nmh/wp-
