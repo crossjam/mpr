@@ -5,8 +5,9 @@ Category: Uncategorized
 For the first time ever intentionally, I rethemed one of my
 blogs. [New Media Hack][1] got a new theme only because I had to apply
 something during the transfer to WordPress. [Mass Programming
-Resistance][2] hadn't had a style change from its inception. Now it
+Resistance][2] hadn’t had a style change from its inception. Now it
 does.
+
 
 
 The theme is pretty minimal. I [forked][3] a repository from [Giulio
