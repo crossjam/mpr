@@ -38,6 +38,8 @@ AUTHOR_FEED_RSS = None
 DEFAULT_CATEGORY = "Uncategorized"
 DEFAULT_DATE = "fs"
 TYPOGRIFY = True
+TYPOGRIFY_IGNORE_TAGS = ["pre", "code", "head"]
+
 DISPLAY_CATEGORIES_ON_MENU = False
 TAGS_SAVE_AS = ""
 TAG_SAVE_AS = ""

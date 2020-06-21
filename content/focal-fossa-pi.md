@@ -11,7 +11,10 @@ The 20.04 Ubuntu Long Term Support release (Focal Fossa) [officially supports th
 
 With [handy installation instructions][2] to boot.
 
-Long term readers may remember that I put together [a stack of Raspberry Pis][3] just for run one Christmas season. They haven’t been doing much since, but because I’m a heavy user of Ubuntu at work, maybe I can get more mileage out of them.
+Long term readers may remember that I put together [a stack of
+Raspberry Pis][3] just for fun one Christmas season. They haven’t been
+doing much since, but because I’m a heavy user of Ubuntu at work,
+maybe I can get more mileage out of them.
 
 [1]: https://ubuntu.com/download/raspberry-pi
 [2]: https://ubuntu.com/tutorials/how-to-install-ubuntu-on-your-raspberry-pi
