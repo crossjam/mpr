@@ -76,7 +76,7 @@ DEFAULT_PAGINATION = 40
 # THEME = "crossjam-svbhack"
 THEME = "themes/crossjam-svbhack"
 
-SITEURL = "http://localhost:8080"
+SITEURL = "http://transerenity.local:8000"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 
 # Uncomment following line if you want document-relative URLs when developing
