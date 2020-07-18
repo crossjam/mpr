@@ -4,6 +4,7 @@
 
 PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins"]
 PLUGINS = ["summary", "pelican_json_feed"]
+PLUGINS = ["summary", "pelican_json_feed", "drafts"]
 
 MARKDOWN = {"extension_configs": {"pyembed.markdown": {}}}
 
@@ -44,6 +45,8 @@ DISPLAY_CATEGORIES_ON_MENU = False
 TAGS_SAVE_AS = ""
 TAG_SAVE_AS = ""
 SUMMARY_MAX_LENGTH = None
+
+SHOW_DRAFTS = True
 
 # Blogroll
 LINKS = (

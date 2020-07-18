@@ -25,6 +25,7 @@ FEED_MAX_ITEMS = 10
 
 DELETE_OUTPUT_DIRECTORY = True
 
+SHOW_DRAFTS = False
 # Following items are often useful when publishing
 
 # DISQUS_SITENAME = ""
