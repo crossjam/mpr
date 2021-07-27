@@ -4,7 +4,7 @@
 
 PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins"]
 PLUGINS = ["summary", "pelican_json_feed"]
-PLUGINS = ["summary", "pelican_json_feed", "drafts"]
+# PLUGINS = ["summary", "pelican_json_feed", "drafts"]
 
 MARKDOWN = {"extension_configs": {"pyembed.markdown": {}}}
 
@@ -59,10 +59,16 @@ STATIC_PATHS = [
     "images",
     "wp-content",
     "media",
+    "mpr",
 ]
 
 EXTRA_PATH_METADATA = {
     "static/robots.txt": {"path": "robots.txt"},
+    "static/favicon.ico": {"path": "favicon.ico"},
+    "static/favicon-16x16.png": {"path": "favicon-16x16.png"},
+    "static/favicon-32x32.png": {"path": "favicon-32x32.png"},
+    "static/apple-touch-icon.png": {"path": "apple-touch-icon.png"},
+    "static/site.webmanifest": {"path": "site.webmanifest"},
 }
 
 
