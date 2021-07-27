@@ -10,6 +10,8 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
+PLUGINS = ["summary", "pelican_json_feed"]
+
 # If your site is available via HTTPS, make sure SITEURL begins with https://
 SITEURL = "https://mpr.crossjam.net"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
