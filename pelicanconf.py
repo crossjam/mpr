@@ -6,7 +6,16 @@ PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins"]
 PLUGINS = ["summary", "pelican_json_feed"]
 # PLUGINS = ["summary", "pelican_json_feed", "drafts"]
 
-MARKDOWN = {"extension_configs": {"pyembed.markdown": {}}}
+MARKDOWN = {
+    "extension_configs": {
+        "markdown.extensions.codehilite": {
+            "css_class": "highlight",
+            "use_pygments": True,
+        },
+        "markdown.extensions.extra": {},
+        "markdown.extensions.meta": {},
+    }
+}
 
 AUTHOR = "C. Ross Jam"
 SITENAME = "Mass Programming Resistance"
@@ -35,6 +44,10 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
+
+DEFAULT_METADATA = {
+    "status": "draft",
+}
 
 DEFAULT_CATEGORY = "Uncategorized"
 DEFAULT_DATE = "fs"
