@@ -1,6 +1,10 @@
 Title: Transplanted
 Slug: transplanted
-Date: 2020-06-12
+Date: 2022-02-21
+Status: Published
+
+_Yet another left behind in the drafts bin from June 2020. Including
+today for posterity’s sake._
 
 This is my first post using Markdown and [Pelican][1]. Currently
 <https://crossjam.net/> is resolving properly and the content has
