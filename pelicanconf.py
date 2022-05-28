@@ -14,6 +14,8 @@ MARKDOWN = {
         },
         "markdown.extensions.extra": {},
         "markdown.extensions.meta": {},
+        'pyembed.markdown': {},
+        # "markdown.extensions.pyembed": {},
     }
 }
 
