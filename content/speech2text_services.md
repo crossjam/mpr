@@ -1,5 +1,7 @@
 Title: Link Parkin’: Speech to Text
-Date: 2022-05-15
+Date: 2022-05-16
+Author: crossjam
+Status: published
 
 Link parkin’, two services for converting speech to text:
 
