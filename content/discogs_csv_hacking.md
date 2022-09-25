@@ -1,6 +1,7 @@
 Title: Discogs Data CSV
 Author: C. Ross Jam
 Status: published
+Date: 2022-06-03
 
 So I took the [`discogs-xml2db`][1] tool and ran it against the
 [Discogs Data, May 2022 release][2]. I got back 8.1 Gb, 😱, of csv data to
