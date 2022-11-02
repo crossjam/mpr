@@ -1,0 +1,107 @@
+# The Caddyfile is an easy way to configure your Caddy web server.
+#
+# Unless the file starts with a global options block, the first
+# uncommented line is always the address of your site.
+#
+# To use your own domain name (with automatic HTTPS), first make
+# sure your domain's A/AAAA DNS records are properly pointed to
+# this machine's public IP, then replace the line below with your
+# domain name.
+# :80
+
+
+crossjam.net {
+  @not_nmh {
+    not path /wp/nmh/*
+  }
+
+  route {
+    redir /wp/nmh/* https://nmh.crossjam.net{uri} permanent
+    redir /nmh/* https://nmh.crossjam.net{uri} permanent
+    redir @not_nmh https://mpr.crossjam.net{uri} permanent
+  }
+}
+
+mpr.crossjam.net {
+
+# Set this path to your site's directory.
+# root * /usr/share/caddy
+root * /var/www/html
+
+# try_files /var/www/html/data/{file} =404
+
+@redir_mpr_match {
+ not path /wp/mpr/*
+}
+
+redir @redir_mpr_match https://mpr.crossjam.net/wp/mpr{uri} permanent
+# Enable the static file server.
+
+# Strips off leading portion of URI path, checks data dir
+# runs after redir conversion according to
+# https://caddyserver.com/docs/caddyfile/directives#directive-order
+handle_path /wp/mpr/data/* {
+  file_server {
+    root /var/www/data
+  }
+}
+
+file_server {
+  index index.html index.txt atom.xml rss.xml feed.json
+}
+encode gzip
+log
+
+}
+
+nmh.crossjam.net {
+
+# Set this path to your site's directory.
+# root * /usr/share/caddy
+root * /var/www/html
+
+@redir_nmh_match {
+ not path /wp/nmh/*
+}
+
+redir @redir_nmh_match https://nmh.crossjam.net/wp/nmh{uri} permanent
+# Enable the static file server.
+
+@archives_path {
+  path_regexp archives_path ^/wp/nmh/archives/[0-9]+\.html$
+}
+
+uri replace /wp/nmh/nmh/ /wp/nmh/
+uri @archives_path strip_suffix .html
+
+file_server
+encode gzip
+log
+
+}
+
+mobile.betanuboule.org {
+
+# Set this path to your site's directory.
+# root * /usr/share/caddy
+root * /var/www/betanu
+
+file_server
+encode gzip
+log
+
+}
+
+adoptedart.org {
+   redir https://mpr.crossjam.net	      
+}
+
+
+# Another common task is to set up a reverse proxy:
+# reverse_proxy localhost:8080
+
+# Or serve a PHP site through php-fpm:
+# php_fastcgi localhost:9000
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile
