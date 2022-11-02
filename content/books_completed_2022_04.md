@@ -9,6 +9,8 @@ finished is conceivable.
 
 Lots to get to. Let’s get stuck in.
 
+_2022-10-04 Now with even more commentary._
+
 <!-- PELICAN_END_SUMMARY -->
 
 
@@ -53,13 +55,30 @@ violence. Probably deserves a reread for full appreciation.
 
 _UNIX_ does what it says on the tin, but for us old-time UNIXers there
 were just lots of entertaining little nuggets on the environment
-within AT&T during the time UNIX was created.
+within Bell Labs, sort of a nerd holy land, during the time UNIX was
+created.
 
 [Brittney Griner’s][16] detention in Russia prompted me to venture out
 and understand what’s going in the former USSR. _...Unfreedom..._ had
 been on the to-read list and delivered. Snyder’s distinction between
 the politics of eternity and of inevitability resonates on a number of
 levels. 
+
+Forgot to add a thought on _The E-Myth..._. Just picked it up as a
+deal from Amazon Kindle, hoping to learn more about why small
+businesses fail. Turned out to be a bit on the business fable side,
+while definitely sneakily sales pitch oriented towards the author’s seminars.
+I did find the notion to make your business franchisable useful in
+engaging the business from a systematic perspective instead of via an
+emotional attachment. Key phrase: "working **on** the business versus
+working **in** the business"
+
+I love Richard K. Morgan’s Takeshi Kovacs novels and was looking
+forward to reading the _...Download Blues..._ graphic novel. A ho-hum
+result as the art wasn’t outstanding and word balloons don’t provide
+quite enough text to match Morgan’s prose. Someone with a really
+strong and distinctive visual style might be able to make something of
+the Kovacs ethos but they’d have go way out on a limb to get me excited.
 
 ### August
 
@@ -82,6 +101,14 @@ having basic human decency is step one.
 In a similar theme, _Twilight of Democracy_ chronicles how
 anti-democratic politics, culture, and cognitive warfare are spreading
 from Central Europe throughout the rest of the world.
+
+_...Surveillance Capitalism..._ reads like a stapled together
+collection of blog posts, but has a couple of solid ideas. First, Big
+Tech doesn’t have any mind-control rays and their products are
+probably a bit overrated. Second, the notion of consumer harm in
+anti-trust policy has negatively titled the corporate playing field
+towards monopoly across a number of markets and especially
+tech. Monopolies are typically not a good thing.
 
 _Team Human_ is Douglas Rushkoff’s examination of how global humanity
 might survive its current wicked problems. More technology and more
