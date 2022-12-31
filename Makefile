@@ -5,6 +5,7 @@ PELICANOPTS=
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
+DEVOUTPUTDIR=$(BASEDIR)/devoutput
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
@@ -75,16 +76,16 @@ endif
 
 devserver:
 ifdef PORT
-	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -p $(PORT)
+	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(DEVOUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -p $(PORT)
 else
-	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+	"$(PELICAN)" -lr "$(INPUTDIR)" -o "$(DEVOUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
 endif
 
 devserver-global:
 ifdef PORT
-	$(PELICAN) -lr $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -p $(PORT) -b 0.0.0.0
+	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -p $(PORT) -b 0.0.0.0
 else
-	$(PELICAN) -lr $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -b 0.0.0.0
+	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -b 0.0.0.0
 endif
 
 publish:
@@ -94,7 +95,11 @@ ssh_upload: publish
 	scp -P $(SSH_PORT) -r "$(OUTPUTDIR)"/* "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
 
 rsync_upload: publish
+ifdef SSH_KEY
+	rsync -e "ssh -i $(SSH_KEY) -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete "$(OUTPUTDIR)"/ "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
+else
 	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete "$(OUTPUTDIR)"/ "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
+endif
 
 
 .PHONY: html help clean regenerate serve serve-global devserver publish ssh_upload rsync_upload
