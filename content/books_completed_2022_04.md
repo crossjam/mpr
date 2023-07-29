@@ -106,7 +106,7 @@ _...Surveillance Capitalism..._ reads like a stapled together
 collection of blog posts, but has a couple of solid ideas. First, Big
 Tech doesn’t have any mind-control rays and their products are
 probably a bit overrated. Second, the notion of consumer harm in
-anti-trust policy has negatively titled the corporate playing field
+anti-trust policy has negatively tilted the corporate playing field
 towards monopoly across a number of markets and especially
 tech. Monopolies are typically not a good thing.
 
