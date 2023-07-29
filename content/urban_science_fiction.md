@@ -1,7 +1,6 @@
 Title: Urban Science Fiction
 Date: 2009-08-03 21:37
 Author: crossjam
-Category: InProgress
 Slug: urban_science_fiction
 Status: published
 

@@ -1,7 +1,6 @@
 Title: Irritants: Blogging Edition
 Date: 2009-03-20 21:18
 Author: crossjam
-Category: InProgress
 Slug: irritants_blogging_edition
 Status: published
 

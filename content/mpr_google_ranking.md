@@ -1,7 +1,6 @@
 Title: MPR Google Ranking
 Date: 2009-08-04 23:44
 Author: crossjam
-Category: InProgress
 Slug: mpr_google_ranking
 Status: published
 

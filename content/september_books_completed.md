@@ -1,7 +1,6 @@
 Title: September Books Completed
 Date: 2009-10-01 22:00
 Author: crossjam
-Category: InProgress
 Slug: september_books_completed
 Status: published
 

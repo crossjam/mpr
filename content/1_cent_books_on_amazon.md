@@ -1,7 +1,6 @@
 Title: 1 Cent Books on Amazon
 Date: 2009-07-08 22:17
 Author: crossjam
-Category: InProgress
 Slug: 1_cent_books_on_amazon
 Status: published
 

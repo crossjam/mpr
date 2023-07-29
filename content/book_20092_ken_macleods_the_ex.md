@@ -1,7 +1,6 @@
 Title: Book 2009.2 Ken MacLeod's "The Execution Channel"
 Date: 2009-03-16 22:34
 Author: crossjam
-Category: InProgress
 Slug: book_20092_ken_macleods_the_ex
 Status: published
 

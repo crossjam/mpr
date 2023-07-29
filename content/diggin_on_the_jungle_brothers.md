@@ -1,7 +1,6 @@
 Title: Diggin' On ... The Jungle Brothers
 Date: 2009-03-15 17:22
 Author: crossjam
-Category: InProgress
 Slug: diggin_on_the_jungle_brothers
 Status: published
 
