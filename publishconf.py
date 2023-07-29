@@ -12,6 +12,13 @@ from pelicanconf import *
 
 PLUGINS = ["summary", "pelican_json_feed"]
 
+DEFAULT_METADATA = {
+    "status": "draft",
+}
+
+DISPLAY_CATEGORIES_ON_MENU = False
+SHOW_DRAFTS = False
+
 # If your site is available via HTTPS, make sure SITEURL begins with https://
 SITEURL = "https://mpr.crossjam.net"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"

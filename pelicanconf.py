@@ -14,7 +14,7 @@ MARKDOWN = {
         },
         "markdown.extensions.extra": {},
         "markdown.extensions.meta": {},
-        'pyembed.markdown': {},
+        "pyembed.markdown": {},
         # "markdown.extensions.pyembed": {},
     }
 }
@@ -48,7 +48,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 DEFAULT_METADATA = {
-    "status": "draft",
+    "status": "published",
 }
 
 DEFAULT_CATEGORY = "Uncategorized"
@@ -56,7 +56,7 @@ DEFAULT_DATE = "fs"
 TYPOGRIFY = True
 TYPOGRIFY_IGNORE_TAGS = ["pre", "code", "head"]
 
-DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_CATEGORIES_ON_MENU = True
 TAGS_SAVE_AS = ""
 TAG_SAVE_AS = ""
 SUMMARY_MAX_LENGTH = None
@@ -100,7 +100,7 @@ DEFAULT_PAGINATION = 40
 # THEME = "crossjam-svbhack"
 THEME = "themes/crossjam-svbhack"
 
-SITEURL = "http://transerenity.local:8000"
+SITEURL = "http://gabrielhounds:8000"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 
 # Uncomment following line if you want document-relative URLs when developing
