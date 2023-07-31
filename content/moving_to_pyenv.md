@@ -2,6 +2,7 @@ Title: Moving to Pyenv
 Author: crossjam
 Category: Uncategorized
 Status: published
+Date: 2021-08-16
 
 Motivated by Justin Mayer’s [observations about Homebrew Python][1]
 I’ve been working on using [pyenv][2] and [pyenv-virtualenv][3]. Still

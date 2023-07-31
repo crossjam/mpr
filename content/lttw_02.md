@@ -1,4 +1,5 @@
 Title: LTTW 02: Gene Farris
+Date: 2020-07-17
 Status: published
 
 Listened to this week (LTTW) had one **outstanding** entrant. Gene

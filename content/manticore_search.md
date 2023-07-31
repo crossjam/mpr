@@ -1,5 +1,6 @@
 Title: Manticore Search
 Author: crossjam
+Date: 2022-01-08
 Status: published
 
 Link parkin’: [Manticore Search][1] 

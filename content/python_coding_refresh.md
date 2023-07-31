@@ -1,5 +1,6 @@
 title: Python Coding Refresh
 status: published
+Date: 2020-08-23
 
 While I’ve been writing Python code for a while, and even some for my
 current job, I feel like I’ve sort of lost the pure coder

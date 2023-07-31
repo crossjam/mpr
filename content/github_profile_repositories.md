@@ -1,4 +1,5 @@
 Title: GitHub Profile README.md
+Date: 2020-07-12
 Status: published
 
 [Simon Willison noted][1] that GitHub sneakily released a new feature that

@@ -1,5 +1,6 @@
 Title: The Art of Command Line
 Status: published
+Date: 2020-07-16
 
 Link parkin’ [_The Art of Command Line_][1]
 

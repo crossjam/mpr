@@ -1,5 +1,6 @@
 Title: Testing Pelican Plugins
 Status: Published
+Date: 2020-06-21
 
 Let’s see if the [summary][1] and [oEmbed][2] plugins actually work ...
 

@@ -1,5 +1,6 @@
 Title: Mastering JQ
 status: published
+Date: 2020-08-02
 
 Link parkin’: [Mastering JQ: Part1][1]
 

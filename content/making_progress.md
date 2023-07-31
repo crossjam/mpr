@@ -1,4 +1,5 @@
 Title: Making Progress
+Date: 2020-07-09
 Status: published
 
 Slowly but surely making progress on getting the blog authoring home

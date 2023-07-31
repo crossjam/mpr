@@ -1,5 +1,6 @@
 Title: 2021 Books Completed, Part 6
 Author: crossjam
+Date: 2022-01-06
 Category: Uncategorized
 Status: published
 
