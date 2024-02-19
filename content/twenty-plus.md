@@ -23,7 +23,7 @@ To the title of this particular post. Between [Mass Programming
 Resistance](https://mpr.crossjam.net) and [New Media
 Hack](https://nmh.crossjam.net) I’ve pushed out at least a few blogs
 every year since January 18 2003. Employing my overeducated abilities,
-this one will extend the streak to 21 years in a row. 😲 Definitely
+this one will extend the streak to 22 years in a row. 😲 Definitely
 bursty, but it’s some sort of an accomplishment. Many other bloggers,
 prominent or not, have fallen by the wayside. Just says I’m something
 of an Internet old-timer. _If they only knew._
