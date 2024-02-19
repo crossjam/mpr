@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*- #
 
 
-PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins"]
+PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed"]
+PLUGINS = ["summary"]
+
 PLUGINS = ["summary", "pelican_json_feed"]
-# PLUGINS = ["summary", "pelican_json_feed", "drafts"]
 
 MARKDOWN = {
     "extension_configs": {
@@ -100,7 +101,9 @@ DEFAULT_PAGINATION = 40
 # THEME = "crossjam-svbhack"
 THEME = "themes/crossjam-svbhack"
 
-SITEURL = "http://gabrielhounds:8000"
+# SITEURL = "http://gabrielhounds:8000"
+# SITEURL = "http://localhost:8000"
+# SITEURL = "http://burningchrome:8000"
 USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 
 # Uncomment following line if you want document-relative URLs when developing
