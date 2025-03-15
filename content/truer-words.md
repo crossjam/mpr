@@ -5,6 +5,6 @@ Category: Uncategorized
 Slug: truer-words
 Status: published
 
-[embed]https://twitter.com/UnlikelyWorlds/status/334384901547757568[/embed]
+[!embed](https://twitter.com/UnlikelyWorlds/status/334384901547757568)
 
 Truer words were never spoken of your humble narrator. Would that he could get his *outer* pedant under control.

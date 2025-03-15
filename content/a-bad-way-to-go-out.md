@@ -6,7 +6,7 @@ Slug: a-bad-way-to-go-out
 Status: published
 
 I know I’m a bit late to the party, but poor [Ozzie Guillen got let go][1] in what may be an MLB first. The Marlin’s posted his firing on Twitter:
-[embed]https://twitter.com/Marlins/status/260829731627347968[/embed]
+[!embed](https://twitter.com/Marlins/status/260829731627347968)
 
 Yikes! Amongst Chicagoans, there will always be a soft spot for Oz though, thanks to that [2005 World Series][2]. But I had a feeling it would end badly, from the day he signed on.
 

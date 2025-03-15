@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: gla-podcast-49
 Status: published
 
-[embed]https://twitter.com/djmarkfarina/status/552184777038520320[/embed]
+[!embed](https://twitter.com/djmarkfarina/status/552184777038520320)
 
 I am all over that. Will definitely be checking it out during tomorrow’s commute.
 

@@ -7,9 +7,9 @@ Status: published
 
 In [tweets][3] from [@GreatDismal][2]
 
-[embed]https://twitter.com/GreatDismal/status/320161070113251328[/embed]
+[!embed](https://twitter.com/GreatDismal/status/320161070113251328)
 
-[embed]https://twitter.com/GreatDismal/status/320182239000408064[/embed]
+[!embed](https://twitter.com/GreatDismal/status/320182239000408064)
 
 > First the digital came for the fighter pilot, then for the sniper. #artisanalwarfighting
 

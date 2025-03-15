@@ -7,7 +7,7 @@ Status: published
 
 Somebody burn the tape of these last seven days.
 
-[embed]https://youtu.be/nM7_Ip2zooc[/embed]
+[!embed](https://youtu.be/nM7_Ip2zooc)
 
 Classic Chicago House music from Joe Smooth Inc., *[The Promised Land][1]*
 

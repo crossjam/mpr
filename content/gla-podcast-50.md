@@ -5,6 +5,6 @@ Category: Uncategorized
 Slug: gla-podcast-50
 Status: published
 
-[embed]https://twitter.com/djmarkfarina/status/665242414693654532[/embed]
+[!embed](https://twitter.com/djmarkfarina/status/665242414693654532)
 
 I’ve given it two listens so far and good stuff. A welcome return to straight ahead house music.

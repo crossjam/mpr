@@ -10,6 +10,6 @@ I enjoyed reading Ned Batchelder’s presentation on [idiomatic iteration in Pyt
 He also ingeniously made it available in multiple formats.
 > This is a presentation I gave at PyCon 2013. You can read the slides and text on this page, or open the actual presentation in your browser (use right and left arrows to advance the slides), or watch the video:
 
-[embed]http://youtu.be/EnSu9hHGq5o[/embed]
+[!embed](http://youtu.be/EnSu9hHGq5o)
 
 [1]: http://nedbatchelder.com/text/iter.html

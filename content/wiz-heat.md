@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: wiz-heat
 Status: published
 
-[embed]https://twitter.com/DidTheWizWin/status/276151891841409024[/embed]
+[!embed](https://twitter.com/DidTheWizWin/status/276151891841409024)
 
 Somehow I lucked out and had a ticket for the second Washington Wizards victory of the season. Against reigning NBA champs, the Miami Heat, no less. 
 

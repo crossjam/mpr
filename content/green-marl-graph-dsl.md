@@ -7,7 +7,7 @@ Status: published
 
 Let’s try out this here newfangled tweet [embedding][1] in WordPress:
 
-[embed]https://twitter.com/bigdata/statuses/243742637352419330[/embed]
+[!embed](https://twitter.com/bigdata/statuses/243742637352419330)
 
 Just the link on a line by itself isn’t quite working for me. However, The `embed` shortcode seems to do the trick. 
 

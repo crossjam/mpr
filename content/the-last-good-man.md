@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: the-last-good-man
 Status: published
 
-[embed]https://twitter.com/LindaNagata/status/877197727225888768[/embed]
+[!embed](https://twitter.com/LindaNagata/status/877197727225888768)
 
 Fuck it. I usually don't bite on books from [John Scalzi's *Big Idea* series][1], but with a co-plug from Charles Stross I’ll take a chance on Linda Nagata’s [*The Last Good Man*][3].
 

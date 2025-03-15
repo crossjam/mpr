@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: strata-observations
 Status: published
 
-[embed]https://twitter.com/bigdata/status/308266084656619520[/embed]
+[!embed](https://twitter.com/bigdata/status/308266084656619520)
 
 More Ben Lorica with [some observations][1] coming out of the recent [O’Reilly Strata Conference][2]:
 > Here are a few observations based on conversations I had during the just concluded Strata Santa Clara conference.

@@ -6,7 +6,7 @@ Slug: my-alien-covenant-review
 Status: published
 
 First, watch the [*Alien: Covenant*][3] Prologue trailers online, such as [“The Crossing”][1]
-[embed]https://youtu.be/XeMVrnYNwus[/embed]
+[!embed](https://youtu.be/XeMVrnYNwus)
 
 and [“The Last Supper”][2].
 

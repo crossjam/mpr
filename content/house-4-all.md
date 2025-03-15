@@ -7,7 +7,7 @@ Status: published
 
 Feeling sort of blunted this Friday.
 
-[embed]https://youtu.be/8syerb6D2vI[/embed]
+[!embed](https://youtu.be/8syerb6D2vI)
 
 Blunted Dummies, [*“House For All”*][1]. Classic house.
 

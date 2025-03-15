@@ -9,7 +9,7 @@ The Little Guy (TM) has been watching a lot of [*Yo Gabba Gabba!*][1] when it hi
 
 **[Lady Miss Kier][2] must do a dancey dance!! That would be AWESOOOOME!!**
 
-[embed]http://www.youtube.com/watch?v=Ibk4Diagkok[/embed]
+[!embed](http://www.youtube.com/watch?v=Ibk4Diagkok)
 
 If they can find a spot on the show for [Metta World Peace][4], they can put a little [groove in the heart][3].
 

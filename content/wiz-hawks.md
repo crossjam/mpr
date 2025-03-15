@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: wiz-hawks
 Status: published
 
-[embed]https://twitter.com/DidTheWizWin/status/290283226562428928[/embed]
+[!embed](https://twitter.com/DidTheWizWin/status/290283226562428928)
 
 I don’t know if John Wall is going to make that much of a difference overall, but his return definitely put a pep in the step of the Wiz. They actually rolled to a relatively easy victory over the Hawks.
 

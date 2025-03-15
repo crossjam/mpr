@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: new-bitly-apis
 Status: published
 
-[embed]https://twitter.com/hmason/status/288722595606573056[/embed]
+[!embed](https://twitter.com/hmason/status/288722595606573056)
 
 For whatever the reason, today was chock full of link fodder. Some of it I’ll be saving for later in the week, but [Hilary Mason’s announcement][1] of [new, real-time, streaming APIs][2] tickles my fancy.
 

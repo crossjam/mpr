@@ -7,9 +7,9 @@ Status: published
 
 Just do as the man says.
 
-[embed]https://twitter.com/djmarkfarina/statuses/260860717647921153[/embed]
+[!embed](https://twitter.com/djmarkfarina/statuses/260860717647921153)
 
-[embed]https://twitter.com/OmRecords/statuses/260850819618979840[/embed]
+[!embed](https://twitter.com/OmRecords/statuses/260850819618979840)
 
 [Four classic Mushroom Jazz recordings][1], for free. What’s not to like?
 

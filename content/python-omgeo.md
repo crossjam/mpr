@@ -7,4 +7,4 @@ Status: published
 
 Link parkin’:
 
-[embed]https://twitter.com/pypi/statuses/248871216629313536[/embed]
+[!embed](https://twitter.com/pypi/statuses/248871216629313536)

@@ -11,7 +11,7 @@ In addition, this is also the anniversary of my starting employment with Schafer
 
 What better punctuation than The Black Science Orchestra’s, [*New Jersey Deep*][3].
 
-[embed]https://youtu.be/5fZcZmlasjk[/embed]
+[!embed](https://youtu.be/5fZcZmlasjk)
 
 *Yeaaaah! Black Science got it goin’ on.*
 

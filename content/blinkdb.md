@@ -13,7 +13,7 @@ Cool! [BlinkDB][1] provides Interactive timescale querying of massive data throu
 
 Via [@bigdata][3]
 
-[embed]https://twitter.com/bigdata/status/291228309910614016[/embed]
+[!embed](https://twitter.com/bigdata/status/291228309910614016)
 
 [1]: http://blinkdb.org/
 [2]: http://arxiv.org/abs/1203.5485

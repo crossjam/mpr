@@ -6,7 +6,7 @@ Slug: network-structure-taxonomies
 Status: published
 
 Link parkin’: [*Taxonomies of networks from community structure*][1]
-[embed]https://twitter.com/bigdata/statuses/254974410363133953[/embed]
+[!embed](https://twitter.com/bigdata/statuses/254974410363133953)
 
 > The study of networks has become a substantial interdisciplinary endeavor that encompasses myriad disciplines in the natural, social, and information sciences. Here we introduce a framework for constructing taxonomies of networks based on their structural similarities. 
 

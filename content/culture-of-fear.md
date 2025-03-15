@@ -7,7 +7,7 @@ Status: published
 
 Love this track:
 
-[embed]https://www.youtube.com/watch?v=GWvqkDvv4mE[/embed]
+[!embed](https://www.youtube.com/watch?v=GWvqkDvv4mE)
 
 Thievery Corporation’s [*Culture of Fear*][1]
 

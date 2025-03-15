@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: harlem-shake-off
 Status: published
 
-[embed]http://www.youtube.com/watch?v=Ir2TdfSwH8g[/embed]
+[!embed](http://www.youtube.com/watch?v=Ir2TdfSwH8g)
 
 Speaking of the Miami Heat, I’m usually immune to Internet memes, but I got sucked in by [the Miami Heat’s version of the Harlem Shake][1]. My Little Guy (™) had to watch it 20 times in a row. Where’s [Andy Baio][3] when we need him?
 
@@ -13,7 +13,7 @@ That’s a lot of high-priced talent having a big old goof. LeBron James seems t
 
 However, I’m actually somewhat partial to [the Kansas Jayhawks edition][2] which I suspect might have inspired the Heat. *via Mario Chalmers?* Could be a skoosh longer but has the upside of a Bill Self appearance:
 
-[embed]http://www.youtube.com/watch?v=SbGFYjCbpRs[/embed]
+[!embed](http://www.youtube.com/watch?v=SbGFYjCbpRs)
 
 [1]: http://www.youtube.com/watch?v=Ir2TdfSwH8g
 [2]: http://www.youtube.com/watch?v=SbGFYjCbpRs

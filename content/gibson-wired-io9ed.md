@@ -7,7 +7,7 @@ Status: published
 
 [William Gibson][1] has been out and about a bit, and giving some interviews. First [with io9][5]:
 
-[embed]http://youtube.com/watch?v=JEXIqKRdz9A[/embed]
+[!embed](http://youtube.com/watch?v=JEXIqKRdz9A)
 
 And a three-parter from Wired, [1][2], [2][3], [3][4]
 

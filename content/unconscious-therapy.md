@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: unconscious-therapy
 Status: published
 
-[embed]https://twitter.com/5Magazine/status/323870714539163648[/embed]
+[!embed](https://twitter.com/5Magazine/status/323870714539163648)
 
 From *5 Magazine*, Chicago’s own House Music chronicle, comes [news of a newly released documentary][1]
 > Centuries (okay, a few years) ago, Steven Harnell began recording footage for something tentatively given the very tentative title of An Untitled Documentary About House Music. A few people asked me about it, but the project seemed to be sliding into oblivion – until a couple of weeks ago, the site hadn’t been updated since around 2008.

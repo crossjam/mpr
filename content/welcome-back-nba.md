@@ -13,4 +13,4 @@ Status: published
 * James Harden may go off for a while as the #1 guy for the Houston Rockets, but then the Association will get a book on him. Let’s see what happens then.
 * The Knicks are still stuck in neutral, and somehow they feel even older than last year.
 * Can’t wait for DRose to get back:
-[embed]http://www.youtube.com/watch?v=dtj-D8HT9BY&w=400&h=225[/embed]
+[!embed](http://www.youtube.com/watch?v=dtj-D8HT9BY&w=400&h=225)

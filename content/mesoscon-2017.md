@@ -9,7 +9,7 @@ Link parkin’: [Mesoscon North America 2017][1]
 
 Really need to check out [Ben Hindman's “The State of the Mesos”][2]
 
-[embed]https://youtu.be/7Zti1tA5vA0[/embed]
+[!embed](https://youtu.be/7Zti1tA5vA0)
 
 [1]: http://events.linuxfoundation.org/events/mesoscon-north-america
 [2]: https://youtu.be/7Zti1tA5vA0

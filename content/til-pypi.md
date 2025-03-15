@@ -7,7 +7,7 @@ Status: published
 
 Today I Learned that [PyPI][2] has a Twitter account, [@pypi](https://twitter.com/pypi)
 
-[embed]https://twitter.com/pypi/statuses/247637227658674176[/embed]
+[!embed](https://twitter.com/pypi/statuses/247637227658674176)
 
 It’s a bit of a firehose, but worth it to pickup packages like [*fastcluster*][1].
 

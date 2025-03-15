@@ -7,7 +7,7 @@ Status: published
 
 *“C’mon ya’ll, grab a hold, get off the wall...”*
 
-[embed]https://youtu.be/CWQaTAocDyA[/embed]
+[!embed](https://youtu.be/CWQaTAocDyA)
 
 Definitely of a particular era, but I always loved this specific mix of Seduction’s, *[Two to Make it Right][1]*. Not quite House, not really good hip-hop, but worked like hell in the club. Michelle Visage’s attitude and that C&C Music Factory sensibility holds up halfway decently.
 

@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: datastructures-with-norman
 Status: published
 
-[embed]https://twitter.com/pypi/status/301268885045379072[/embed]
+[!embed](https://twitter.com/pypi/status/301268885045379072)
 
 Speaking of finding interesting things on @PyPi, here’s [Norman][1]
 > Norman is a framework for advanced data structures in python using an database-like approach. The range of potential applications is wide, for example in-memory databases, multi-keyed dictionaries or node graphs.

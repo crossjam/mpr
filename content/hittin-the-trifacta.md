@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: hittin-the-trifacta
 Status: published
 
-[embed]https://twitter.com/joe_hellerstein/statuses/253872168100843520[/embed]
+[!embed](https://twitter.com/joe_hellerstein/statuses/253872168100843520)
 
 [More details][1] from Gigaom. 
 

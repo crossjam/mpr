@@ -11,7 +11,7 @@ Link parkin’: [“Announcing Streamlio”][1]
 
 As Ben Lorica points out, this looks like a play on vertical integration of key technologies for stream processing, machine learning, and I/O. TIL about Apache BookKeeper.
 
-[embed]https://twitter.com/bigdata/status/897879715393839104[/embed]
+[!embed](https://twitter.com/bigdata/status/897879715393839104)
 
 Gettin’ a little crowded in the production ready, stream processing platform/toolkit space.
 

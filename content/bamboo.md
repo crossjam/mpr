@@ -6,7 +6,7 @@ Slug: bamboo
 Status: published
 
 Looking for a good time series data storage and analysis service. Maybe it’s [bamboo][1]:
-[embed]https://twitter.com/pypi/status/282975117741527040[/embed]
+[!embed](https://twitter.com/pypi/status/282975117741527040)
 
 > bamboo is an application that systematizes realtime data analysis. bamboo provides an interface for merging, aggregating and adding algebraic calculations to dynamic datasets. Clients can interact with bamboo through a a REST web interface and through Python.
 

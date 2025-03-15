@@ -16,7 +16,7 @@ That seems like a lot of msgs/sec. Gotta see the specs on that cluster.
 Via
 
 
-[embed]https://twitter.com/bigdata/status/586190819297734656[/embed]
+[!embed](https://twitter.com/bigdata/status/586190819297734656)
 
 
 [1]: http://www.gearpump.io/site/#get-started

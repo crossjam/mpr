@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: gla38
 Status: published
 
-[embed]https://twitter.com/djmarkfarina/status/330332464927080450[/embed]
+[!embed](https://twitter.com/djmarkfarina/status/330332464927080450)
 
 Go get your [latest Mark Farina podcast][1], **NOW**!
 

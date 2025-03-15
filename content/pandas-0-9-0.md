@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: pandas-0-9-0
 Status: published
 
-[embed]https://twitter.com/wesmckinn/statuses/255290426477641728[/embed]
+[!embed](https://twitter.com/wesmckinn/statuses/255290426477641728)
 
 Not much of a point-zero release fan, but I might make an exception for [pandas][1].
 

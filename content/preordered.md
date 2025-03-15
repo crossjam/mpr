@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: preordered
 Status: published
 
-[embed]https://twitter.com/djmarkfarina/status/738738259866615808[/embed]
+[!embed](https://twitter.com/djmarkfarina/status/738738259866615808)
 
 Heck yeah, you know I ordered up some of Mark Farina’s forthcoming [Mushroom Jazz 8][1]. Now it’s just a matter of what and when I add some other items.
 

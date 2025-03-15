@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: smack-lamp
 Status: published
 
-[embed]https://twitter.com/flo/status/877578870332862464[/embed]
+[!embed](https://twitter.com/flo/status/877578870332862464)
 
 I thought [the SMACK stack was on the come][1] over a year ago. Mesosphere is on board too, [making an equivalence][2] with the venerable LAMP stack for building Web 1.0 applications. 
 > One additional benefit of using the SMACK stack is your choice of options for adding features or getting support. The LAMP stack had a broad set of commercial champions. The same is true with SMACK today. Each SMACK stack technology have leading commercial entities behind them, that offer supported enterprise products and support. Examples include Lightbend and Databricks for Spark, DataStax for Cassandra, Confluent for Kafka, and Mesosphere for Mesos. So if you’re already an expert to part of the stack or new to all of SMACK, a broad set of options are available.

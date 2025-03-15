@@ -15,7 +15,7 @@ An interesting collection of [books concerning “big data” and “data scienc
 
 *Via Mortar Data*
 
-[embed]https://twitter.com/mortardata/status/291206882968891393[/embed]
+[!embed](https://twitter.com/mortardata/status/291206882968891393)
 
 [1]: http://blog.mortardata.com/post/40602271238/7-books-to-supercharge-your-data-education
 [2]: http://ofps.oreilly.com/titles/9781449326265/index.html

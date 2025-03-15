@@ -7,7 +7,7 @@ Status: published
 
 Link parkin': [bitmapist][1]
 
-[embed]https://twitter.com/pypi/statuses/261516455638597632[/embed]
+[!embed](https://twitter.com/pypi/statuses/261516455638597632)
 
 > Implements a powerful analytics library using Redis bitmaps.
 

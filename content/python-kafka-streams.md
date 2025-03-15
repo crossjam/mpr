@@ -7,7 +7,7 @@ Status: published
 
 Innerestin’
 
-[embed]https://twitter.com/WintonCapital/status/885135300258869249[/embed]
+[!embed](https://twitter.com/WintonCapital/status/885135300258869249)
 
 From the [GitHub repo][1]
 > Winton Kafka Streams is a Python implementation of Apache Kafka's Streams API. It builds on Confluent's librdkafka (a high performance C library implementing the Kafka protocol) and the Confluent Python Kafka library to achieve this.

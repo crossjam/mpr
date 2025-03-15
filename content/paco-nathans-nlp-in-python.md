@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: paco-nathans-nlp-in-python
 Status: published
 
-[embed]https://twitter.com/pacoid/status/850480933534785536[embed]
+[!embed](https://twitter.com/pacoid/status/850480933534785536)
 
 Diggin’ through some old Twitter faves and found that [@pacoid][2] is doing [online courses covering Natural Language Processing][1]:
 

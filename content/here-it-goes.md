@@ -7,7 +7,7 @@ Status: published
 
 *“...meaning knowledge. Here it goes.”*
 
-[embed]https://youtu.be/yspU9tQ8b38[/embed]
+[!embed](https://youtu.be/yspU9tQ8b38)
 
 In a downtempo, chill mode this Friday. [Tosca’s][1], [*Rondo Acapricio*][2] fits the bill.
 

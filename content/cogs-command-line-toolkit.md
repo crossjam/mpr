@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: cogs-command-line-toolkit
 Status: published
 
-[embed]https://twitter.com/pypi/statuses/254276578270400512[/embed]
+[!embed](https://twitter.com/pypi/statuses/254276578270400512)
 
 I doubt if I’ll switch from [cliff][1], but it’s always good to be aware of your options. If I could just figure out how to use cliff without distribute or a setuptools install I’d be set.
 

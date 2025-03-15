@@ -6,7 +6,7 @@ Slug: nextgen-network-algorithms
 Status: published
 
 Link parkin’
-[embed]https://twitter.com/jure/status/849061908615483392[/embed]
+[!embed](https://twitter.com/jure/status/849061908615483392)
 
 [Jure Leskovec][2] knows [what he’s talking about][1] when it comes to networks.
 

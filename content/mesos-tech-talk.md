@@ -7,7 +7,7 @@ Status: published
 
 I need to watch this [AirBnB Tech Talk on Apache Mesos][1]:
 
-[embed]http://www.youtube.com/watch?v=Hal00g8o1iY[/embed]
+[!embed](http://www.youtube.com/watch?v=Hal00g8o1iY)
 
 > Benjamin Hindman is one of the creators of Mesos, a platform for building and running distributed systems. He has done research in the areas of programming languages and distributed systems as a graduate student at Berkeley, where he hopes to one day finish his PhD. These days he spends most of his time hacking on Mesos at Twitter where it is being used in production.
 

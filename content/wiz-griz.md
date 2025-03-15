@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: wiz-griz
 Status: published
 
-[embed]https://twitter.com/DidTheWizWin/status/316362659542990848[/embed]
+[!embed](https://twitter.com/DidTheWizWin/status/316362659542990848)
 
 I’ve always said truly great players often seem to have explosive nights, early in their careers, that **really** demonstrate their potential. Think Jordan lighting up the Celtics for 63 and juking Larry Bird in a first round playoff loss in Jordan’s rookie season. Not 100% true, took a while for Steve Nash to get going, but I bet there’s a high correlation.
 

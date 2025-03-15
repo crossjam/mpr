@@ -9,7 +9,7 @@ What we’re gonna do is go way back. Back into time.
 
 Classic [proto-Hip Hop via Malcolm McClaren][1].
 
-[embed]https://youtu.be/eIdaOI_BbLU[/embed]
+[!embed](https://youtu.be/eIdaOI_BbLU)
 
 *We’re on a world tour with Mr. Malcom McLaren. Goin’ each and every place including Spain...*
 

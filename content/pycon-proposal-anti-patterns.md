@@ -6,6 +6,6 @@ Slug: pycon-proposal-anti-patterns
 Status: published
 
 Funny!
-[embed]https://twitter.com/ctitusbrown/statuses/239007004536995842[/embed]
+[!embed](https://twitter.com/ctitusbrown/statuses/239007004536995842)
 
 *Definitely digging this WordPress embedded tweet feature. Next up YouTube vids.*

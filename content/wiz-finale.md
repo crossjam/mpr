@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: wiz-finale
 Status: published
 
-[embed]https://twitter.com/DidTheWizWin/status/324711538894196736[/embed]
+[!embed](https://twitter.com/DidTheWizWin/status/324711538894196736)
 
 A bit out of gas tonight, but couldn’t let the end of the Wizards season go past without at least some mention. Maybe a longer post to come. 
 

@@ -11,7 +11,7 @@ Link parkin’: [graph-tool][1]
 The [Boost Graph Library][2] gives me the willies though. I’ve never had much luck building or using it embedded within Python. Weird linking or dynamic library  loading issues got me. At a 2.x release though, this module might be worth a test drive.
 
 Via [@hmason](https://twitter.com/hmason)
-[embed]https://twitter.com/hmason/status/277458758127452160[/embed]
+[!embed](https://twitter.com/hmason/status/277458758127452160)
 
 [1]: http://projects.skewed.de/graph-tool/
 [2]: http://www.boost.org/libs/graph/

@@ -9,7 +9,7 @@ David Bowie. Nile Rodgers. Friday. Payday.
 
 What’s not to like?
 
-[embed]https://youtu.be/1hDbpF4Mvkw[/embed]
+[!embed](https://youtu.be/1hDbpF4Mvkw)
 
 Think I first saw the [*Modern Love*][2] video when it premiered on [Night Tracks][1].
 

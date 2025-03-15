@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: useful-that
 Status: published
 
-[embed]https://twitter.com/lintool/statuses/252868723436822528[/embed]
+[!embed](https://twitter.com/lintool/statuses/252868723436822528)
 
 I have it on good reputation that this Domingos guy knows a thing or two about machine learning.
 

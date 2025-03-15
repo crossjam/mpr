@@ -7,7 +7,7 @@ Status: published
 
 blekko unleashed [a tablet search application][1]. Might be worth checking out. Good to know blekko is still competing hard and creatively in the search space. Maybe their zag will be to make search a lot more usable everywhere instead of gobbling up every search in the world.
 
-[embed]http://vimeo.com/56728379[/embed]
+[!embed](http://vimeo.com/56728379)
 
 > Friends of blekko!
 

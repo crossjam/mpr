@@ -7,7 +7,7 @@ Status: published
 
 Some might argue for the original, but [Calibre’s remix][1] is just as boss
 
-[embed]https://youtu.be/7cjkxOpVh7w[/embed]
+[!embed](https://youtu.be/7cjkxOpVh7w)
 
 *Friday music linkage inspired by [a recent Calibre BBC Radio 1 Essential Mix][3] and [the classic Fabriclive Calibre session][2].*
 

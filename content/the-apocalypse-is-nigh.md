@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: the-apocalypse-is-nigh
 Status: published
 
-[embed]https://twitter.com/hmason/status/311983572993060864[/embed]
+[!embed](https://twitter.com/hmason/status/311983572993060864)
 
 [Google Reader, dead July 1, 2013.][1] Victim of another Google Spring Cleaning.
 

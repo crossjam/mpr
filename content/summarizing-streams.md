@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: summarizing-streams
 Status: published
 
-[embed]https://twitter.com/bigdata/statuses/258963194163380224[/embed]
+[!embed](https://twitter.com/bigdata/statuses/258963194163380224)
 
 From [*A Framework for Summarizing and Analyzing Twitter Feeds*][1] (PDF alert)
 > *In this paper, we present a dynamic pattern driven approach to summarize data produced by Twitter feeds. We develop a novel approach to maintain an in-memory summary while retaining sufficient information to facilitate a range of user- specific and topic-specific temporal analytics. We empir- ically compare our approach with several state-of-the-art pattern summarization approaches along the axes of storage cost, query accuracy, query flexibility, and efficiency using real data from Twitter. We find that the proposed approach is not only scalable but also outperforms existing approaches by a large margin.*

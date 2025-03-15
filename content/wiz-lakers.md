@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: wiz-lakers
 Status: published
 
-[embed]https://twitter.com/DidTheWizWin/status/315326026907533312[/embed]
+[!embed](https://twitter.com/DidTheWizWin/status/315326026907533312)
 
 C’mon @DidTheWizWin! You can do better than that. The Wiz came from double digits down, at the Staples Center, against a fully loaded Lakers with Pau and Kobe. Plus the Wizards went without Bradley Beal, Emeka Okafor, and AJ Price. Only nine guys got in the box score. 
 

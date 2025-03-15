@@ -7,7 +7,7 @@ Status: published
 
 I’ve been listening to Massive Attack’s [*Group Four*][1] for [over 18+ years][2], and I literally have no clue what the lyrics **are**, much less what they mean.
 
-[embed]https://youtu.be/5HnF5T4Neuc[/embed]
+[!embed](https://youtu.be/5HnF5T4Neuc)
 
 But the build and release are to die for.
 

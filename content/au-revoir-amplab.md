@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: au-revoir-amplab
 Status: published
 
-[embed]https://twitter.com/bigdata/status/800006369772322817[embed]
+[!embed](https://twitter.com/bigdata/status/800006369772322817)
 
 [End of Project][1] has arrived for [UC Berkeley’s AMPLab][2]. Spark and the other varied projects of the group [hit my radar][3] back in July of 2012. The project was run according to [Prof. Dave Patterson’s guidance][4] for collaborative research centers. I think it’s fair to say AMPLab was a success.
 

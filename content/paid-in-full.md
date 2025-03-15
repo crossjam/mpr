@@ -7,7 +7,7 @@ Status: published
 
 Better late than never.
 
-[embed]https://twitter.com/EricBandRakim/status/883496358111477761[/embed]
+[!embed](https://twitter.com/EricBandRakim/status/883496358111477761)
 
 “You thought I was doughnut. You tried to glaze me.”
 

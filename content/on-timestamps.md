@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: on-timestamps
 Status: published
 
-[embed]https://twitter.com/jrauser/status/306636696362037249[/embed]
+[!embed](https://twitter.com/jrauser/status/306636696362037249)
 
 What he said. [ISO 8601 everywhere please][1].
 

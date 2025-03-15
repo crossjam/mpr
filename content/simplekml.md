@@ -6,7 +6,7 @@ Slug: simplekml
 Status: published
 
 Link parkin’:
-[embed]https://twitter.com/pypi/status/275454924970680320[/embed]
+[!embed](https://twitter.com/pypi/status/275454924970680320)
 
 >[simplekml][1] is a python package which enables you to generate KML with as little effort as possible.
 

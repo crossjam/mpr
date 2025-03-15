@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: atomic-news
 Status: published
 
-[embed]https://twitter.com/mathewi/statuses/257899167073050625[/embed]
+[!embed](https://twitter.com/mathewi/statuses/257899167073050625)
 
 [Circa][2] seems [pretty interesting][3] even though it’s [YAPTRN][1]
 

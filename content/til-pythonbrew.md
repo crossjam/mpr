@@ -7,7 +7,7 @@ Status: published
 
 Today I learned of [pythonbrew][1]
 
-[embed]https://twitter.com/pypi/status/286494923291770882[/embed]
+[!embed](https://twitter.com/pypi/status/286494923291770882)
 
 > pythonbrew is a program to automate the building and installation of Python in the users $HOME
 

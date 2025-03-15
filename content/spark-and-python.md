@@ -5,7 +5,7 @@ Category: Uncategorized
 Slug: spark-and-python
 Status: published
 
-[embed]https://twitter.com/juliaferraioli/status/306844794636869634[/embed]
+[!embed](https://twitter.com/juliaferraioli/status/306844794636869634)
 
 [Confirmed.][1] PySpark and Streaming Spark in the same release? I may have died and gone to heaven. *Go Bears!*
 

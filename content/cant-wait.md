@@ -5,6 +5,6 @@ Category: Uncategorized
 Slug: cant-wait
 Status: published
 
-[embed]https://twitter.com/GreatDismal/status/487685164768563202[/embed]
+[!embed](https://twitter.com/GreatDismal/status/487685164768563202)
 
 Maybe I’ll have finished re-reading the Blue Ant trilogy by then. 

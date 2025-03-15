@@ -5,6 +5,6 @@ Category: Uncategorized
 Slug: time-zone-hate
 Status: published
 
-[embed]https://twitter.com/joshsusser/status/257725572275376128[/embed]
+[!embed](https://twitter.com/joshsusser/status/257725572275376128)
 
 What he said. And JavaScript datetime strings too. Taking cross-browser incompatibility Beyond The Browser.
