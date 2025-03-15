@@ -3,7 +3,7 @@
 
 
 PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed"]
-PLUGINS = ["summary"]
+PLUGINS = ["summary", "period"]
 
 PLUGINS = ["summary", "pelican_json_feed"]
 
@@ -40,6 +40,9 @@ MONTH_ARCHIVE_URL = "{date:%Y}/{date:%m}/"
 YEAR_ARCHIVE_SAVE_AS = "{date:%Y}/index.html"
 YEAR_ARCHIVE_URL = "{date:%Y}/"
 
+# YEAR_ARCHIVE_SAVE_AS = "posts/{date:%Y}/index.html"
+# MONTH_ARCHIVE_SAVE_AS = "posts/{date:%Y}/{date:%m}/index.html"
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 FEED_ALL_JSON = None
@@ -57,7 +60,7 @@ DEFAULT_DATE = "fs"
 TYPOGRIFY = True
 TYPOGRIFY_IGNORE_TAGS = ["pre", "code", "head"]
 
-DISPLAY_CATEGORIES_ON_MENU = True
+DISPLAY_CATEGORIES_ON_MENU = False
 TAGS_SAVE_AS = ""
 TAG_SAVE_AS = ""
 SUMMARY_MAX_LENGTH = None
