@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "markdown<3.2",
+    "markdown>=3.7",
     "pelican>=4.11.0",
     "pelican-drafts>=0.1.1",
     "pyembed",
@@ -17,3 +17,4 @@ dependencies = [
 
 [tool.uv.sources]
 pyembed = { git = "https://github.com/jaywink/pyembed.git" }
+pyembed-markdown = { git = "https://github.com/crossjam/pyembed-markdown.git" }
