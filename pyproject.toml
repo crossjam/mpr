@@ -1,0 +1,17 @@
+[project]
+name = "mpr"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pelican>=4.11.0",
+    "pelican-drafts>=0.1.1",
+    "pyembed",
+    "pyembed-markdown>=1.1.0",
+    "smartypants>=2.0.1",
+    "typogrify>=2.1.0",
+]
+
+[tool.uv.sources]
+pyembed = { git = "https://github.com/jaywink/pyembed.git" }
