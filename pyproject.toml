@@ -5,10 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "markdown<3.2",
     "pelican>=4.11.0",
     "pelican-drafts>=0.1.1",
     "pyembed",
     "pyembed-markdown>=1.1.0",
+    "setuptools>=76.0.0",
     "smartypants>=2.0.1",
     "typogrify>=2.1.0",
 ]
