@@ -1,6 +1,7 @@
 Title: OpenRouter
 Date: 2025-06-11
-Authoer: C. Ross Jam
+Author: C. Ross Jam
+Status: published
 
 Link parkin’: [OpenRouter][1]
 
