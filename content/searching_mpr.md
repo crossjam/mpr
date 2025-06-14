@@ -1,6 +1,7 @@
 Title: Searching Mass Programming Resistance
 Date: 2025-06-14
 Author: C. Ross Jam
+Status: published
 
 Boy am I a dope.
 
