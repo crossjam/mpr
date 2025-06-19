@@ -17,7 +17,7 @@ events regarding the company changing ownership I decided to check in and
 see how long I’d actually been on the service:
 
 ![Screenshot of @crossjam Twitter account. Joined February
-2007]({static}images/crossjam - twitter - screenshot 2022-11-14.png)
+2007]({static}/images/crossjam - twitter - screenshot 2022-11-14.png)
 
 [According to Wikipedia][1], that "Joined February 2007" means my
 account was established within the first year of the service and 7
