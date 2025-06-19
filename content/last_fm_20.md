@@ -1,6 +1,7 @@
 Title: 20 Years on Last.fm ?!
 Author: C. Ross Jam
 Date: 2025-06-18
+Status: published
 
 Happened to be looking at my profile on [Last.fm](https://last.fm) and
 noticed the following
@@ -9,7 +10,7 @@ noticed the following
 2005]({static}/images/LastFM Profile - 20 Years.png)
 
 In case you can’t make out the text from the screen capture, there’s
-__"scrobbling since June 5 2005"__ hiding in there.
+a __"scrobbling since June 5 2005"__ hiding in there.
 
 Hang on! I’ve been scrobbling for 20 years 😱 ?! 
 
