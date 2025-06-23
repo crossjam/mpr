@@ -26,7 +26,7 @@ Roger Sanchez, Armand van Helden, Lil’ Louie Vega, Masters at Work,
 Marshall Jefferson and Basement Jaxx.
 
 Some of these sets are bananas in terms of length, including a 5 hour
-ride with Seth Troxler BDB Skream.
+ride with Seth Troxler B2B Skream.
 
 Out of curiosity I asked the major AI bots their opinion to compare
 and contrast Spotify with Apple Music on this front. Surely Spotify
@@ -55,8 +55,8 @@ significantly richer and more varied selection of actual DJ mixes
 compared to Spotify's more basic offerings.
 
 I need to do some further work to verify they’re all not hallucinating
-but this matches my general vibe. Full disclosure, I ditched a full
-Spotify subscription a few years back since I got sucked into the
+but this matches my general vibe. Full disclosure, I ditched a Spotify
+premium subscription a few years back since I got sucked into the
 [Apple One bundle][5].
 
 What really grabs me about Apple Music is the relation with curators,
