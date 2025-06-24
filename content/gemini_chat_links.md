@@ -1,5 +1,7 @@
 Title: Gemini Chat Link Longevity
 Author: C. Ross Jam
+Date: 2025-06-23
+Status: published
 
 Since I just put the chat link feature of Gemini, thought it might be
 a good idea to ask [how long the links last][1]. And who better to
