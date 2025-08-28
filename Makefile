@@ -84,9 +84,9 @@ endif
 
 devserver-global:
 ifdef PORT
-	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -p $(PORT) -b 0.0.0.0
+	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -p $(PORT) -b $(SERVER)
 else
-	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -b 0.0.0.0
+	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -b $(SERVER)
 endif
 
 publish:
