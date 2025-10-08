@@ -13,6 +13,7 @@ dependencies = [
     "pagefind[bin]>=1.3.0",
     "pelican>=4.11.0",
     "pelican-drafts>=0.1.1",
+    "pelican-yaml-metadata>=2.1.2",
     "pyembed",
     "pyembed-markdown>=1.1.0",
     "setuptools>=76.0.0",
