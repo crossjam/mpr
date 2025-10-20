@@ -14,7 +14,8 @@ budget, so I was casting about for a means to disable it when Claude
 was doing the invocation. Claude swore it wasn’t using a login shell,
 despite evidence to the contrary. I figured with all the agentic
 coding excitement, surfacing a discussion of this point would be
-relatively fruitless. Sadly I ended up a bit disappointed.
+relatively <s>fruitless</s> straightforward. Sadly I ended up a bit
+disappointed.
 
 Turns out there’s a `CLAUDECODE` environment variable that is set to 1
 for the Bash tool. I couldn’t really find any documentation other than
