@@ -4,7 +4,7 @@
 	branch = crossjam/mpr
 [submodule "plugins/pelican-plugins"]
 	path = plugins/pelican-plugins
-	url = https://github.com/getpelican/pelican-plugins.git
+	url = git@github.com:crossjam/pelican-plugins.git
 [submodule "plugins/pelican_json_feed"]
 	path = plugins/pelican_json_feed
 	url = https://github.com/crossjam/pelican_json_feed.git
