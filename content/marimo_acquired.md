@@ -2,6 +2,7 @@
 title: "Marimo Acquired"
 date: 2025-10-31
 author: "C. Ross Jam"
+status: published
 ---
 
 I haven’t extolled it too much here, but [I’m a fan][2] of what [marimo][1]
