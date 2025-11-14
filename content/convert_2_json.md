@@ -2,6 +2,7 @@
 title: "convert2json"
 date: 2025-11-13
 author: "C. Ross Jam"
+status: published
 ---
 
 Link parkin’: [convert2json][1], [GitHub repo][2]
