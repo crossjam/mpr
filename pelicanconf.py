@@ -32,6 +32,7 @@ DEFAULT_LANG = "en"
 
 CACHE_CONTENT = True
 LOAD_CONTENT_CACHE = True
+CHECK_MODIFIED_METHOD = "mtime"
 
 ARTICLE_URL = "{date:%Y}/{date:%m}/{slug}/"
 ARTICLE_SAVE_AS = "{date:%Y}/{date:%m}/{slug}/index.html"
@@ -112,4 +113,4 @@ USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
 
-IGNORE_FILES = [".#*", "*~", "#*", ".bak"]
+IGNORE_FILES = [".#*", "*~", "#*", "*.bak"]
