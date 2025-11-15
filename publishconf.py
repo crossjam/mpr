@@ -30,7 +30,7 @@ FEED_ATOM = "feed/atom.xml"
 FEED_ALL_ATOM = "feed/atom/atom.xml"
 FEED_ALL_RSS = "feed/rss.xml"
 FEED_ALL_JSON = "feed/feed.json"
-FEED_MAX_ITEMS = 10
+FEED_MAX_ITEMS = 30
 
 DELETE_OUTPUT_DIRECTORY = True
 
