@@ -2,6 +2,7 @@
 title: "Some Recent eBooks of Note"
 date: 2025-11-20
 author: "C. Ross Jam"
+status: published
 ---
 
 Herewith, some recommendations of independently published eBooks. If
