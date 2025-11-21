@@ -30,7 +30,7 @@ I need to do some research on whether this approach or [Agent
 Skills][2] is better. Maybe this note from the skills docs will solve
 the question:
 
-> How Skills are invoked: Skills are model-invoked—Claude autonomously
+> How Skills are invoked: Skills are model-invoked — Claude autonomously
 > decides when to use them based on your request and the Skill’s
 > description. This is different from slash commands, which are
 > user-invoked (you explicitly type /command to trigger them). 
