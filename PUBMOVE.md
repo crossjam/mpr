@@ -46,36 +46,36 @@ The `pubmove.sh` script automates the multi-step workflow:
 
 ## Usage
 
+### Moving a File
+
 ```bash
 ./pubmove.sh <filename>
 ```
 
+Example:
+```bash
+./pubmove.sh my-draft-post.md
+```
+
+### Undoing a Move (Wrong Filename)
+
+If you run the script with the wrong filename, use the built-in undo command:
+
+```bash
+./pubmove.sh undo <filename>
+```
+
+Example:
+```bash
+./pubmove.sh undo my-draft-post.md
+```
+
+The undo command automatically:
+- Unstages changes in the base repository
+- Deletes the copied file
+- Resets the submodule to the previous commit
+- Verifies the file is restored in the submodule
+
+**Important**: Undo only works before pushing. Once pushed, you'll need to create new commits to reverse the changes.
+
 The script handles the git coordination complexity while keeping the user in control of the publishing workflow.
-
-## Undoing Changes (Wrong Filename)
-
-If you run the script with the wrong filename, you can undo the changes before pushing:
-
-### In the Base Repository
-
-```bash
-# Unstage the new file and submodule reference
-git restore --staged content/<filename>
-git restore --staged content/mpr.drafts
-
-# Delete the copied file
-rm content/<filename>
-```
-
-### In the Submodule
-
-```bash
-# Reset to the previous commit (undo the deletion)
-cd content/mpr.drafts
-git reset --hard HEAD~1
-
-# Return to base repository
-cd ../..
-```
-
-**Important**: This only works if you haven't pushed yet. Once pushed, you'll need to create new commits to reverse the changes.
