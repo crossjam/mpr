@@ -5,6 +5,7 @@
 PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed"]
 # PLUGINS = ["summary", "period"]
 
+
 PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata", "archive_data"]
 
 MARKDOWN = {
@@ -26,6 +27,7 @@ SITEURL = ""
 SITESUBTITLE = "information informs. analysis enlightens."
 TAGLINE = "information informs. analysis enlightens."
 
+# ARTICLE_PATHS = [".", "mpr.drafts/posts"]
 ARTICLE_PATHS = [".", "mpr.drafts/posts"]
 
 TIMEZONE = "America/New_York"
@@ -58,6 +60,7 @@ DEFAULT_METADATA = {
 }
 
 DEFAULT_CATEGORY = "Uncategorized"
+USE_FOLDER_AS_CATEGORY = False
 DEFAULT_DATE = "fs"
 TYPOGRIFY = True
 TYPOGRIFY_IGNORE_TAGS = ["pre", "code", "head"]
