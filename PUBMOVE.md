@@ -44,6 +44,48 @@ The `pubmove.sh` script automates the multi-step workflow for publishing posts f
 
 **Single Responsibility**: Script handles the mechanical coordination. Users retain control over final commit messages and push timing.
 
+## Configuration
+
+The script can be configured for different submodule paths and subdirectories by editing the configuration variables at the top of `pubmove.sh`:
+
+```bash
+# Configuration
+SUBMODULE_PATH="content/mpr.drafts"
+POSTS_SUBDIR="posts"  # Subdirectory within submodule containing posts
+TARGET_PATH="content"
+SUBMODULE_NAME="mpr.drafts"
+```
+
+### Configuration Variables
+
+| Variable | Description | Default Value | Example Alternative |
+|----------|-------------|---------------|---------------------|
+| `SUBMODULE_PATH` | Path to the submodule directory | `content/mpr.drafts` | `drafts` or `content/blog-drafts` |
+| `POSTS_SUBDIR` | Subdirectory within the submodule containing files | `posts` | `articles` or `pages` |
+| `TARGET_PATH` | Destination directory in base repository | `content` | `posts` or `src/content` |
+| `SUBMODULE_NAME` | Name of the submodule (informational) | `mpr.drafts` | `blog.drafts` |
+
+### Example: Using a Different Subdirectory
+
+To move files from `pages/` instead of `posts/` within the submodule:
+
+```bash
+POSTS_SUBDIR="pages"
+```
+
+This would look for files at `content/mpr.drafts/pages/<filename>` instead of `content/mpr.drafts/posts/<filename>`.
+
+### Example: Different Submodule Location
+
+If your submodule is at `drafts/` in the repository root:
+
+```bash
+SUBMODULE_PATH="drafts"
+SUBMODULE_NAME="drafts"
+```
+
+This would look for files at `drafts/posts/<filename>` and move them to `content/<filename>`.
+
 ## Usage
 
 ### Moving a File
