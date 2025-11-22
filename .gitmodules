@@ -12,3 +12,4 @@
 [submodule "mpr.drafts"]
 	path = content/mpr.drafts
 	url = git@github.com:crossjam/mpr.drafts.git
+	branch = main
