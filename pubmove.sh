@@ -19,13 +19,16 @@ NC='\033[0m' # No Color
 
 # Usage function
 usage() {
+    local exit_code=${1:-1}
     cat << EOF
 Usage: $0 <filename>
        $0 undo <filename>
+       $0 --help | -h
 
 Commands:
   $0 <filename>       Move a file from the submodule to the base repository
   $0 undo <filename>  Undo a previous move operation (before pushing)
+  $0 --help | -h      Display this help message
 
 Arguments:
   filename    Name of the file to move/undo (relative to submodule root)
@@ -46,7 +49,7 @@ Undo operation:
   3. Reset the submodule to the previous commit
   4. Restore the file in the submodule
 EOF
-    exit 1
+    exit "$exit_code"
 }
 
 # Logging functions
@@ -267,20 +270,25 @@ move_file() {
 # Main script logic - parse arguments
 if [ $# -eq 0 ]; then
     echo -e "${RED}Error: Missing arguments${NC}"
-    usage
+    usage 1
+fi
+
+# Check for help flag
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    usage 0
 fi
 
 # Check for undo command
 if [ "$1" = "undo" ]; then
     if [ $# -ne 2 ]; then
         echo -e "${RED}Error: undo command requires a filename${NC}"
-        usage
+        usage 1
     fi
     undo_move "$2"
 else
     if [ $# -ne 1 ]; then
         echo -e "${RED}Error: Invalid arguments${NC}"
-        usage
+        usage 1
     fi
     move_file "$1"
 fi
