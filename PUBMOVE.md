@@ -6,16 +6,16 @@ Moving content from the `mpr.drafts` git submodule to the main repository requir
 
 ## Solution Approach
 
-The `pubmove.sh` script automates the multi-step workflow:
+The `pubmove.sh` script automates the multi-step workflow for publishing posts from the drafts submodule:
 
 ### 1. Validation Phase
 - Verify execution from repository root
-- Confirm source file exists in submodule
+- Confirm source file exists in submodule's `posts/` directory
 - Check destination doesn't already exist
 - Ensure submodule is properly initialized
 
 ### 2. File Transfer
-- Copy file from `content/mpr.drafts/` to `content/`
+- Copy file from `content/mpr.drafts/posts/` to `content/`
 - Preserve file contents exactly as-is
 
 ### 3. Submodule Cleanup
@@ -52,10 +52,14 @@ The `pubmove.sh` script automates the multi-step workflow:
 ./pubmove.sh <filename>
 ```
 
+The script looks for files in the `posts/` subdirectory of the drafts submodule.
+
 Example:
 ```bash
 ./pubmove.sh my-draft-post.md
 ```
+
+This will move `content/mpr.drafts/posts/my-draft-post.md` to `content/my-draft-post.md`.
 
 ### Undoing a Move (Wrong Filename)
 

@@ -8,6 +8,7 @@ set -euo pipefail
 
 # Configuration
 SUBMODULE_PATH="content/mpr.drafts"
+POSTS_SUBDIR="posts"  # Subdirectory within submodule containing posts
 TARGET_PATH="content"
 SUBMODULE_NAME="mpr.drafts"
 
@@ -26,19 +27,19 @@ Usage: $0 <filename>
        $0 --help | -h
 
 Commands:
-  $0 <filename>       Move a file from the submodule to the base repository
+  $0 <filename>       Move a post from the drafts submodule to the base repository
   $0 undo <filename>  Undo a previous move operation (before pushing)
   $0 --help | -h      Display this help message
 
 Arguments:
-  filename    Name of the file to move/undo (relative to submodule root)
+  filename    Name of the post file to move/undo (from the posts directory)
 
 Examples:
   $0 my-post.md
   $0 undo my-post.md
 
 Move operation:
-  1. Copy the file from content/mpr.drafts/ to content/
+  1. Copy the file from content/mpr.drafts/posts/ to content/
   2. Remove the file from the submodule with a git commit
   3. Add the file to the base repository
   4. Update the submodule reference in the base repository
@@ -48,6 +49,8 @@ Undo operation:
   2. Delete the copied file
   3. Reset the submodule to the previous commit
   4. Restore the file in the submodule
+
+Note: Files are expected to be in the '${POSTS_SUBDIR}' subdirectory of the submodule.
 EOF
     exit "$exit_code"
 }
@@ -125,20 +128,20 @@ undo_move() {
 
     # Check if the last commit was a file removal
     LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
-    if [[ "$LAST_COMMIT_MSG" =~ "Remove ${FILENAME}" ]]; then
+    if [[ "$LAST_COMMIT_MSG" =~ "Remove ${POSTS_SUBDIR}/${FILENAME}" ]]; then
         log_info "Found removal commit: $LAST_COMMIT_MSG"
         git reset --hard HEAD~1
         NEW_COMMIT=$(git rev-parse HEAD)
         log_info "Submodule reset from $CURRENT_COMMIT to $NEW_COMMIT"
 
         # Verify file is back
-        if [ -f "$FILENAME" ]; then
-            log_info "File restored in submodule: $FILENAME"
+        if [ -f "${POSTS_SUBDIR}/${FILENAME}" ]; then
+            log_info "File restored in submodule: ${POSTS_SUBDIR}/${FILENAME}"
         else
             log_error "File not found after reset. Manual intervention may be needed."
         fi
     else
-        log_error "Last commit doesn't appear to be a file removal for $FILENAME"
+        log_error "Last commit doesn't appear to be a file removal for ${POSTS_SUBDIR}/${FILENAME}"
         log_error "Last commit message: $LAST_COMMIT_MSG"
         log_warn "Aborting undo to prevent data loss. Please manually verify."
         popd > /dev/null
@@ -158,14 +161,14 @@ undo_move() {
     echo "Summary:"
     echo "  - File unstaged and deleted from base repository: $FILENAME"
     echo "  - Submodule reset to previous commit"
-    echo "  - File restored in submodule: ${SUBMODULE_PATH}/${FILENAME}"
+    echo "  - File restored in submodule: ${SUBMODULE_PATH}/${POSTS_SUBDIR}/${FILENAME}"
     echo ""
 }
 
 # Move function (original functionality)
 move_file() {
     local FILENAME="$1"
-    local SOURCE_FILE="${SUBMODULE_PATH}/${FILENAME}"
+    local SOURCE_FILE="${SUBMODULE_PATH}/${POSTS_SUBDIR}/${FILENAME}"
     local DEST_FILE="${TARGET_PATH}/${FILENAME}"
 
     verify_repo_root
@@ -173,6 +176,7 @@ move_file() {
     # Verify source file exists
     if [ ! -f "$SOURCE_FILE" ]; then
         log_error "Source file does not exist: $SOURCE_FILE"
+        log_error "Looking for posts in: ${SUBMODULE_PATH}/${POSTS_SUBDIR}/"
         exit 1
     fi
 
@@ -215,11 +219,11 @@ move_file() {
         git stash push -m "Auto-stash before moving $FILENAME"
     fi
 
-    # Remove the file
-    git rm "$FILENAME"
+    # Remove the file (path relative to submodule root)
+    git rm "${POSTS_SUBDIR}/${FILENAME}"
 
     # Commit the removal
-    COMMIT_MSG="Remove ${FILENAME} (moved to base repository)"
+    COMMIT_MSG="Remove ${POSTS_SUBDIR}/${FILENAME} (moved to base repository)"
     git commit -m "$COMMIT_MSG"
 
     log_info "File removed from submodule and committed"
