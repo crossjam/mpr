@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# move-from-submodule.sh
+# pubmove.sh
 # Moves a file from the mpr.drafts submodule to the base repository
 # and cleanly removes it from the submodule
 

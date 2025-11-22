@@ -6,7 +6,7 @@ Moving content from the `mpr.drafts` git submodule to the main repository requir
 
 ## Solution Approach
 
-The `move-from-submodule.sh` script automates the multi-step workflow:
+The `pubmove.sh` script automates the multi-step workflow:
 
 ### 1. Validation Phase
 - Verify execution from repository root
@@ -47,7 +47,7 @@ The `move-from-submodule.sh` script automates the multi-step workflow:
 ## Usage
 
 ```bash
-./move-from-submodule.sh <filename>
+./pubmove.sh <filename>
 ```
 
 The script handles the git coordination complexity while keeping the user in control of the publishing workflow.
