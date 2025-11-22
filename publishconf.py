@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata"]
+PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata", "archive_data"]
 
 DEFAULT_METADATA = {
     "status": "draft",
