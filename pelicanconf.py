@@ -3,7 +3,7 @@
 
 
 PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed"]
-PLUGINS = ["summary", "period"]
+# PLUGINS = ["summary", "period"]
 
 PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata", "archive_data"]
 
@@ -26,7 +26,8 @@ SITEURL = ""
 SITESUBTITLE = "information informs. analysis enlightens."
 TAGLINE = "information informs. analysis enlightens."
 
-PATH = "content"
+ARTICLE_PATHS = [".", "mpr.drafts/posts"]
+
 TIMEZONE = "America/New_York"
 DEFAULT_LANG = "en"
 
@@ -113,4 +114,13 @@ USER_LOGO_URL = SITEURL + "/theme/images/logo.png"
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
 
-IGNORE_FILES = [".#*", "*~", "#*", "*.bak", "#*"]
+IGNORE_FILES = [
+    ".#*",
+    "*~",
+    "#*",
+    "*.bak",
+    "#*",
+    "LICENSE.md",
+    "README.md",
+    "LICENSE.html",
+]
