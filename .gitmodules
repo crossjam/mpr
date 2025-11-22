@@ -10,5 +10,5 @@
 	url = https://github.com/crossjam/pelican_json_feed.git
 	branch = crossjam/mpr
 [submodule "mpr.drafts"]
-	path = mpr.drafts
+	path = content/mpr.drafts
 	url = ./mpr.drafts
