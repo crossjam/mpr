@@ -18,6 +18,6 @@ mechanism to determine how a CLI option was provided
 
 [_Via Stack Overflow_][3]
 
-[1]: https://click.palletsprojects.org
+[1]: https://click.palletsprojects.com
 [2]: https://click.palletsprojects.com/en/stable/api/#click.Context.get_parameter_source
 [3]: https://stackoverflow.com/questions/75512527/python-click-determine-whether-argument-comes-from-default-or-from-user
