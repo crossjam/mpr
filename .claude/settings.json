@@ -12,10 +12,13 @@
       }
     ]
   },
-  "permissions": {
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)"
-    ]
+    "permissions": {
+	"allow": [
+	    "Bash(gh *)"
+	],	
+	"deny": [
+	    "Read(./.env)",
+	    "Read(./.env.*)"
+	]
   }
 }
