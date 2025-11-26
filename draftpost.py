@@ -198,21 +198,19 @@ def get_output_directory(cli_dir: Optional[str] = None) -> Path:
 def create_post(
     title: str,
     author: str,
-    category: str,
     content: str,
     slug: Optional[str] = None,
     status: str = "draft",
     output_dir: Optional[Path] = None
 ) -> Path:
     """
-    Create a new post file with YAML metadata header.
+    Create a new post file with YAML frontmatter.
     
     Args:
         title: Post title
         author: Post author
-        category: Post category
         content: Post content (markdown)
-        slug: URL slug (auto-generated from title if not provided)
+        slug: URL slug for the filename (auto-generated from title if not provided)
         status: Post status (default: "draft")
         output_dir: Directory to save the post (required)
         
@@ -238,15 +236,15 @@ def create_post(
             sys.exit(1)
     
     # Get current date in the format used by existing posts
-    date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    date_str = datetime.now().strftime("%Y-%m-%d")
     
-    # Build the post content with YAML metadata header
-    post_content = f"""Title: {title}
-Date: {date_str}
-Author: {author}
-Category: {category}
-Slug: {slug}
-Status: {status}
+    # Build the post content with proper YAML frontmatter
+    post_content = f"""---
+title: "{title}"
+date: {date_str}
+author: "{author}"
+status: {status}
+---
 
 {content}
 """
@@ -432,7 +430,6 @@ def main():
         filepath = create_post(
             title=title,
             author=author,
-            category="Uncategorized",
             content=content,
             slug=slug,
             status="draft",

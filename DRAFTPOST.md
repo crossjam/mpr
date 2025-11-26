@@ -103,15 +103,15 @@ The script obtains post content from the following sources in priority order:
 
 ### Post Metadata Format
 
-Posts are created with the following YAML metadata header:
+Posts are created with proper YAML frontmatter:
 
 ```markdown
-Title: Your Post Title
-Date: 2025-11-26 15:30
-Author: crossjam
-Category: Uncategorized
-Slug: your-post-title
-Status: draft
+---
+title: "Your Post Title"
+date: 2025-11-26
+author: "crossjam"
+status: draft
+---
 
 Your post content goes here...
 ```
