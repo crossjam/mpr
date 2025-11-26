@@ -15,6 +15,7 @@ metadata formatting. It provides interactive prompts for post metadata and
 can optionally grab content from the clipboard on macOS.
 """
 
+import argparse
 import os
 import sys
 import subprocess
@@ -111,19 +112,41 @@ def convert_rtf_to_markdown(rtf_content: str) -> str:
         return rtf_content
 
 
-def get_post_content(use_clipboard: bool = True) -> str:
+def get_post_content(use_clipboard: bool = True, file_path: Optional[str] = None) -> str:
     """
-    Get post content from clipboard or use Lorem Ipsum placeholder.
+    Get post content from file, clipboard, or use Lorem Ipsum placeholder.
     
     Args:
         use_clipboard: Whether to attempt clipboard access
+        file_path: Path to file to read content from (or '-' for stdin)
         
     Returns:
-        Post content as a string (from clipboard or Lorem Ipsum fallback)
+        Post content as a string (from file, clipboard, or Lorem Ipsum fallback)
     """
     content = ""
     
-    if use_clipboard and sys.platform == "darwin":
+    # First priority: read from file if specified
+    if file_path:
+        try:
+            if file_path == '-':
+                # Read from stdin
+                console.print("[cyan]Reading content from standard input...[/cyan]")
+                content = sys.stdin.buffer.read().decode('utf-8', errors='replace')
+                console.print("[green]✓[/green] Content read from stdin")
+            else:
+                # Read from file
+                file_path_obj = Path(file_path)
+                if not file_path_obj.exists():
+                    console.print(f"[red]Error: File not found: {file_path}[/red]")
+                    sys.exit(1)
+                content = file_path_obj.read_text(encoding='utf-8', errors='replace')
+                console.print(f"[green]✓[/green] Content read from file: {file_path}")
+        except Exception as e:
+            console.print(f"[red]Error reading file: {e}[/red]")
+            sys.exit(1)
+    
+    # Second priority: try clipboard if enabled
+    elif use_clipboard and sys.platform == "darwin":
         clipboard_data = get_clipboard_content()
         
         if clipboard_data:
@@ -137,9 +160,9 @@ def get_post_content(use_clipboard: bool = True) -> str:
                 content = clipboard_content
                 console.print("[green]✓[/green] Plain text content grabbed from clipboard")
     
+    # Third priority: use Lorem Ipsum fallback
     if not content:
-        # Use Lorem Ipsum as default content when clipboard is empty
-        console.print("[yellow]No clipboard content found, using Lorem Ipsum placeholder.[/yellow]")
+        console.print("[yellow]No content source available, using Lorem Ipsum placeholder.[/yellow]")
         content = LOREM_IPSUM
     
     return content.strip()
@@ -212,8 +235,90 @@ Status: {status}
     return filepath
 
 
+def print_help():
+    """Print help information and exit."""
+    help_text = """
+[bold cyan]draftpost.py - Create a new blog post draft[/bold cyan]
+
+[bold]Usage:[/bold]
+  ./draftpost.py [options]
+  ./draftpost.py --help
+  ./draftpost.py --file <filename>
+  cat content.txt | ./draftpost.py --file -
+
+[bold]Description:[/bold]
+  Creates a new blog post draft in the mpr.drafts submodule with proper YAML
+  metadata headers. The script provides interactive prompts for post metadata
+  and can obtain content from multiple sources.
+
+[bold]Options:[/bold]
+  -h, --help            Show this help message and exit
+  -f, --file FILE       Read post content from FILE (use '-' for stdin)
+                        If not specified, tries clipboard on macOS, then
+                        falls back to Lorem Ipsum placeholder
+
+[bold]Content Sources (in priority order):[/bold]
+  1. File specified with --file option (or stdin with --file -)
+  2. Clipboard content on macOS (via pbpaste)
+     - Supports plain text and RTF formats
+     - RTF is automatically converted to Markdown
+  3. Lorem Ipsum placeholder text
+
+[bold]Examples:[/bold]
+  # Interactive mode with clipboard
+  ./draftpost.py
+
+  # Read content from a file
+  ./draftpost.py --file my-post-content.md
+
+  # Read content from stdin
+  cat my-content.txt | ./draftpost.py --file -
+  echo "Post content" | ./draftpost.py --file -
+
+[bold]Output:[/bold]
+  Posts are created in: content/mpr.drafts/posts/
+  Format: YAML metadata header + Markdown content
+
+[bold]Next Steps:[/bold]
+  After creating a draft, use ./pubmove.sh to publish it:
+  ./pubmove.sh <slug>.md
+"""
+    console.print(help_text)
+    sys.exit(0)
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description='Create a new blog post draft with YAML metadata header',
+        add_help=False  # We'll handle --help ourselves for rich formatting
+    )
+    parser.add_argument(
+        '-h', '--help',
+        action='store_true',
+        help='Show help message and exit'
+    )
+    parser.add_argument(
+        '-f', '--file',
+        type=str,
+        metavar='FILE',
+        help='Read post content from FILE (use "-" for stdin)'
+    )
+    
+    args = parser.parse_args()
+    
+    # Handle help flag
+    if args.help:
+        print_help()
+    
+    return args
+
+
 def main():
     """Main entry point for the draftpost script."""
+    # Parse command line arguments
+    args = parse_args()
+    
     console.print(Panel.fit(
         "[bold cyan]Draft Post Creator[/bold cyan]\n"
         "Create a new blog post in the mpr.drafts submodule",
@@ -243,14 +348,18 @@ def main():
     # Get content
     console.print("\n[bold]Post Content[/bold]")
     
+    # If --file is specified, use that; otherwise ask about clipboard
     use_clipboard = False
-    if can_use_clipboard:
+    if args.file:
+        # Content will be read from file
+        pass
+    elif can_use_clipboard:
         use_clipboard = Confirm.ask(
             "[cyan]Try to grab content from clipboard?[/cyan]",
             default=True
         )
     
-    content = get_post_content(use_clipboard)
+    content = get_post_content(use_clipboard, args.file)
     
     # Show preview
     console.print("\n[bold]Preview[/bold]")

@@ -7,12 +7,17 @@ The `draftpost.py` script automates the creation of new blog post drafts with pr
 ## Features
 
 - **Interactive Prompts**: User-friendly interface using the `rich` library
+- **Command Line Options**: Support for `--help` and `--file` arguments
+- **Multiple Content Sources**:
+  - Read from file with `--file <filename>`
+  - Read from standard input with `--file -`
+  - Clipboard integration on macOS via `pbpaste`
+  - Lorem Ipsum placeholder fallback
 - **YAML Metadata Generation**: Automatically creates properly formatted metadata headers
 - **Clipboard Support** (macOS only):
   - Detects and retrieves clipboard content via `pbpaste`
   - Supports plain text format
   - Automatically converts RTF to Markdown (requires pandoc)
-- **Lorem Ipsum Fallback**: Uses placeholder content when clipboard is empty
 - **Automatic Slug Generation**: Creates URL-friendly slugs from post titles
 - **Default Values**: Sensible defaults for author and status fields
 - **File Safety**: Warns before overwriting existing files
@@ -31,10 +36,31 @@ The script uses the uv script format with inline dependencies:
 
 ## Usage
 
+### Command Line Options
+
+```bash
+./draftpost.py [options]
+```
+
+**Options:**
+- `-h, --help`: Show help message and exit
+- `-f, --file FILE`: Read post content from FILE (use `-` for stdin)
+
 ### Basic Usage
 
 ```bash
+# Interactive mode (with clipboard on macOS)
 ./draftpost.py
+
+# Read content from a file
+./draftpost.py --file my-content.md
+
+# Read content from stdin
+cat my-content.txt | ./draftpost.py --file -
+echo "Post content" | ./draftpost.py --file -
+
+# Show help
+./draftpost.py --help
 ```
 
 The script will interactively prompt you for:
@@ -42,7 +68,16 @@ The script will interactively prompt you for:
 1. **Title**: The post title
 2. **Author**: Post author (default: "crossjam")
 3. **Custom Slug** (optional): Override the auto-generated slug
-4. **Content**: Either from clipboard (macOS) or Lorem Ipsum placeholder
+
+### Content Sources (Priority Order)
+
+The script obtains post content from the following sources in priority order:
+
+1. **File specified with `--file` option** (or stdin with `--file -`)
+2. **Clipboard** (macOS only, via `pbpaste`)
+   - Plain text format
+   - RTF format (converted to Markdown)
+3. **Lorem Ipsum placeholder** (fallback)
 
 ### Post Metadata Format
 
@@ -78,6 +113,8 @@ When running on macOS, the script can:
 
 ### Example Session
 
+#### Interactive Mode with Clipboard
+
 ```
 ╭────────────────────────────────────────────────────╮
 │ Draft Post Creator                                 │
@@ -111,13 +148,45 @@ Next steps:
   2. When ready to publish, use: ./pubmove.sh my-amazing-post.md
 ```
 
+#### Using --file Option
+
+```bash
+# Create a content file
+cat > post-content.md << 'EOF'
+This is my blog post content.
+
+It has multiple paragraphs and **markdown formatting**.
+
+## A Heading
+
+- List item 1
+- List item 2
+EOF
+
+# Create post from file
+./draftpost.py --file post-content.md
+```
+
+#### Using stdin
+
+```bash
+# Pipe content directly
+echo "Quick post content" | ./draftpost.py --file -
+
+# Or from another command
+curl https://example.com/content.txt | ./draftpost.py --file -
+```
+
 ## Workflow Integration
 
 ### Creating a Draft Post
 
-1. Run `./draftpost.py`
+1. Run `./draftpost.py` (optionally with `--file <filename>`)
 2. Enter post metadata when prompted
-3. Content is grabbed from clipboard (macOS) or Lorem Ipsum placeholder is used
+3. Content is obtained from:
+   - File specified with `--file` option
+   - Clipboard (macOS, if enabled)
+   - Lorem Ipsum placeholder (fallback)
 4. Review the preview
 5. Confirm creation
 
