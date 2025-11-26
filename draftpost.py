@@ -168,6 +168,33 @@ def get_post_content(use_clipboard: bool = True, file_path: Optional[str] = None
     return content.strip()
 
 
+def get_output_directory(cli_dir: Optional[str] = None) -> Path:
+    """
+    Determine the output directory from CLI arg, environment variable, or default.
+    
+    Priority:
+    1. Command-line argument (--output-dir)
+    2. Environment variable (DRAFTPOST_OUTPUT_DIR)
+    3. Default: content/mpr.drafts/posts
+    
+    Args:
+        cli_dir: Directory specified via command-line argument
+        
+    Returns:
+        Path object for the output directory
+    """
+    if cli_dir:
+        return Path(cli_dir)
+    
+    env_dir = os.environ.get('DRAFTPOST_OUTPUT_DIR')
+    if env_dir:
+        return Path(env_dir)
+    
+    # Default location
+    repo_root = Path(__file__).parent
+    return repo_root / "content" / "mpr.drafts" / "posts"
+
+
 def create_post(
     title: str,
     author: str,
@@ -187,7 +214,7 @@ def create_post(
         content: Post content (markdown)
         slug: URL slug (auto-generated from title if not provided)
         status: Post status (default: "draft")
-        output_dir: Directory to save the post (default: content/mpr.drafts/posts)
+        output_dir: Directory to save the post (required)
         
     Returns:
         Path to the created post file
@@ -195,11 +222,6 @@ def create_post(
     # Generate slug from title if not provided
     if not slug:
         slug = slugify(title)
-    
-    # Set default output directory
-    if output_dir is None:
-        repo_root = Path(__file__).parent
-        output_dir = repo_root / "content" / "mpr.drafts" / "posts"
     
     # Ensure output directory exists
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -244,6 +266,7 @@ def print_help():
   ./draftpost.py [options]
   ./draftpost.py --help
   ./draftpost.py --file <filename>
+  ./draftpost.py --output-dir <directory>
   cat content.txt | ./draftpost.py --file -
 
 [bold]Description:[/bold]
@@ -256,6 +279,17 @@ def print_help():
   -f, --file FILE       Read post content from FILE (use '-' for stdin)
                         If not specified, tries clipboard on macOS, then
                         falls back to Lorem Ipsum placeholder
+  -o, --output-dir DIR  Output directory for the post
+                        Default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR
+
+[bold]Environment Variables:[/bold]
+  DRAFTPOST_OUTPUT_DIR  Set default output directory for posts
+                        Overridden by --output-dir option
+
+[bold]Output Directory Priority:[/bold]
+  1. Command-line argument (--output-dir)
+  2. Environment variable ($DRAFTPOST_OUTPUT_DIR)
+  3. Default: content/mpr.drafts/posts
 
 [bold]Content Sources (in priority order):[/bold]
   1. File specified with --file option (or stdin with --file -)
@@ -274,6 +308,13 @@ def print_help():
   # Read content from stdin
   cat my-content.txt | ./draftpost.py --file -
   echo "Post content" | ./draftpost.py --file -
+
+  # Specify custom output directory
+  ./draftpost.py --output-dir /path/to/drafts
+
+  # Use environment variable for output directory
+  export DRAFTPOST_OUTPUT_DIR=/path/to/drafts
+  ./draftpost.py
 
 [bold]Output:[/bold]
   Posts are created in: content/mpr.drafts/posts/
@@ -303,6 +344,12 @@ def parse_args():
         type=str,
         metavar='FILE',
         help='Read post content from FILE (use "-" for stdin)'
+    )
+    parser.add_argument(
+        '-o', '--output-dir',
+        type=str,
+        metavar='DIR',
+        help='Output directory for the post (default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR)'
     )
     
     args = parser.parse_args()
@@ -361,12 +408,16 @@ def main():
     
     content = get_post_content(use_clipboard, args.file)
     
+    # Determine output directory
+    output_dir = get_output_directory(args.output_dir)
+    
     # Show preview
     console.print("\n[bold]Preview[/bold]")
     console.print(Panel(
         f"[bold]Title:[/bold] {title}\n"
         f"[bold]Author:[/bold] {author}\n"
         f"[bold]Slug:[/bold] {slug or default_slug}\n"
+        f"[bold]Output:[/bold] {output_dir}\n"
         f"[bold]Content:[/bold] {content[:100]}{'...' if len(content) > 100 else ''}",
         border_style="cyan"
     ))
@@ -384,7 +435,8 @@ def main():
             category="Uncategorized",
             content=content,
             slug=slug,
-            status="draft"
+            status="draft",
+            output_dir=output_dir
         )
         
         console.print(f"\n[bold green]✓[/bold green] Post created successfully!")

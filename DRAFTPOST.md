@@ -45,6 +45,18 @@ The script uses the uv script format with inline dependencies:
 **Options:**
 - `-h, --help`: Show help message and exit
 - `-f, --file FILE`: Read post content from FILE (use `-` for stdin)
+- `-o, --output-dir DIR`: Set output directory for the post
+
+**Environment Variables:**
+- `DRAFTPOST_OUTPUT_DIR`: Set default output directory for posts (overridden by `--output-dir`)
+
+### Output Directory Priority
+
+The output directory is determined in the following priority order:
+
+1. **Command-line argument** (`--output-dir`)
+2. **Environment variable** (`DRAFTPOST_OUTPUT_DIR`)
+3. **Default**: `content/mpr.drafts/posts`
 
 ### Basic Usage
 
@@ -58,6 +70,16 @@ The script uses the uv script format with inline dependencies:
 # Read content from stdin
 cat my-content.txt | ./draftpost.py --file -
 echo "Post content" | ./draftpost.py --file -
+
+# Specify custom output directory
+./draftpost.py --output-dir /path/to/custom/drafts
+
+# Use environment variable for output directory
+export DRAFTPOST_OUTPUT_DIR=/path/to/custom/drafts
+./draftpost.py
+
+# Combine options
+./draftpost.py --file my-content.md --output-dir /path/to/drafts
 
 # Show help
 ./draftpost.py --help
