@@ -188,7 +188,7 @@ move_file() {
     fi
 
     # Verify submodule is initialized
-    if [ ! -d "${SUBMODULE_PATH}/.git" ]; then
+    if [ ! -e "${SUBMODULE_PATH}/.git" ]; then
         log_error "Submodule not initialized. Run: git submodule update --init"
         exit 1
     fi
