@@ -402,8 +402,8 @@ def main():
         pass
     elif can_use_clipboard:
         use_clipboard = Confirm.ask(
-            "[cyan]Try to grab content from clipboard?[/cyan]",
-            default=True
+            "[cyan]Use content from clipboard?[/cyan]",
+            default=False
         )
     
     content = get_post_content(use_clipboard, args.file)
