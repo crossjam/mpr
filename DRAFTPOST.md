@@ -108,7 +108,7 @@ Posts are created with proper YAML frontmatter:
 ```markdown
 ---
 title: "Your Post Title"
-date: 2025-11-26
+date: 2025-11-26 15:30
 author: "crossjam"
 status: draft
 ---

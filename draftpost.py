@@ -235,8 +235,8 @@ def create_post(
             console.print("[red]Aborted.[/red]")
             sys.exit(1)
     
-    # Get current date in the format used by existing posts
-    date_str = datetime.now().strftime("%Y-%m-%d")
+    # Get current date and time in the format YYYY-MM-DD HH:MM
+    date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
     
     # Build the post content with proper YAML frontmatter
     post_content = f"""---
