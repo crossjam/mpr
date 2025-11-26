@@ -30,6 +30,11 @@ from slugify import slugify
 
 console = Console()
 
+# Default Lorem Ipsum content for new posts
+LOREM_IPSUM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
+
 
 def get_clipboard_content() -> Optional[tuple[str, str]]:
     """
@@ -108,13 +113,13 @@ def convert_rtf_to_markdown(rtf_content: str) -> str:
 
 def get_post_content(use_clipboard: bool = True) -> str:
     """
-    Get post content from clipboard or user input.
+    Get post content from clipboard or use Lorem Ipsum placeholder.
     
     Args:
         use_clipboard: Whether to attempt clipboard access
         
     Returns:
-        Post content as a string
+        Post content as a string (from clipboard or Lorem Ipsum fallback)
     """
     content = ""
     
@@ -133,18 +138,9 @@ def get_post_content(use_clipboard: bool = True) -> str:
                 console.print("[green]✓[/green] Plain text content grabbed from clipboard")
     
     if not content:
-        console.print("\n[cyan]Enter post content (press Ctrl+D or Ctrl+Z when done):[/cyan]")
-        console.print("[dim]Tip: You can paste content here or type it directly.[/dim]\n")
-        
-        lines = []
-        try:
-            while True:
-                line = input()
-                lines.append(line)
-        except EOFError:
-            pass
-        
-        content = "\n".join(lines)
+        # Use Lorem Ipsum as default content when clipboard is empty
+        console.print("[yellow]No clipboard content found, using Lorem Ipsum placeholder.[/yellow]")
+        content = LOREM_IPSUM
     
     return content.strip()
 
@@ -232,7 +228,6 @@ def main():
     
     title = Prompt.ask("[cyan]Title[/cyan]")
     author = Prompt.ask("[cyan]Author[/cyan]", default="crossjam")
-    category = Prompt.ask("[cyan]Category[/cyan]", default="Uncategorized")
     
     # Optional: custom slug
     default_slug = slugify(title)
@@ -257,16 +252,11 @@ def main():
     
     content = get_post_content(use_clipboard)
     
-    if not content:
-        console.print("[red]No content provided. Aborted.[/red]")
-        sys.exit(1)
-    
     # Show preview
     console.print("\n[bold]Preview[/bold]")
     console.print(Panel(
         f"[bold]Title:[/bold] {title}\n"
         f"[bold]Author:[/bold] {author}\n"
-        f"[bold]Category:[/bold] {category}\n"
         f"[bold]Slug:[/bold] {slug or default_slug}\n"
         f"[bold]Content:[/bold] {content[:100]}{'...' if len(content) > 100 else ''}",
         border_style="cyan"
@@ -282,7 +272,7 @@ def main():
         filepath = create_post(
             title=title,
             author=author,
-            category=category,
+            category="Uncategorized",
             content=content,
             slug=slug,
             status="draft"

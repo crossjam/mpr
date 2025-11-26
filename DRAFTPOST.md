@@ -12,8 +12,9 @@ The `draftpost.py` script automates the creation of new blog post drafts with pr
   - Detects and retrieves clipboard content via `pbpaste`
   - Supports plain text format
   - Automatically converts RTF to Markdown (requires pandoc)
+- **Lorem Ipsum Fallback**: Uses placeholder content when clipboard is empty
 - **Automatic Slug Generation**: Creates URL-friendly slugs from post titles
-- **Default Values**: Sensible defaults for author, category, and status fields
+- **Default Values**: Sensible defaults for author and status fields
 - **File Safety**: Warns before overwriting existing files
 
 ## Requirements
@@ -40,9 +41,8 @@ The script will interactively prompt you for:
 
 1. **Title**: The post title
 2. **Author**: Post author (default: "crossjam")
-3. **Category**: Post category (default: "Uncategorized")
-4. **Custom Slug** (optional): Override the auto-generated slug
-5. **Content**: Either from clipboard (macOS) or typed/pasted directly
+3. **Custom Slug** (optional): Override the auto-generated slug
+4. **Content**: Either from clipboard (macOS) or Lorem Ipsum placeholder
 
 ### Post Metadata Format
 
@@ -72,7 +72,7 @@ When running on macOS, the script can:
 1. Detect clipboard content using `pbpaste`
 2. Handle plain text format directly
 3. Convert RTF format to Markdown (if pandoc is available)
-4. Gracefully fall back to manual input if clipboard access fails
+4. Fall back to Lorem Ipsum placeholder if clipboard is empty
 
 **Note**: PostScript (ps) format is ignored per the requirements.
 
@@ -87,7 +87,6 @@ When running on macOS, the script can:
 Post Metadata
 Title: My Amazing Post
 Author (crossjam): C. Ross Jam
-Category (Uncategorized): Technology
 Use custom slug? (default: my-amazing-post) [y/n] (n): n
 
 Post Content
@@ -98,7 +97,6 @@ Preview
 ╭──────────────────────────────────────────────────╮
 │ Title: My Amazing Post                           │
 │ Author: C. Ross Jam                              │
-│ Category: Technology                             │
 │ Slug: my-amazing-post                            │
 │ Content: This is my amazing post content...      │
 ╰──────────────────────────────────────────────────╯
@@ -119,7 +117,7 @@ Next steps:
 
 1. Run `./draftpost.py`
 2. Enter post metadata when prompted
-3. Provide content (from clipboard or typed)
+3. Content is grabbed from clipboard (macOS) or Lorem Ipsum placeholder is used
 4. Review the preview
 5. Confirm creation
 
@@ -192,7 +190,7 @@ The script uses the same configuration as `pubmove.sh`:
 If clipboard access fails on macOS:
 - Ensure `pbpaste` is available (standard on macOS)
 - Check system permissions for clipboard access
-- Fall back to manual content entry
+- Lorem Ipsum placeholder will be used automatically
 
 ### RTF Conversion Failed
 
