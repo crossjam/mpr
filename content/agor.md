@@ -38,15 +38,17 @@ Superset][4] fame. Definitely give it a listen.
 > exposes an internal MCP so agents can schedule, monitor, and even
 > coordinate other agents. 
 
-Very early days for Agor, but the UX experience that Beauchemin
-described was interesting. Effectively he hijacked Kanban cards as a
-frontend for agent orchestration. The claim is that Agor is great for
-an individual user and is showing promise for teams. Also that a wide
-range of agentic coders are supported including Claude Code, Codex,
-Gemini, and opencode. User interfaces in the orchestration space
-should be open season for experimentation.
+It's very early days for Agor, but the UX Beauchemin described was
+interesting. Effectively, he hijacked Kanban cards as a frontend for
+agent orchestration. The claim is that Agor is great for individual
+users and is showing promise for teams. Also, a wide range of agentic
+coders are supported, including Claude Code, Codex, Gemini, and
+opencode. User interfaces in the orchestration space should be open
+season for experimentation. 
 
 [1]: https://agor.live
 [2]: https://www.dataengineeringpodcast.com/episodepage/blurring-lines-data-ai-and-the-new-playbook-for-team-velocity
 [3]: https://en.wikipedia.org/wiki/Apache_Airflow
-[4]: https://superset.apache.org
+[4]: https://superset.apache.org 
+
+
