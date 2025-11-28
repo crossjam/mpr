@@ -5,7 +5,7 @@ author: "C. Ross Jam"
 status: published
 ---
 
-Link parkin, from Addy Osmani: [Gemini CLI Tips & Tricks][1]
+Link parkin’, from Addy Osmani: [Gemini CLI Tips & Tricks][1]
 
 > This guide covers ~30 pro-tips for effectively using Gemini CLI for
 > agentic coding 
@@ -42,10 +42,12 @@ a batch of agentic coding [upgrades connected to Gemini CLI][3].
 > support for complex engineering work through agentic coding, and
 > enables smarter, more tailored workflows via advanced tool use.
 
-Probably time to give Gemini CLI a revisit, although the passel of
+It's probably time to revisit Gemini CLI, although the passel of
 agentic coding CLI tools is getting hard to keep track of.
 
 [1]: https://github.com/addyosmani/gemini-cli-tips
 [2]: https://geminicli.com/docs/
 [3]: https://developers.googleblog.com/en/5-things-to-try-with-gemini-3-pro-in-gemini-cli/
-[4]]: https://github.com/addyosmani/gemini-cli-tips?tab=readme-ov-file#tip-16-passthrough-shell-commands-with--talk-to-your-terminal
+[4]: https://github.com/addyosmani/gemini-cli-tips?tab=readme-ov-file#tip-16-passthrough-shell-commands-with--talk-to-your-terminal
+
+
