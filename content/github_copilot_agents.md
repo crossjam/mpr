@@ -5,8 +5,7 @@ author: "C. Ross Jam"
 status: published
 ---
 
-In my agentic coding explorations, I’m really liking [the coding agents
-provided by GitHub Copilot][2]. Here’s [the 101 intro][1].
+In my agentic coding explorations, I really like [the coding agents provided by GitHub Copilot][2]. Here’s [the 101 intro][1].
 
 > Earlier this year, GitHub introduced an integrated, enterprise-ready
 > coding agent for Copilot. Coding agent is a software engineering
@@ -49,20 +48,23 @@ More from the docs:
 > happening in a commit and being viewable in logs, and opens up
 > collaboration opportunities for the entire team. 
 
-The integration with GitHub, no surprise, is excellent and really
+The integration with GitHub, no surprise, is excellent and has been
 working well for me. It’s easy to interact with an agent through a
-PR. Launching agents based upon GitHub Issues is trivial and
-natural. I can actually push commits to an agent’s development branch
-seamlessly. The UX on the agent session tracking has been better than
-what I’ve experienced with Claude Code, Codex, and Jules. Not a huge
-difference but the polish feels a notch above.
+PR. Launching agents based on GitHub Issues is trivial and natural. I
+can push commits to an agent’s development branch seamlessly. The UX
+for agent session tracking has been better than what I’ve experienced
+with Claude Code, Codex, and Jules. Not a huge difference, but the
+polish feels a notch above.
 
-The only downer so far is that you don’t have any way to specify a
-particular model to use. Despite that the code results have been on
-par from what I’ve seen from other coding agents. In any event, I
-ponied up for a $10 a month subscription and I’m already cranking
-through features on personal projects. Feels like good value.
+The only downside so far is that you don’t have any way to specify a
+particular model to use. Despite that, the code results have been on
+par with what I’ve seen from other coding agents. In any event, I
+ponied up for a $10-a-month subscription, and I’m already cranking
+through features on personal projects. It feels like good value.
 
 
 [1]: https://github.blog/ai-and-ml/github-copilot/github-copilot-coding-agent-101-getting-started-with-agentic-workflows-on-github/
 [2]: https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent
+
+
+
