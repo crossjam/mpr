@@ -38,9 +38,11 @@ From the docs:
 > connect only the data you need, and enable the features you want
 > your team to use. 
 
-Can’t have too many options for implementing interfaces for AI
+You can’t have too many options for implementing interfaces for AI
 applications.
 
 
 [1]: https://github.com/onyx-dot-app/onyx
 [2]: https://docs.onyx.app/welcome#why-onyx
+
+
