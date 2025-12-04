@@ -26,8 +26,8 @@ Link parkin’: [Amp][2]
 > chronicles the first few months of building Amp, and see our FIF.
 
 This post was started before a recent edition of [Hamel Husain’s
-newsletter][4] came across my transom today (_apologies, can’t find a
-Web page version to link to_), but he’s positive on Amp as well:
+newsletter][4] arrived in my transom today (_apologies, can’t find a
+Web page version to link to_). He’s positive on Amp as well:
 
 > Even though Cursor is my daily driver, I frequently try new coding
 > agents. One that’s stood out for me over the last few months is
@@ -38,16 +38,15 @@ Web page version to link to_), but he’s positive on Amp as well:
 > 3 to Opus 4.5. (BTW all of this is backed by rigorous [internal
 > evals][6], which allows them to move quickly).
 
-Typical of Husain there’s a lot more thorough detail in his email,
-including caveats for working with Amp. For example, the version of
-Amp that he uses is priced on a per-token basis. This can get
-expensive if you’re not careful. Also, the Amp CLI had problems with
-iTerm but works well in Ghostty. Hopefully it’ll make it to somewhere
-easily referrable.
+Typical of Husain, his email contains much more detail, including
+caveats for working with Amp. For example, the version of Amp that he
+uses is priced on a per-token basis. This can get expensive if you’re
+not careful. Also, he reported that the Amp CLI had problems with
+iTerm, but works well in Ghostty. Hopefully it’ll be made available
+somewhere easy to reference.
 
-The field of terminal user interface agentic coders is getting
-crowded, but it feels worth adding Amp as one to watch.
-
+The field of terminal user-interface coding agents is getting crowded,
+but Amp is worth watching. 
 
 [1]: https://ampcode.com/manual#why-amp
 [2]: https://ampcode.com/
@@ -55,3 +54,5 @@ crowded, but it feels worth adding Amp as one to watch.
 [4]: https://ai.hamel.dev
 [5]: https://en.wikipedia.org/wiki/Omakase
 [6]: https://ampcode.com/news/opus-4.5
+
+
