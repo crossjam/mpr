@@ -2,6 +2,7 @@
 title: "Amp Coding Agent"
 date: 2025-12-03
 author: "C. Ross Jam"
+status: published
 ---
 
 Link parkin’: [Amp][2]
