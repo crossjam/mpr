@@ -5,15 +5,15 @@ author: "C. Ross Jam"
 status: published
 ---
 
-I’m gonna make an investment into [Ghostty][1] for some of my agentic
-coding adventures. This will supplement my long lived, go-to
-iTerm2. Two projects that I want to activeely explore, [Amp][3] and
-[opencode][4], express that they fit better with the super-modern,
+I'm gonna’ make an investment into [Ghostty][1] for some of my agentic
+coding adventures. This will supplement my long-lived, go-to terminal,
+[iTerm2][7]. Two projects I want to actively explore — [Amp][3] and
+[opencode][4] — suggest they fit better with super-modern,
 graphics accelerated terminal emulators. Also, it’s probably time for
 me to get out and about a bit in the terminal space. There’s
-[evidence][5] that I’ve been using iTerm at least for 13 years 😳!
+[evidence][5] that I’ve been using iTerm2 for at least 13 years 😳!
 
-[Mitchell Hashimoto’s][6] about statement for the project resonates.
+Mitchell Hashimoto’s "About" statement for the project resonates.
 
 > [About Ghostty][2]
 >
@@ -36,9 +36,16 @@ me to get out and about a bit in the terminal space. There’s
 > best to make something great along with the lovely contributors, but
 > it's not a full-time job for any of us.
 
+_Full disclosure, I’m a GitHub sponsor of the iTerm2 project for a
+token amount monthly._
+
 [1]: https://ghostty.org/
 [2]: https://ghostty.org/docs/about
 [3]: https://ampcode.com/
 [4]: https://opencode.ai/
 [5]: {filename}/tab-colorization.md
 [6]: https://mitchellh.com/
+[7]: https://iterm2.com/
+
+
+
