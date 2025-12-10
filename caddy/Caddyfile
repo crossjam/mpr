@@ -52,6 +52,11 @@ file_server {
 encode gzip
 log
 
+@blockDrafts {
+        path /wp/mpr/drafts/*
+}
+respond @blockDrafts 404
+
 }
 
 nmh.crossjam.net {
