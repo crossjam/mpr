@@ -8,24 +8,25 @@ status: published
 [copyedit][1] is just [a personal tool][5], built with agentic coding,
 in the spirit of Simon Willison. It prompts an LLM to copyedit
 text. At first, I wasn’t sure how well it would work, but I’ve been
-using it to clean up posts here for a bit now. It actually works quite
+using it to clean up posts here for a while now. It actually works quite
 well.
 
 There’s likely a plethora of ways to solve this problem
 (_e.g. [vale][3]_), but I’ve had fun putting this together.
 
-In building it I’ve learned a few things
+In building it I’ve learned a few things:
 
-- The utility of hijacking a cli module like Willison’s [llm][2] has
+- The utility of hijacking a CLI module like Willison’s [llm][2] has
   been immense. There’s a lot of underlying plumbing that comes in
   handy. At the same time, llm hasn’t clicked as a Python package for
   me.
-- With a bit of prompting LLMs are pretty good at keeping my general
-  style, but there’s a few mannerisms I’m going to need to add to the
-  system prompt. Like leaving out leading Is and Its on fragments.
-- Annoyingly, LLMs don’t seem to comprehend word-wrapping although I
-  should actually test that out. Feels a bit heavyweight to apply AI
-  to that task. I should probably apply a word-wrapping
+- With a bit of prompting, LLMs are pretty good at keeping my general
+  style, but there are a few mannerisms I’m going to need to add to the
+  system prompt, for example leaving off leading 'Is' and 'Its' on
+  fragments.
+- Annoyingly, LLMs don’t seem to comprehend word wrapping, although I
+  should actually test that out. It feels a bit heavyweight to apply AI
+  to that task, so I should probably apply a word-wrapping
   post-processing step.
 
 
@@ -59,3 +60,6 @@ And looks like there’s [a good book from Pragmatic Programmers][4]:
 [3]: https://vale.sh
 [4]: https://pragprog.com/titles/bhvale/write-better-with-vale/
 [5]: {filename}/copyedit_ai.md
+
+
+
