@@ -115,7 +115,7 @@ def format_as_blockquote(text: str) -> str:
         Blockquoted text
     """
     lines = text.split('\n')
-    return '\n'.join(f'> {line}' for line in lines)
+    return '\n'.join(f'> {line}' if line else '>' for line in lines)
 
 
 def get_post_content(
