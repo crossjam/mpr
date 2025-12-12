@@ -5,6 +5,7 @@
 #     "rich>=13.0.0",
 #     "pypandoc>=1.13",
 #     "python-slugify>=8.0.0",
+#     "click>=8.0.0",
 # ]
 # ///
 """
@@ -24,6 +25,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import click
 from rich.console import Console
 from rich.prompt import Prompt, Confirm
 from rich.panel import Panel
@@ -300,6 +302,8 @@ def print_help():
                         Default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR
   -q, --quote           Format content as a markdown blockquote
                         Prefixes each line with '> ' per markdown syntax
+  -e, --edit            Open the draft post in the default editor after creation
+                        Uses $EDITOR environment variable or system default
 
 [bold]Environment Variables:[/bold]
   DRAFTPOST_OUTPUT_DIR  Set default output directory for posts
@@ -331,6 +335,10 @@ def print_help():
   # Format content as blockquote
   ./draftpost.py --quote --file my-content.txt
   echo "Quote text" | ./draftpost.py --quote --file -
+
+  # Create and immediately edit the post
+  ./draftpost.py --edit
+  ./draftpost.py --file my-content.txt --edit
 
   # Specify custom output directory
   ./draftpost.py --output-dir /path/to/drafts
@@ -380,6 +388,13 @@ def parse_args():
         action="store_true",
         default=False,
         help="Format content as a markdown blockquote",
+    )
+    parser.add_argument(
+        "-e",
+        "--edit",
+        action="store_true",
+        default=False,
+        help="Open the draft post in the default editor after creation",
     )
 
     args = parser.parse_args()
@@ -472,11 +487,26 @@ def main():
 
         console.print(f"\n[bold green]✓[/bold green] Post created successfully!")
         console.print(f"[cyan]Location:[/cyan] {filepath}")
+        
+        # Open in editor if --edit flag is set
+        if args.edit:
+            console.print(f"\n[cyan]Opening in editor...[/cyan]")
+            try:
+                click.edit(filename=str(filepath), extension='.md')
+                console.print(f"[green]✓[/green] Editor closed")
+            except Exception as e:
+                console.print(f"[yellow]Could not open editor: {e}[/yellow]")
+        
         console.print(f"\n[dim]Next steps:[/dim]")
-        console.print(f"  1. Review and edit: [cyan]{filepath}[/cyan]")
-        console.print(
-            f"  2. When ready to publish, use: [cyan]./pubmove.sh {filepath.name}[/cyan]"
-        )
+        if not args.edit:
+            console.print(f"  1. Review and edit: [cyan]{filepath}[/cyan]")
+            console.print(
+                f"  2. When ready to publish, use: [cyan]./pubmove.sh {filepath.name}[/cyan]"
+            )
+        else:
+            console.print(
+                f"  1. When ready to publish, use: [cyan]./pubmove.sh {filepath.name}[/cyan]"
+            )
 
     except Exception as e:
         console.print(f"[bold red]Error creating post:[/bold red] {e}")
