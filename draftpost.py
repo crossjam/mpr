@@ -492,7 +492,7 @@ def main():
         if args.edit:
             console.print(f"\n[cyan]Opening in editor...[/cyan]")
             try:
-                click.edit(filename=str(filepath), extension='.md')
+                click.edit(filename=str(filepath))
                 console.print(f"[green]✓[/green] Editor closed")
             except Exception as e:
                 console.print(f"[yellow]Could not open editor: {e}[/yellow]")
