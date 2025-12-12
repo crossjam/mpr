@@ -493,9 +493,10 @@ def main():
             console.print(f"\n[cyan]Opening in editor...[/cyan]")
             try:
                 click.edit(filename=str(filepath))
-                console.print(f"[green]✓[/green] Editor closed")
+                console.print(f"[green]✓[/green] Editor session completed")
             except Exception as e:
                 console.print(f"[yellow]Could not open editor: {e}[/yellow]")
+                console.print(f"[dim]Tip: Set the EDITOR environment variable or check file permissions[/dim]")
         
         console.print(f"\n[dim]Next steps:[/dim]")
         if not args.edit:
