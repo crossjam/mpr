@@ -104,8 +104,22 @@ def convert_rtf_to_markdown(rtf_content: str) -> str:
         return rtf_content
 
 
+def format_as_blockquote(text: str) -> str:
+    """
+    Format text as a markdown blockquote by prefixing each line with '> '.
+
+    Args:
+        text: The text to format as a blockquote
+
+    Returns:
+        Blockquoted text
+    """
+    lines = text.split('\n')
+    return '\n'.join(f'> {line}' for line in lines)
+
+
 def get_post_content(
-    use_clipboard: bool = True, file_path: Optional[str] = None
+    use_clipboard: bool = True, file_path: Optional[str] = None, quote: bool = False
 ) -> str:
     """
     Get post content from file, clipboard, or use Lorem Ipsum placeholder.
@@ -113,6 +127,7 @@ def get_post_content(
     Args:
         use_clipboard: Whether to attempt clipboard access
         file_path: Path to file to read content from (or '-' for stdin)
+        quote: Whether to format content as a markdown blockquote
 
     Returns:
         Post content as a string (from file, clipboard, or Lorem Ipsum fallback)
@@ -165,7 +180,12 @@ def get_post_content(
         )
         content = LOREM_IPSUM
 
-    return content.strip()
+    # Apply blockquote formatting if requested
+    content = content.strip()
+    if quote:
+        content = format_as_blockquote(content)
+
+    return content
 
 
 def get_output_directory(cli_dir: Optional[str] = None) -> Path:
@@ -278,6 +298,8 @@ def print_help():
                         falls back to Lorem Ipsum placeholder
   -o, --output-dir DIR  Output directory for the post
                         Default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR
+  -q, --quote           Format content as a markdown blockquote
+                        Prefixes each line with '> ' per markdown syntax
 
 [bold]Environment Variables:[/bold]
   DRAFTPOST_OUTPUT_DIR  Set default output directory for posts
@@ -305,6 +327,10 @@ def print_help():
   # Read content from stdin
   cat my-content.txt | ./draftpost.py --file -
   echo "Post content" | ./draftpost.py --file -
+
+  # Format content as blockquote
+  ./draftpost.py --quote --file my-content.txt
+  echo "Quote text" | ./draftpost.py --quote --file -
 
   # Specify custom output directory
   ./draftpost.py --output-dir /path/to/drafts
@@ -347,6 +373,13 @@ def parse_args():
         type=str,
         metavar="DIR",
         help="Output directory for the post (default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR)",
+    )
+    parser.add_argument(
+        "-q",
+        "--quote",
+        action="store_true",
+        default=False,
+        help="Format content as a markdown blockquote",
     )
 
     args = parser.parse_args()
@@ -404,7 +437,7 @@ def main():
             "[cyan]Use content from clipboard?[/cyan]", default=False
         )
 
-    content = get_post_content(use_clipboard, args.file)
+    content = get_post_content(use_clipboard, args.file, args.quote)
 
     # Determine output directory
     output_dir = get_output_directory(args.output_dir)
