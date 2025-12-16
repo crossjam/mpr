@@ -5,8 +5,8 @@ author: "C. Ross Jam"
 status: published
 ---
 
-Eric J. Ma dives into [_Use coding agents to write Marimo
-notebooks_][1].
+Eric J. Ma dives into agents and notebooks with [_Use coding agents to
+write Marimo notebooks_][1].
 
 > In this blog post, I share how combining AI coding assistants with
 > Marimo notebooks can supercharge your Python development and data
