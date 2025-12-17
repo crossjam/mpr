@@ -36,9 +36,9 @@ investigation (probably liner notes on an Apple Music mix) but I
 
 Confidence was bolstered when artists I recognized appeared in the
 response: [DJ Marky][4], [Calibre][5], [London Elektricity][6], [High
-Contrast][7], etc. I also cross-checked with Claude, which also
-returned the Wikipedia link. Oddly, there were no follow-up questions,
-unlike ChatGPT. +1 to OpenAI. 
+Contrast][7], etc. I additionally cross-checked with Claude, which
+also returned the Wikipedia link. Oddly, there were no follow-up
+questions, unlike ChatGPT. +1 to OpenAI.
 
 This all worked out well: I learned more about a genre of music that I
 really love. I had no idea that this style has been around for over 25
