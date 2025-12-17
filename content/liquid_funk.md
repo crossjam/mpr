@@ -15,10 +15,10 @@ Quoting from Wikipedia on [Liquid funk][1]
 > nightclub and rave audiences. Music genres such as jazz, soul and
 > sometimes blues have a pivotal influence on liquid funk. 
 
-Previously I had [mentioned my personal name for this style of
-music][2] as "Soulful DnB". I can’t remember exactly what triggered a
-deeper investigation, probably liner notes on an Apple Music mix, but
-I [poked ChatGPT][3] for some investigation:
+Previously, I had [personally referred to this style of music][2] as
+"Soulful DnB". I can’t remember exactly what triggered a deeper
+investigation (probably liner notes on an Apple Music mix) but I
+[poked ChatGPT][3] to investigate:
 
 >> Is “liquid dnb” a well recognized term? Check your work, provide
 >> citations and an explanation if true 
@@ -34,15 +34,15 @@ I [poked ChatGPT][3] for some investigation:
 >   like neurofunk or techstep by focusing on musicality and emotion.
 >   ￼ 
 
-Confidence was provided when artists I recognized were in the
+Confidence was bolstered when artists I recognized appeared in the
 response: [DJ Marky][4], [Calibre][5], [London Elektricity][6], [High
-Contrast][7], etc. I also cross checked with Claude, which got the
-link to Wikipedia as well. Oddly there were no follow up questions
-like ChatGPT. +1 to OpenAI.
+Contrast][7], etc. I also cross-checked with Claude, which also
+returned the Wikipedia link. Oddly, there were no follow-up questions,
+unlike ChatGPT. +1 to OpenAI. 
 
-But this all worked out well as I learned more about a genre of music
-that really love. I had no idea that this style has been around for
-over 25 years! Bonus, a few more artists to look into.
+This all worked out well: I learned more about a genre of music that I
+really love. I had no idea that this style has been around for over 25
+years! Bonus: a few more artists to look into. 
 
 [1]: https://en.wikipedia.org/wiki/Liquid_funk
 [2]: {filename}/fabriclive_presents_pola_and_bryson.md
@@ -51,3 +51,5 @@ over 25 years! Bonus, a few more artists to look into.
 [5]: https://en.wikipedia.org/wiki/Calibre_(musician)
 [6]: https://en.wikipedia.org/wiki/London_Elektricity
 [7]: https://en.wikipedia.org/wiki/High_Contrast
+
+
