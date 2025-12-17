@@ -2,6 +2,7 @@
 title: "TIL: Liquid Funk"
 date: 2025-12-16
 author: "C. Ross Jam"
+status: published
 ---
 
 Quoting from Wikipedia on [Liquid funk][1]
