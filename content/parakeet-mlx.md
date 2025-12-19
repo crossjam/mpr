@@ -5,7 +5,7 @@ author: "C. Ross Jam"
 status: published
 ---
 
-Link parkin: [parakeet-mlx][1]
+Link parkin’: [parakeet-mlx][1]
 
 > Parakeet MLX
 >
@@ -20,7 +20,7 @@ Regarding the models, here’s info from [a June NVIDIA blog post][3]:
 > leaderboard, alongside four other top-ranking NVIDIA Parakeet
 > models. NVIDIA NeMo Canary models have also made their mark on the
 > Hugging Face ASR leaderboard. 
-
+> 
 > This post explores how these and other cutting-edge NVIDIA speech AI
 > models are setting new benchmarks for accuracy, speed, and
 > versatility in automatic speech recognition (ASR). We will review
@@ -28,7 +28,7 @@ Regarding the models, here’s info from [a June NVIDIA blog post][3]:
 > options so you can leverage these state-of-the-art models for
 > real-world applications. 
 
-Another possible transcription backend for [retrocast][2]
+Another possible transcription backend for [retrocast][2].
 
 [1]: https://github.com/senstella/parakeet-mlx
 [2]: https://github.com/crossjam/retrocast
