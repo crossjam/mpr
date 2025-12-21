@@ -24,30 +24,28 @@ addict.
 > next literary love. Plus, a portion of the bundle proceeds go to
 > charity! 
 
-Over the last few years I’ve plunked down for 80+ book bundles. I tend
-towards tech book and comics bundles, with dashes of science fiction
-and self-help. I’ve also independently bought a number of ebooks
-directly from [Manning][2], [Pragmatic Programmers][3], [No
-Starch][4], [eBooks.com][5], and self-publishers. Each bundle will
-typically have 10 or more books included.
+Over the last few years, I’ve plunked down for 80+ book bundles. I tend
+toward tech book and comics bundles, with dashes of science fiction
+and self-help. I’ve also purchased a number of eBooks directly from
+[Manning][2], [Pragmatic Programmers][3], [No Starch][4], [eBooks.com][5], and self-publishers. Each bundle typically includes 10 or more books.
 
-Bottom line, I have a metric crap-ton of EPubs, PDFs, CBZs, and mobis
+Bottom line, I have a metric crap-ton of EPUBs, PDFs, CBZs, and MOBIs
 to deal with. Half the time when I’m looking at a new Humble Book
 Bundle, I’m not sure if I already have the books on offer. 
 
-Let’s see how far we can get using agentic coding to build file system
-crawler, indexer, and chat UX for dealing with my personal library.
+Let’s see how far we can get using agentic coding to build a file-system
+crawler, indexer, and a chat UX for managing my personal library.
 
 
 ### Peyote
 
 Over fifteen years ago I made [some headway][7] on [a project named
-peyote][6]. The idea was to use Python, PyGame, and OpenGL to create
-generative art on the order of processing. I managed to get one piece
+peyote][6]. The idea was to use Python, [Pygame][10], and [PyOpenGL][11] to create
+generative art on the order of Processing. I managed to get one piece
 completed and then ran out of steam.
 
 Below is a portion of a plan that I asked Claude Code to create for a
-screensaver, `hextrail` that recently caught my eye.
+screensaver, `hextrail`, that recently caught my eye.
 
 > ## HexTrail Screensaver - Code Summary and Python Port Plan
 > 
@@ -90,14 +88,14 @@ screensaver, `hextrail` that recently caught my eye.
 That’s just an initial assessment from the [XScreensaver][9] C source
 code for `hextrail`. I’m feeling confident I can work with Claude and
 Codex to make a passable start on a featureful, modernized peyote app
-with `hextrail` and my old sketch `substrate` as starters.
+with `hextrail` and my old sketch, `substrate`, as starters.
 
 ### Bottom Line
 
 As many others diving into agentic coding point out, the process might
-not necessarily be more productive for straight code creation. But
-these tools lower the barrier for kicking off new projects and getting
-them above threshold. 
+not be more productive for straightforward code creation. But these
+tools lower the barrier for kicking off new projects and getting them
+above the threshold. 
 
 Forza!
 
@@ -110,3 +108,8 @@ Forza!
 [7]: {content}/mission_accomplished.md
 [8]: https://processing.org/
 [9]: https://www.jwz.org/xscreensaver/
+[10]: https://pyga.me/
+[11]: https://mcfletch.github.io/pyopengl/
+
+
+
