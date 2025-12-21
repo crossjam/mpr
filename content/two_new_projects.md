@@ -44,8 +44,8 @@ peyote][6]. The idea was to use Python, [Pygame][10], and [PyOpenGL][11] to crea
 generative art on the order of Processing. I managed to get one piece
 completed and then ran out of steam.
 
-Below is a portion of a plan that I asked Claude Code to create for a
-screensaver, `hextrail`, that recently caught my eye.
+Below is a portion of [a plan that I asked Claude Code to create][12]
+for a screensaver, `hextrail`, that recently caught my eye.
 
 > ## HexTrail Screensaver - Code Summary and Python Port Plan
 > 
@@ -105,11 +105,12 @@ Forza!
 [4]: https://nostarch.com/
 [5]: https://www.ebooks.com/
 [6]: https://github.com/crossjam/peyote
-[7]: {content}/mission_accomplished.md
+[7]: {filename}/mission-accomplished.md
 [8]: https://processing.org/
 [9]: https://www.jwz.org/xscreensaver/
 [10]: https://pyga.me/
 [11]: https://mcfletch.github.io/pyopengl/
+[12]: https://github.com/crossjam/peyote/blob/master/plans/hextrail-port.md
 
 
 
