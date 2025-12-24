@@ -2,11 +2,12 @@
 title: "Python Supply Chain Security"
 date: 2025-12-24 15:15
 author: "C. Ross Jam"
+status: published
 ---
 
-[Michael Kennedy][2] does the Python community a service and explains how
-to [integrate pip-audit into package development][1] to help secure the
-dependency supply chain:
+[Michael Kennedy][2] does the Python community a service and explains
+how to [integrate pip-audit into package development][1] to help
+secure the dependency supply chain: 
 
 > pip-audit is great because you can just run it on the command
 > line. It will check against PyPA’s official list of vulnerabilities
@@ -18,18 +19,18 @@ dependency supply chain:
 > check happen on developers’ machines. It’s a simple two-step process
 > to do so ...
 
-Here’s the precis on [pip-audit][3]
+Here’s the précis on [pip-audit][3]:
 
 > pip-audit is a tool for scanning Python environments for packages
 > with known vulnerabilities. It uses the Python Packaging Advisory
 > Database (https://github.com/pypa/advisory-database) via the PyPI
 > JSON API as a source of vulnerability reports. 
 
-Kennedy illustrates basic installation and usage of pip-audit from the
-command line. He also incorporates it into a `pytest`
+Kennedy illustrates the basic installation and usage of pip-audit from
+the command line. He also incorporates it into a `pytest`
 test. Personally, I think I’d rather add it as a Poe The Poet task and
 then roll it into a `qa` meta task. That approach already fits into my
-GitHub action workflow.
+GitHub Actions workflow. 
 
 Also, TIL about `uv`’s [dependency cooldowns][4]:
 
@@ -48,11 +49,13 @@ Also, TIL about `uv`’s [dependency cooldowns][4]:
 > week, 30 days) or an ISO 8601 duration (e.g., PT24H, P7D, P30D) can
 > be used. 
 
-Even better, this can be specified within a `tool.uv` section of
+Even better, this can be specified in the `tool.uv` section of a
 `pyproject.toml` file.
 
 [1]: https://mkennedy.codes/posts/python-supply-chain-security-made-easy/
 [2]: https://mkennedy.codes/
 [3]: https://github.com/pypa/pip-audit
 [4]: https://docs.astral.sh/uv/concepts/resolution/#dependency-cooldowns
+
+
 
