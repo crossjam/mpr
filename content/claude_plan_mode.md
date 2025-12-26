@@ -2,6 +2,7 @@
 title: "Claude Plan Mode"
 date: 2025-12-26 16:30
 author: "C. Ross Jam"
+status: published
 ---
 
 Armin Ronacher [dug into Claude Code’s plan mode][1] as an interested
@@ -20,21 +21,21 @@ bystander.
 
 This one took me a few days to get around to, but it turned out to be
 an interesting **reflection on how I work** with Claude. In essence,
-like Ronacher I’ve unknowningly recreated many key aspects of plan
+like Ronacher, I’ve unknowingly recreated many key aspects of plan
 mode!
 
-Over the last month, I start every agentic coding session with a
-prompt on the order of "generate a plan, in markdown format, include a
-timestamp, with a task check list, and write it into a plans folder."
-Then I review the plan, typically only making minor changes. 
-I commit these plans to the working repository.
+Over the last month, I’ve started most agentic coding sessions with a
+prompt along the lines of: "generate a plan, in markdown format, include a
+timestamp, with a task checklist, and write it into a plans folder."
+Then I review the plan, typically only making minor changes. I commit
+these plans to the working repository.
 
-With a plan in place I’ll kick the agent in action. If the plan is
-fairly complex, with multiple phases, and might hit usage limits, I
-might ask to only complete a couple of the first phases, then pause to
-let me review.
+With a plan in place, I’ll kick the agent into implementation
+action. If the plan is fairly complex, with multiple phases, and might
+hit usage limits, I often ask the agent to complete only the first
+couple of phases, then pause so I can review.
 
-Here’s more from Armin
+Here’s more from Armin:
 
 > Plan mode as it exists in Claude has this sort of weirdness in my
 > mind where it doesn’t come quite natural to me. It might come
@@ -64,10 +65,15 @@ Here’s more from Armin
 
 Emphasis mine on that last line.
 
-The other nice thing about making plans explicit documentation is that 
+The other nice thing about making plans into explicit documentation is that:
 
-1. Work can be handed off to another agentic system. 
+1. Work can be handed off to another agentic system.
 2. You can try the same plan with multiple different agents.
-2. Resets and restarts are easy.
+3. Resets and restarts are easy.
+
+YMMV.
 
 [1]: https://lucumr.pocoo.org/2025/12/17/what-is-plan-mode/
+
+
+
