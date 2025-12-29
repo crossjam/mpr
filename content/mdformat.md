@@ -46,4 +46,4 @@ _P. S. This post was copyedited with my own copyediting tool._
 [4]: https://github.com/crossjam/copyedit_ai/pull/56
 [5]: https://github.com/features/copilot
 [6]: https://github.com/crossjam/copyedit_ai
-[7]: %7Bfilename%7D/copyedit_ai.md
+[7]: {filename}/copyedit_ai.md
