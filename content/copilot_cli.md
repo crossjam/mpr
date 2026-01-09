@@ -1,7 +1,8 @@
 ---
 title: "GitHub Copilot CLI"
-date: 2026-01-31
+date: 2026-01-08 22:30
 author: "C. Ross Jam"
+status: published
 ---
 
 Link parkin’: [GitHub Copilot CLI][1].
