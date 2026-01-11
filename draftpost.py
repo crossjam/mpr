@@ -116,8 +116,8 @@ def format_as_blockquote(text: str) -> str:
     Returns:
         Blockquoted text
     """
-    lines = text.split('\n')
-    return '\n'.join(f'> {line}' if line else '>' for line in lines)
+    lines = text.split("\n")
+    return "\n".join(f"> {line}" if line else ">" for line in lines)
 
 
 def get_post_content(
@@ -426,7 +426,7 @@ def main():
     console.print("\n[bold]Post Metadata[/bold]")
 
     title = Prompt.ask("[cyan]Title[/cyan]")
-    author = Prompt.ask("[cyan]Author[/cyan]", default="crossjam")
+    author = Prompt.ask("[cyan]Author[/cyan]", default="C. Ross Jam")
 
     # Optional: custom slug
     default_slug = slugify(title)
@@ -487,7 +487,7 @@ def main():
 
         console.print(f"\n[bold green]✓[/bold green] Post created successfully!")
         console.print(f"[cyan]Location:[/cyan] {filepath}")
-        
+
         # Open in editor if --edit flag is set
         if args.edit:
             console.print(f"\n[cyan]Opening in editor...[/cyan]")
@@ -496,8 +496,10 @@ def main():
                 console.print(f"[green]✓[/green] Editor session completed")
             except Exception as e:
                 console.print(f"[yellow]Could not open editor: {e}[/yellow]")
-                console.print(f"[dim]Tip: Set the EDITOR environment variable or check file permissions[/dim]")
-        
+                console.print(
+                    f"[dim]Tip: Set the EDITOR environment variable or check file permissions[/dim]"
+                )
+
         console.print(f"\n[dim]Next steps:[/dim]")
         if not args.edit:
             console.print(f"  1. Review and edit: [cyan]{filepath}[/cyan]")
