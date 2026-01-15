@@ -1,6 +1,6 @@
 ---
 title: Confirmation Bias
-date: 2026-01-31 22:36
+date: 2026-01-14 23:00
 author: C. Ross Jam
 status: published
 ---
