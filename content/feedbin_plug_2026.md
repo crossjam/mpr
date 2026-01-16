@@ -20,6 +20,7 @@ That pretty much sums it up.
 Of course there are all sorts of other goodies, like a well-designed
 browser UI, sync integration with other desktop and mobile readers,
 and [a nice API][feedbin-api]. Also available at a great price point,
+$60 per year.
 
 
 I'm confident that over the past five years I've used feedbin **Every. F’in.
