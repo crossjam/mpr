@@ -1,7 +1,8 @@
 ---
 title: apple-music-python, MusicKit Authentication, and Music Assistant
-date: 2026-01-17 15:50
+date: 2026-01-17 16:20
 author: C. Ross Jam
+status: published
 ---
 
 It was a bit of a circuitous route, but I seem to have discovered a means to
@@ -13,9 +14,9 @@ landed on the [apple-music-python] package and its
 an old Apple Developer account and get the credentials for searching with the
 package.
 
-Reading one of the [repo's issues][repo-issue] surfaced Apple’s \[_User
-Authentication for MusicKit_\][music-kit-auth] documentation and \[Web
-flow\][music-kit-web]. I started pondering if an agentic coder could do the
+Reading one of the [repo's issues][repo-issue] surfaced Apple’s [_User
+Authentication for MusicKit_][music-kit-auth] documentation and [Web
+flow][music-kit-web]. I started pondering if an agentic coder could do the
 heavy lifting involved in porting this to Python. But more research was in
 order. Surely there must be another Python package that dealt with this?
 
