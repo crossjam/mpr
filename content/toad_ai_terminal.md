@@ -2,6 +2,7 @@
 title: Toad, AI In The Terminal
 date: 2026-01-18 22:15
 author: C. Ross Jam
+status: published
 ---
 
 Out of [the ashes of Textualize][ashes], Will McGugan has created [toad]: "A
