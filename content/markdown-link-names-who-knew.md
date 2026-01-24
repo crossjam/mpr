@@ -21,7 +21,7 @@ And even better, a convenient shortcut:
 > square brackets
 
 The Markdown processor I use goes one step further. You can leave out the
-brackets as well.
+empty square brackets as well.
 
 Boy, does that improve readability!
 
