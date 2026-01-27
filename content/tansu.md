@@ -1,6 +1,7 @@
 ---
 title: Tansu
 date: 2026-01-25 23:15
+modified: 2026-01-26 10:45
 author: C. Ross Jam
 status: published
 ---
@@ -22,7 +23,8 @@ years, but my ears always perk up when I hear of a new entrant into the
  messaging space.
 
 [Redpanda] has been around for a while as a low operations version of Kafka.
-[AutoMQ] has existed for a bit as Kafka on S3.
+[AutoMQ] has existed for a bit as Kafka on S3. _Update: I may have
+been thinking of [WarpStream] as the originator of Kafka on S3_.
 
 Tansu, according to its [docs][tansu-docs], would appear to be a bit of a
 generalization in both directions:
@@ -50,3 +52,4 @@ Something to explore.
 [tansu]: https://tansu.io/
 [tansu-docs]: https://docs.tansu.io/
 [tansu-registry]: https://docs.tansu.io/docs/schema-registry
+[warpstream]: https://www.warpstream.com/
