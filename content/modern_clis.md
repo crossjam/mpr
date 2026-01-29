@@ -1,6 +1,7 @@
 ---
 title: Modern CLIs
 date: 2026-01-29 17:00
+modified: 2026-01-29 17:05
 author: C. Ross Jam
 status: published
 ---
