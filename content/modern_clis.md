@@ -53,9 +53,10 @@ I was alerted to the book via an excellent
 > rich text.
 
 The interview was a rich conversation with real technical depth. No fluff. I
-probably don’t listen to SE-Radio episodes often enough, but this one was a
+probably don’t listen to [SE Radio][se-radio] episodes often enough, but this one was a
 sterling example of the podcast’s quality. Also, the content has a Creative
 Commons license attached, making it handy for testing and demos.
 
 [modern-clis]: https://moderncli.dev
 [podcast-episode]: https://se-radio.net/2026/01/se-radio-702-derick-schaefer-on-modern-clis/
+[se-radio]: https://se-radio.net
