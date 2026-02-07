@@ -1,6 +1,6 @@
 ---
 title: McKinney on Adversarial Review
-date: 2026-02-09 22:15
+date: 2026-02-06 22:15
 author: C. Ross Jam
 status: published
 ---
