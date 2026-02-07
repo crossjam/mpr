@@ -2,6 +2,7 @@
 title: McKinney on Adversarial Review
 date: 2026-02-09 22:15
 author: C. Ross Jam
+status: published
 ---
 
 Something I haven’t been doing well on my agentic coding projects is
@@ -52,6 +53,6 @@ Go/Rust/TypeScript. It means more code overall: Python created by
 humans, augmented by Go/Rust/TypeScript from agents.
 
 [podcast-episode]: https://hugobowne.substack.com/p/python-is-dead-long-live-python-with
-[typed-languages]: %7Bfilename%7D/nodding-my-head.md
+[typed-languages]: {filename}/nodding-my-head.md
 [vanishing-gradients-podcast]: https://hugobowne.substack.com/podcast
 [wes-mckinney]: https://wesmckinney.com
