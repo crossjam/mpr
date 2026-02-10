@@ -2,6 +2,7 @@
 title: 'Diggin’ On: Technimatic'
 date: 2026-02-09 22:30
 author: C. Ross Jam
+status: published
 ---
 
 If you listen to a lot of DJ mixes within a certain genre, certain tracks,
