@@ -2,6 +2,7 @@
 title: 'Paco Nathan: Strwythura'
 date: 2026-02-08 13:00
 author: C. Ross Jam
+status: published
 ---
 
 I first encountered [Paco Nathan][paco-nathan] way back in the Big Data days,
