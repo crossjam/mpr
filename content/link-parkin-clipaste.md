@@ -29,7 +29,7 @@ Link parkin’: [Clipaste]
 >
 > Your clipboard contains sensitive data. We treat it that way.
 
-I need to either dive deeper into 1Password (which has clipboard capabilities
+I need to either dive deeper into [LaunchBar] (which has clipboard capabilities
 and is [a Mac-assed App][mac-assed-app]) or investigate Clipaste.
 
 Two downers, though: First, while it’s clearly stated that the software is
@@ -39,3 +39,4 @@ barren. Second, a command-line app would make automation much easier.
 [clipaste]: https://www.ntwind.com/cross-platform/clipaste.html
 [clipaste-repo]: https://github.com/ntwind-apps/clipaste
 [mac-assed-app]: https://daringfireball.net/linked/2020/03/20/mac-assed-mac-apps
+[launchbar]: https://www.obdev.at/products/launchbar/index.html
