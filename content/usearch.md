@@ -30,4 +30,4 @@ I also got a useful reminder of [txtai] from the thread.
 [txtai]: https://neuml.github.io/txtai/
 [usearch]: https://unum-cloud.github.io/USearch/
 [usearch-bindings]: https://ashvardanian.com/posts/porting-cpp-library-to-ten-languages/
-[zvec-post]: %7Bfilename%7D/zvec.md
+[zvec-post]: {filename}/zvec.md
