@@ -1,6 +1,7 @@
 ---
 title: zo.computer and exe.dev
 date: 2026-02-13 21:15
+modified: 2026-02-14 19:39
 author: C. Ross Jam
 status: published
 ---
@@ -70,7 +71,7 @@ What’s [exe]?
 
 The [developers of exe.dev][exe-devs] include David Crawshaw, who’s gotten a bit
 of attention posting about programming [with LLMs][programming-with-llms] and
-[with-agents][programming-with-agents]. That includes some good thoughts in
+[with agents][programming-with-agents]. That includes some good thoughts in
 [_"Eight more months of agents"_][eight-months-of-agents]
 
 > ## Built-in agent sandboxes do not work
