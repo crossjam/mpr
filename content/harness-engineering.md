@@ -1,6 +1,7 @@
 ---
 title: Harness Engineering
 date: 2026-02-19 20:15
+modified: 2026-02-19 20:26
 author: C. Ross Jam
 status: published
 ---
@@ -80,5 +81,5 @@ source code version control.
 Hold on to your knickers! Prepare for turbulence.
 
 [fowler-harness-engineering]: https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html
-[hashimoto-ai-adoption]: %7Bfilename%7D/hashimoto-ai-journey.md
+[hashimoto-ai-adoption]: {filename}/hashimoto-ai-journey.md
 [openai-harness-engineering]: https://openai.com/index/harness-engineering/
