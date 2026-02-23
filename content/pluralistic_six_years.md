@@ -68,10 +68,10 @@ _Hint: If you’re into Pluralistic, Doctorow operates a [Discourse], not
 [Discord](https://discord.com), forum at [chinwag.pluralistic.net][chinwag].
 Fully [open source][discourse-github], ’natch. Low volume, high signal._
 
-[540-streak]: %7Bfilename%7D/540.md
+[540-streak]: {filename}/540.md
 [chinwag]: https://chinwag.pluralistic.net
 [copyedit]: https://github.com/crossjam/copyedit_ai
 [discourse]: https://www.discourse.org/
 [discourse-github]: https://github.com/discourse/discourse
-[pluralistic-discovery]: %7Bfilename%7D/doctorow_pluralist.md
+[pluralistic-discovery]: {filename}/doctorow_pluralist.md
 [pluralistic-six-years]: https://pluralistic.net/2026/02/19/now-we-are-six/
