@@ -7,15 +7,15 @@ status: published
 
 After having [digested][pi-coding-post] Mario Zechner’s
 [lessons][zechner-lessons] regarding the pi coding agent, along with
-[pondering][ronacher-on-pi] Armin Ronacher’s
-[dissection of OpenClaw and pi][pi-in-openclaw], I find the core ideas of agentic
-coding harnesses intriguing. They appeared together on a Syntax
-[podcast episode][syntax-episode] and were quite the hoot! The gist of the
-discussion was that pi is really simple, ridiculously effective, and highly
-dangerous! The danger comes from letting an agent (LLM+tools+loop) have full
-access to your file system with your permissions. The effectiveness emerges
-because pi starts with limited functionality but can easily modify itself while
-continuing to run.
+[pondering][ronacher-on-pi] Armin Ronacher’s [dissection of OpenClaw
+and pi][pi-in-openclaw], I find the core ideas of agentic coding
+harnesses intriguing. Mario and Armin appeared together on a Syntax
+[podcast episode][syntax-episode] and were quite the hoot! The gist of
+the discussion was that pi is really simple, ridiculously effective,
+and highly dangerous. The danger comes from letting an agent
+(LLM+tools+loop) have full access to your file system with your
+permissions. The effectiveness emerges because pi starts with limited
+functionality but can easily modify itself while continuing to run.
 
 Multiple recent webinars I’ve attended have similarly proclaimed: "You can build
 one of these harnesses in (much) less than 1,000 lines of code," with 1,000 being
