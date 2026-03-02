@@ -2,6 +2,7 @@
 title: Awesome libghostty
 date: 2026-03-01 20:30
 author: C. Ross Jam
+status: published
 ---
 
 For some reason the [Ghostty] terminal emulator popped to
