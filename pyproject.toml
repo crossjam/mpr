@@ -7,7 +7,7 @@ name = "mpr"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "markdown>=3.7",
     "pagefind[bin]>=1.3.0",
@@ -22,8 +22,14 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-pyembed = { git = "https://github.com/jaywink/pyembed.git" }
+pyembed = { path = "vendor/pyembed" }
 pyembed-markdown = { git = "https://github.com/crossjam/pyembed-markdown.git" }
 
 [tool.uv]
 package = false
+
+[dependency-groups]
+dev = [
+    "pip-audit>=2.7.3",
+    "poethepoet>=0.32.0",
+]

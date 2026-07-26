@@ -1,0 +1,23 @@
+sudo: false
+language: python
+python:
+  - '2.7'
+  - '3.3'
+  - '3.4'
+install:
+  - pip install coverage coveralls
+script:
+  - coverage run --source=pyembed setup.py test
+  - coveralls
+  - coverage report --fail-under=100
+deploy:
+  provider: pypi
+  distributions: "sdist bdist_wheel"
+  user:
+    secure: JTZF5j+XNPJpsL2tnzizYLwalu1T27RrfoKQe8ppVseQ166eYxyBWIhMDtXVAmBFL4YaUwbqb6//KrfwVK5NrnWSAQvuxJxcWLqbhkEQQlbfljBGmQESKPOq/KUJAjWcYIPOmTjirpPenTQU59JGaajKfCrSHusU3czhbUfQPM4=
+  password:
+    secure: XHL8+wO1c62ukRltMR2V1Alo3G2WCO4Bhfol7Y2+WbzH+EVWU71XCRs7zruyr3yEjCerzfkfoMcQYlRW7IyaazXUaD6UNIDhaNhFp6DPd6ornqXUB2clMD4lOUsECD19m9sF2u3+aapCw4JzN/hyBQsNQ8if3MFpo6AE/IHNLhg=
+  on:
+    python: 2.7
+    tags: true
+    repo: pyembed/pyembed
