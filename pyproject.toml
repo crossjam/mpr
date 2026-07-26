@@ -33,3 +33,227 @@ dev = [
     "pip-audit>=2.7.3",
     "poethepoet>=0.32.0",
 ]
+
+[tool.poe.env]
+INPUT_DIR = "content"
+OUTPUT_DIR = "output"
+DEV_OUTPUT_DIR = "devoutput"
+CONF_FILE = "pelicanconf.py"
+PUBLISH_CONF = "publishconf.py"
+SSH_HOST = "caddy.crossjam.net"
+SSH_PORT = "22"
+SSH_USER = "crossjam"
+SSH_TARGET_DIR = "/var/www/html/wp/mpr"
+
+[tool.poe.tasks.html]
+help = "(Re)generate the web site"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$CONF_FILE" $OPTS
+"""
+  [[tool.poe.tasks.html.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.html.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+
+[tool.poe.tasks.clean]
+help = "Remove the generated output directory"
+shell = 'rm -rf "$OUTPUT_DIR"'
+
+[tool.poe.tasks.regenerate]
+help = "Regenerate files upon modification"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+pelican -r "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$CONF_FILE" $OPTS
+"""
+  [[tool.poe.tasks.regenerate.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.regenerate.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+
+[tool.poe.tasks.serve]
+help = "Serve site at http://localhost:8000 (use --port to override)"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+[ "$PORT" != "0" ] && OPTS="$OPTS -p $PORT"
+pelican -l "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$CONF_FILE" $OPTS
+"""
+  [[tool.poe.tasks.serve.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.serve.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.serve.args]]
+  name = "PORT"
+  options = ["--port", "-p"]
+  default = "0"
+  help = "Port to serve on"
+
+[tool.poe.tasks.serve-global]
+help = "Serve (as root) to SERVER:80 (use --server to override, default 0.0.0.0)"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+[ "$PORT" != "0" ] && OPTS="$OPTS -p $PORT"
+pelican -l "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$CONF_FILE" $OPTS -b "$SERVER"
+"""
+  [[tool.poe.tasks.serve-global.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.serve-global.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.serve-global.args]]
+  name = "PORT"
+  options = ["--port", "-p"]
+  default = "0"
+  help = "Port to serve on"
+  [[tool.poe.tasks.serve-global.args]]
+  name = "SERVER"
+  options = ["--server", "-b"]
+  default = "0.0.0.0"
+  help = "Address to bind to"
+
+[tool.poe.tasks.devserver]
+help = "Serve and regenerate together (use --port to override)"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+[ "$PORT" != "0" ] && OPTS="$OPTS -p $PORT"
+pelican -lr "$INPUT_DIR" -o "$DEV_OUTPUT_DIR" -s "$CONF_FILE" $OPTS
+"""
+  [[tool.poe.tasks.devserver.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.devserver.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.devserver.args]]
+  name = "PORT"
+  options = ["--port", "-p"]
+  default = "0"
+  help = "Port to serve on"
+
+[tool.poe.tasks.devserver-global]
+help = "Serve and regenerate together (as root) to SERVER:80"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+[ "$PORT" != "0" ] && OPTS="$OPTS -p $PORT"
+pelican -lr "$INPUT_DIR" -o "$DEV_OUTPUT_DIR" -s "$CONF_FILE" $OPTS -b "$SERVER"
+"""
+  [[tool.poe.tasks.devserver-global.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.devserver-global.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.devserver-global.args]]
+  name = "PORT"
+  options = ["--port", "-p"]
+  default = "0"
+  help = "Port to serve on"
+  [[tool.poe.tasks.devserver-global.args]]
+  name = "SERVER"
+  options = ["--server", "-b"]
+  default = "0.0.0.0"
+  help = "Address to bind to"
+
+[tool.poe.tasks.publish]
+help = "Generate using production settings and build the search index"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$PUBLISH_CONF" $OPTS
+python -m pagefind --site "$OUTPUT_DIR"
+"""
+  [[tool.poe.tasks.publish.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.publish.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+
+[tool.poe.tasks.ssh_upload]
+help = "Generate using production settings and upload the web site via SSH"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$PUBLISH_CONF" $OPTS
+python -m pagefind --site "$OUTPUT_DIR"
+scp -P "$SSH_PORT" -r "$OUTPUT_DIR"/* "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
+"""
+  [[tool.poe.tasks.ssh_upload.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.ssh_upload.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+
+[tool.poe.tasks.rsync_upload]
+help = "Generate using production settings and upload the web site via rsync+ssh"
+shell = """
+set -e
+OPTS=""
+[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
+[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
+pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$PUBLISH_CONF" $OPTS
+python -m pagefind --site "$OUTPUT_DIR"
+if [ -n "$SSH_KEY" ]; then
+  rsync -e "ssh -i $SSH_KEY -p $SSH_PORT" -P -rvzc --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
+else
+  rsync -e "ssh -p $SSH_PORT" -P -rvzc --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
+fi
+"""
+  [[tool.poe.tasks.rsync_upload.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.rsync_upload.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.rsync_upload.args]]
+  name = "SSH_KEY"
+  default = ""
+  help = "Path to an SSH private key to use for rsync"
