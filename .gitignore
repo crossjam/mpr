@@ -199,3 +199,4 @@ dmypy.json
 *.bak
 
 .claude/settings.local.json
+.kata.local.toml
