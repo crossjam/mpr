@@ -181,7 +181,7 @@ class StaticDiscoveryEndpoint(object):
 
     def __create_matcher(self, scheme_url):
         scheme, netloc, path, query_string, fragment = urlsplit(scheme_url)
-        netloc_regex = re.compile(netloc.replace('*.', '.*\.?'))
+        netloc_regex = re.compile(netloc.replace('*.', r'.*\.?'))
         path_regex = re.compile(path.replace('*', '.*'))
 
         # Never match  against non-http schemes like "spotify:"
