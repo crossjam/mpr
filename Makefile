@@ -1,107 +1,46 @@
-PY?=python3
-# PELICAN?=pelican
-PELICAN?=uv run pelican
-PELICANOPTS?=
-
-BASEDIR=$(CURDIR)
-INPUTDIR=$(BASEDIR)/content
-OUTPUTDIR=$(BASEDIR)/output
-DEVOUTPUTDIR=$(BASEDIR)/devoutput
-CONFFILE=$(BASEDIR)/pelicanconf.py
-PUBLISHCONF=$(BASEDIR)/publishconf.py
-
-SSH_HOST=caddy.crossjam.net
-SSH_PORT=22
-SSH_USER=crossjam
-SSH_TARGET_DIR=/var/www/html/wp/mpr
-
+POE=uv run poe
 
 DEBUG ?= 0
-ifeq ($(DEBUG), 1)
-	PELICANOPTS += -D
-endif
-
 RELATIVE ?= 0
-ifeq ($(RELATIVE), 1)
-	PELICANOPTS += --relative-urls
-endif
-
-SERVER ?= "0.0.0.0"
-
 PORT ?= 0
-ifneq ($(PORT), 0)
-	PELICANOPTS += -p $(PORT)
-endif
+SERVER ?= 0.0.0.0
+SSH_KEY ?=
 
+# This Makefile is a thin compatibility wrapper. The real task
+# definitions live under [tool.poe.tasks] in pyproject.toml -- run
+# `uv run poe` (or just `poe`, if installed) to list them directly.
 
 help:
-	@echo 'Makefile for a pelican Web site                                           '
-	@echo '                                                                          '
-	@echo 'Usage:                                                                    '
-	@echo '   make html                           (re)generate the web site          '
-	@echo '   make clean                          remove the generated files         '
-	@echo '   make regenerate                     regenerate files upon modification '
-	@echo '   make publish                        generate using production settings '
-	@echo '   make serve [PORT=8000]              serve site at http://localhost:8000'
-	@echo '   make serve-global [SERVER=0.0.0.0]  serve (as root) to $(SERVER):80    '
-	@echo '   make devserver [PORT=8000]          serve and regenerate together      '
-	@echo '   make ssh_upload                     upload the web site via SSH        '
-	@echo '   make rsync_upload                   upload the web site via rsync+ssh  '
-	@echo '                                                                          '
-	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html   '
-	@echo 'Set the RELATIVE variable to 1 to enable relative urls                    '
-	@echo '                                                                          '
+	$(POE)
 
 html:
-	$(PELICAN) "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+	$(POE) html --DEBUG $(DEBUG) --RELATIVE $(RELATIVE)
 
 clean:
-	[ ! -d "$(OUTPUTDIR)" ] || rm -rf "$(OUTPUTDIR)"
+	$(POE) clean
 
 regenerate:
-	$(PELICAN) -r "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
+	$(POE) regenerate --DEBUG $(DEBUG) --RELATIVE $(RELATIVE)
 
 serve:
-ifdef PORT
-	$(PELICAN) -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -p $(PORT)
-else
-	$(PELICAN) -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
-endif
+	$(POE) serve --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --port $(PORT)
 
 serve-global:
-ifdef PORT
-	$(PELICAN) -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -p $(PORT) -b $(SERVER)
-else
-	$(PELICAN) -l "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -b $(SERVER)
-endif
+	$(POE) serve-global --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --port $(PORT) --server $(SERVER)
 
 devserver:
-ifdef PORT
-	$(PELICAN) -lr "$(INPUTDIR)" -o "$(DEVOUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS) -p $(PORT)
-else
-	$(PELICAN) -lr "$(INPUTDIR)" -o "$(DEVOUTPUTDIR)" -s "$(CONFFILE)" $(PELICANOPTS)
-endif
+	$(POE) devserver --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --port $(PORT)
 
 devserver-global:
-ifdef PORT
-	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -p $(PORT) -b $(SERVER)
-else
-	$(PELICAN) -lr $(INPUTDIR) -o $(DEVOUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS) -b $(SERVER)
-endif
+	$(POE) devserver-global --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --port $(PORT) --server $(SERVER)
 
 publish:
-	$(PELICAN) "$(INPUTDIR)" -o "$(OUTPUTDIR)" -s "$(PUBLISHCONF)" $(PELICANOPTS)
-	uv run python -m pagefind --site "$(OUTPUTDIR)"
+	$(POE) publish --DEBUG $(DEBUG) --RELATIVE $(RELATIVE)
 
-ssh_upload: publish
-	scp -P $(SSH_PORT) -r "$(OUTPUTDIR)"/* "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
+ssh_upload:
+	$(POE) ssh_upload --DEBUG $(DEBUG) --RELATIVE $(RELATIVE)
 
-rsync_upload: publish
-ifdef SSH_KEY
-	rsync -e "ssh -i $(SSH_KEY) -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete "$(OUTPUTDIR)"/ "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
-else
-	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --cvs-exclude --delete "$(OUTPUTDIR)"/ "$(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)"
-endif
+rsync_upload:
+	$(POE) rsync_upload --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --SSH_KEY "$(SSH_KEY)"
 
-
-.PHONY: html help clean regenerate serve serve-global devserver publish ssh_upload rsync_upload
+.PHONY: help html clean regenerate serve serve-global devserver devserver-global publish ssh_upload rsync_upload
