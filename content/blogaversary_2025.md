@@ -1,5 +1,5 @@
 Title: Blogaversary
-Data: 2025-08-11
+Date: 2025-08-11
 Author: C. Ross Jam
 Status: published
 
