@@ -8,10 +8,13 @@
 {% block content %}
 <article data-pagefind-body>
   <div class="article_title">
-    <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+    <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a> {% include "includes/draft_indicator.html" %}</h1>
   </div>
   <div class="article_meta">
     <p>Posted on: <time datetime="{{ article.date.isoformat() }}" data-pagefind-meta="date" data-pagefind-sort="date[datetime]">{{ article.locale_date }}</time></p>
+    {% if article.modified and article.modified != article.date %}
+    <p>Last updated: {{ article.locale_modified }}</p>
+    {% endif %}
   </div>
   {% if article.readtime %}
   <div class="article_readtime">

@@ -123,6 +123,12 @@ main article div.article_meta, div.article_readtime {
   font-size: .7rem;
   color: #999999;
 }
+main article em.draft-indicator {
+  font-size: .6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ff0000;
+}
 #search-input {
   box-sizing: border-box;
   width: 100%;

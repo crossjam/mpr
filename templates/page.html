@@ -10,7 +10,10 @@
     {{ page.content }}
   </div>
   <div class="article_meta">
-    <p>Updated on: <time datetime="{{ page.date.isoformat() }}" data-pagefind-meta="date" data-pagefind-sort="date[datetime]">{{ page.locale_date }}</time></p>
+    <p>Posted on: <time datetime="{{ page.date.isoformat() }}" data-pagefind-meta="date" data-pagefind-sort="date[datetime]">{{ page.locale_date }}</time></p>
+    {% if page.modified and page.modified != page.date %}
+    <p>Last updated: {{ page.locale_modified }}</p>
+    {% endif %}
   </div>
 </article>
 {% endblock %}
