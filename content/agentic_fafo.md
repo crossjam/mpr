@@ -1,5 +1,6 @@
 Title: FAFO - Fork And Forge On
 Date: 2026-08-15
+Modified: 2026-8-16
 Author: C. Ross Jam
 Status: published
 
@@ -14,13 +15,13 @@ integrate my Apple Music online library.
 
 [Humble Book ETL][hbetl] I just hacked up today in a couple of hours
 using a combination of an [exe.dev] vm and exe’s [shelley]. As a
-[HumbleBundle Book Bundle][] book addict, I need a one stop shop for
-bundle metadata, especially so I can (coming soon) cross reference
-with what I’ve already purchased. [Pedro "Dopeldev"
-Gonzales][dopeldev] was the original creator and there’s a [public
-facing deployment][humble-book-etl]. I forked his
-[repo][dopeldev-humble-bundle], deployed it on my tailnet and
-customized the web frontend.
+[HumbleBundle Book Bundle][hb-book] offering [addict][humble-cli], I
+need a one stop shop for bundle metadata, especially so I can (_coming
+soon_) cross reference against an index of what I’ve already
+purchased. [Pedro "Dopeldev" Gonzales][dopeldev] was the original
+creator and there’s a [public facing deployment][humble-book-etl]. I
+forked his [repo][dopeldev-humble-bundle], deployed it on my tailnet
+and customized the web frontend.
 
 [scrobbledb] is the poster child for what I really wanted to
 say. [lastfm-to-sqlite] was a barebones tool to grab LastFM scrobbles
@@ -31,10 +32,10 @@ multiple different coding agents.
 
 In all three cases, I detached my forked repo from the GitHub network
 since I don’t expect to push my changes upstream. Although I wouldn’t
-call these repos abandoned here hasn’t been a lot of action on any of
-them recently. Also, I have a very particular and strong opinion on
-how I want cli tools to work. I expect most of my commits wouldn’t be
-welcome anyway.
+call those original repos abandoned there hasn’t been a lot of action
+on any of them recently. Also, I have a very particular and strong
+opinion on how I want cli tools to work. I expect most of my commits
+wouldn’t be welcome anyway.
 
 Gonzales’ project filled a gap which I was **just** this side of
 building something new from scratch involving a bunch of agentic
@@ -56,3 +57,6 @@ into the world._
 [dopeldev]: https://www.dopeldev.com
 [dopeldev-humble-bundle]: https://github.com/dopelDev/humbleBundle
 [lastfm-to-sqlite]: https://github.com/jacobian/lastfm-to-sqlite
+[hb-book]: https://www.humblebundle.com/books
+[humble-cli]: {filename}/humblebundle_cli.md
+

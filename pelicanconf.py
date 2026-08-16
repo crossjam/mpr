@@ -6,7 +6,7 @@ PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed
 # PLUGINS = ["summary", "period"]
 
 
-PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata", "archive_data"]
+PLUGINS = ["summary", "pelican_json_feed", "yaml_metadata", "archive_data", "explicit_modified"]
 
 MARKDOWN = {
     "extension_configs": {
