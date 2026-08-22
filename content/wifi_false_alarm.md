@@ -8,9 +8,9 @@ status: published
 [A few days ago][auspicious-day] I claimed that the WiFi crapped out
 on my ancient white MacBook which was running Ubuntu. Earlier today I
 rebooted an old 27" iMac that I’d converted to Linux Mint. It started
-exhibiting the same WiFi connections. Recently I’d bought and deployed
-a [UniFi Dream Router][unifi-dreamrouter], so a second problematic
-occurrence moved from random to evidence.
+exhibiting the same WiFi connection issue. Recently I’d bought and
+deployed a [UniFi Dream Router][unifi-dreamrouter], so a second
+problematic occurrence moved from random to evidence.
 
 With a bit of internet searching, the finger was pointed at the
 Dream Router’s [band steering][hostifi-bandsteering]. Hit the
