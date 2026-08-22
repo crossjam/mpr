@@ -2,6 +2,7 @@
 title: WiFi False Alarm
 date: 2026-08-22
 author: C. Ross Jam
+status: published
 ---
 
 [A few days ago][auspicious-day] I claimed that the WiFi crapped out
