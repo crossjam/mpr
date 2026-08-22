@@ -1,6 +1,7 @@
 ---
 title: "Situated Agents"
 date: 2026-08-18
+modified: 2026-08-19
 author: "C. Ross Jam"
 status: published
 ---
@@ -23,7 +24,7 @@ tools for agentic loops though.
 
 And not a bad piece by Breunig either. I consider myself a bit of a
 [harness connoisseur][cursor-cli-post] and there were quite a few he
-listed that I hadn’t head of. [Prime Agent][prime-agent] has
+listed that I hadn’t heard of. [Prime Agent][prime-agent] has
 some interesting core concepts ([RLM], [Continual
 Harness][continual-harness]) and seems small enough to fit in one’s
 head. Not quite sure what to make of [QM] but it could make sense for
