@@ -9,13 +9,15 @@ Way back in May, my birthday month, [an interesting
 announcement][independent_lastfm] came across the transom:
 
 > Today, Last.fm begins a new chapter as an independent
-> company. Ownership has changed, but the product you use every day has not.
+> company. Ownership has changed, but the product you use every day
+> has not. 
 
 > Your account, your listening history, and your data remain exactly
 > where they are. The team building Last.fm is the same. The service
 > continues as normal.
 
-And here’s a few bits of info on the folks that have taken over:
+And here’s a few bits of info on [the folks that have taken
+over][lastfm_owners]: 
 
 > Matt — okspud1
 > 
