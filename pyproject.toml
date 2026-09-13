@@ -27,6 +27,9 @@ pyembed-markdown = { git = "https://github.com/crossjam/pyembed-markdown.git" }
 
 [tool.uv]
 package = false
+override-dependencies = [
+    "pygments>=2.20.0",
+]
 
 [dependency-groups]
 dev = [
