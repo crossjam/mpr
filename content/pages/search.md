@@ -4,16 +4,11 @@ Author: C. Ross Jam
 Slug: mpr_search
 Status: published
 
-<link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
-<script src="/pagefind/pagefind-modular-ui.js"></script>
-<div id="search-input"></div>
+<input id="search-input" type="search" placeholder="Search this site">
 <div id="search-results"></div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        const instance = new PagefindModularUI.Instance();
-        instance.add(new PagefindModularUI.Input({
-            containerElement: "#search-input"
-        }));
+        const input = document.querySelector("#search-input");
         const results = document.querySelector("#search-results");
         let searchID = 0;
         let pagefind;
@@ -60,7 +55,8 @@ Status: published
             return item;
         };
 
-        instance.on("search", async (term) => {
+        input.addEventListener("input", async () => {
+            const term = input.value.trim();
             const currentSearchID = ++searchID;
             results.replaceChildren();
             if (!term) {
