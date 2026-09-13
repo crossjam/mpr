@@ -200,3 +200,5 @@ dmypy.json
 
 .claude/settings.local.json
 .kata.local.toml
+# roborev snapshots
+/.roborev/
