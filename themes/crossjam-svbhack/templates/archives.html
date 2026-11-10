@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}&ndash; Archives{% endblock %}
+
+{% block content %}
+<article>
+  <div class="article_text">
+    <h1>Archives</h1>
+    <ul class="archive-list">
+      {% for year in ARCHIVE_YEARS_LIST %}
+        <li>
+          <a href="{{ SITEURL }}/{{ year.url }}">{{ year.year }}</a>
+          <span class="count">({{ year.count }} post{{ 's' if year.count != 1 else '' }})</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>
+{% endblock %}

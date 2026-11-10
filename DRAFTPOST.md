@@ -2,11 +2,14 @@
 
 ## Overview
 
-The `draftpost.py` script automates the creation of new blog post drafts with proper YAML metadata headers. It provides an interactive interface for entering post metadata and content, with optional clipboard integration on macOS.
+The `draftpost.py` script starts a new blog post draft on its own branch. It creates `draft/<slug>` from `main`, writes `content/<slug>.md` with a YAML metadata header marked `status: draft`, commits it, and pushes the branch to the private `drafts` remote. It provides an interactive interface for entering post metadata and content, with optional clipboard integration on macOS.
+
+Drafts never land on `main` until they are published with `publishpost.py`; see `PUBLISHPOST.md` for that step and for the one-time remote and hook setup.
 
 ## Features
 
 - **Interactive Prompts**: User-friendly interface using the `rich` library
+- **One Branch per Draft**: Each draft lives on `draft/<slug>`, pushed only to the private `drafts` remote
 - **Command Line Options**: Support for `--help` and `--file` arguments
 - **Multiple Content Sources**:
   - Read from file with `--file <filename>`
@@ -20,7 +23,7 @@ The `draftpost.py` script automates the creation of new blog post drafts with pr
   - Automatically converts RTF to Markdown (requires pandoc)
 - **Automatic Slug Generation**: Creates URL-friendly slugs from post titles
 - **Default Values**: Sensible defaults for author and status fields
-- **File Safety**: Warns before overwriting existing files
+- **Safety Checks**: Refuses to run with uncommitted changes, when the branch already exists, or when the slug matches a published post
 
 ## Requirements
 
@@ -45,18 +48,8 @@ The script uses the uv script format with inline dependencies:
 **Options:**
 - `-h, --help`: Show help message and exit
 - `-f, --file FILE`: Read post content from FILE (use `-` for stdin)
-- `-o, --output-dir DIR`: Set output directory for the post
-
-**Environment Variables:**
-- `DRAFTPOST_OUTPUT_DIR`: Set default output directory for posts (overridden by `--output-dir`)
-
-### Output Directory Priority
-
-The output directory is determined in the following priority order:
-
-1. **Command-line argument** (`--output-dir`)
-2. **Environment variable** (`DRAFTPOST_OUTPUT_DIR`)
-3. **Default**: `content/mpr.drafts/posts`
+- `-q, --quote`: Format content as a markdown blockquote
+- `-e, --edit`: Open the post in `$EDITOR` before the first commit
 
 ### Basic Usage
 
@@ -71,15 +64,8 @@ The output directory is determined in the following priority order:
 cat my-content.txt | ./draftpost.py --file -
 echo "Post content" | ./draftpost.py --file -
 
-# Specify custom output directory
-./draftpost.py --output-dir /path/to/custom/drafts
-
-# Use environment variable for output directory
-export DRAFTPOST_OUTPUT_DIR=/path/to/custom/drafts
-./draftpost.py
-
-# Combine options
-./draftpost.py --file my-content.md --output-dir /path/to/drafts
+# Create the post and edit it before the first commit
+./draftpost.py --file my-content.md --edit
 
 # Show help
 ./draftpost.py --help
@@ -116,11 +102,18 @@ status: draft
 Your post content goes here...
 ```
 
-### Default Location
+### Where the Draft Goes
 
-Posts are created in: `content/mpr.drafts/posts/`
+The script runs these steps after you confirm the preview:
 
-This matches the default location used by the `pubmove.sh` script for publishing.
+1. Refreshes the draft-branch hook guards (`install-draft-hooks.sh`)
+2. Creates and switches to `draft/<slug>`, starting from `main`
+3. Writes `content/<slug>.md`
+4. Opens it in your editor, if `--edit` was given
+5. Commits it as `Start draft: <title>`
+6. Pushes the branch with `git push -u drafts draft/<slug>`, so a plain `git push` on the branch goes to the drafts remote
+
+If the push fails (offline, say), the commit stays local and the script prints the push command to run later.
 
 ### Clipboard Integration (macOS)
 
@@ -140,7 +133,7 @@ When running on macOS, the script can:
 ```
 ╭────────────────────────────────────────────────────╮
 │ Draft Post Creator                                 │
-│ Create a new blog post in the mpr.drafts submodule │
+│ Start a new blog post on its own draft branch      │
 ╰────────────────────────────────────────────────────╯
 
 Post Metadata
@@ -157,17 +150,20 @@ Preview
 │ Title: My Amazing Post                           │
 │ Author: C. Ross Jam                              │
 │ Slug: my-amazing-post                            │
+│ Branch: draft/my-amazing-post (from main)        │
 │ Content: This is my amazing post content...      │
 ╰──────────────────────────────────────────────────╯
 
 Create this post? [y/n] (y): y
 
+✓ Switched to new branch draft/my-amazing-post
 ✓ Post created successfully!
-Location: content/mpr.drafts/posts/my-amazing-post.md
+Location: content/my-amazing-post.md
+✓ Pushed draft/my-amazing-post to drafts
 
 Next steps:
-  1. Review and edit: content/mpr.drafts/posts/my-amazing-post.md
-  2. When ready to publish, use: ./pubmove.sh my-amazing-post.md
+  1. Edit content/my-amazing-post.md, commit, and git push (goes to drafts)
+  2. When ready to publish, from main: ./publishpost.py my-amazing-post
 ```
 
 #### Using --file Option
@@ -212,15 +208,21 @@ curl https://example.com/content.txt | ./draftpost.py --file -
 4. Review the preview
 5. Confirm creation
 
+### Working on a Draft
+
+Edit, commit, and `git push` on the draft branch as usual. Run `uv run poe devserver` to preview; drafts render at `/drafts/<slug>.html` with a Draft badge, and do not appear on the front page.
+
+A draft branch can also be checked out in its own worktree (for example with kwt), so several drafts can be open at once.
+
 ### Publishing a Draft
 
-After creating and reviewing your draft, use the `pubmove.sh` script to publish it:
+From `main`:
 
 ```bash
-./pubmove.sh my-amazing-post.md
+./publishpost.py my-amazing-post
 ```
 
-This will move the post from the `mpr.drafts` submodule to the main content directory.
+See `PUBLISHPOST.md`.
 
 ## Technical Details
 
@@ -256,23 +258,12 @@ apt-get install pandoc
 
 If pandoc is not available, RTF content will be returned as-is without conversion.
 
-### Directory Structure
-
-```
-content/
-  mpr.drafts/
-    posts/
-      your-draft-post.md    # Created by draftpost.py
-      another-draft.md
-```
-
 ## Configuration
 
-The script uses the same configuration as `pubmove.sh`:
+Constants at the top of `draftpost.py`:
 
-- **Submodule Path**: `content/mpr.drafts`
-- **Posts Subdirectory**: `posts`
-- **Default Status**: `draft`
+- **`BASE_BRANCH`**: branch drafts start from (`main`)
+- **`DRAFTS_REMOTE`**: private remote draft branches are pushed to (`drafts`)
 
 ## Troubleshooting
 
@@ -289,13 +280,15 @@ If RTF conversion fails:
 - Install pandoc: `brew install pandoc` (macOS)
 - The script will return RTF as-is if conversion is unavailable
 
-### File Already Exists
+### Branch or File Already Exists
 
-If a file with the same slug already exists:
-- The script will prompt to confirm overwrite
-- Choose "no" to abort and use a different title/slug
+If `draft/<slug>` already exists, or `content/<slug>.md` is already a published post on `main`, the script stops before changing anything. Choose a custom slug.
+
+### Uncommitted Changes
+
+The script switches branches, so it refuses to run with uncommitted changes to tracked files. Commit or stash them first.
 
 ## See Also
 
-- `PUBMOVE.md` - Documentation for publishing drafts to main content
-- `pubmove.sh` - Script for moving posts from drafts to published content
+- `PUBLISHPOST.md` - Publishing a draft branch onto main, and one-time setup
+- `publishpost.py` - Script for publishing a draft branch

@@ -5,16 +5,17 @@ Resistance](https://mpr.crossjam.net/)
 
 ```
 uv sync
-uv python pin 3.10
-git submodule --init
-git submodule update --init --recursive
-make html
+git remote add drafts git@github.com:crossjam/mpr.drafts.git
+./install-draft-hooks.sh
+uv run poe html
 ```
+
+Drafts live on per-post `draft/*` branches in the private `drafts`
+remote; see `DRAFTPOST.md` and `PUBLISHPOST.md`.
 
 TODO
 
-- [ ] Update submodules as needed
-- [ ] Investigate removing submodules
+- [x] Investigate removing submodules
 - [ ] figure out regex syntax warnings with Python 3.13
 - [ ] Generation performance or caching improvements
 - [ ] Integrate Poe the Poet task running to replace make
