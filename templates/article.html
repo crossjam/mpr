@@ -11,7 +11,7 @@
     <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
   </div>
   <div class="article_meta">
-    <p>Posted on: {{ article.locale_date }}</p>
+    <p>Posted on: <time datetime="{{ article.date.isoformat() }}" data-pagefind-meta="date" data-pagefind-sort="date[datetime]">{{ article.locale_date }}</time></p>
   </div>
   {% if article.readtime %}
   <div class="article_readtime">
