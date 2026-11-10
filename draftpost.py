@@ -11,13 +11,16 @@
 """
 draftpost.py - Create a new blog post draft with YAML metadata header.
 
-This script creates a new post in the mpr.drafts submodule with proper YAML
-metadata formatting. It provides interactive prompts for post metadata and
-can optionally grab content from the clipboard on macOS.
+This script starts a draft/<slug> branch from main, writes the post to
+content/<slug>.md with proper YAML metadata formatting, commits it, and
+pushes the branch to the private drafts remote. It provides interactive
+prompts for post metadata and can optionally grab content from the
+clipboard on macOS.
 """
 
 import argparse
 import os
+import shlex
 import sys
 import subprocess
 import tempfile
@@ -32,6 +35,12 @@ from rich.panel import Panel
 from slugify import slugify
 
 console = Console()
+
+REPO_ROOT = Path(__file__).parent
+
+# Branch drafts start from, and the private remote they are pushed to
+BASE_BRANCH = "main"
+DRAFTS_REMOTE = "drafts"
 
 # Default Lorem Ipsum content for new posts
 LOREM_IPSUM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -190,72 +199,87 @@ def get_post_content(
     return content
 
 
-def get_output_directory(cli_dir: Optional[str] = None) -> Path:
+def git(*args: str, check: bool = True) -> subprocess.CompletedProcess:
+    """Run a git command in the repository root, capturing its output."""
+    return subprocess.run(
+        ["git", *args], cwd=REPO_ROOT, capture_output=True, text=True, check=check
+    )
+
+
+def fail(message: str) -> None:
+    """Print an error and exit."""
+    console.print(f"[red]Error: {message}[/red]")
+    sys.exit(1)
+
+
+def check_git_ready(branch: str) -> None:
     """
-    Determine the output directory from CLI arg, environment variable, or default.
+    Verify the repository can start a new draft branch.
 
-    Priority:
-    1. Command-line argument (--output-dir)
-    2. Environment variable (DRAFTPOST_OUTPUT_DIR)
-    3. Default: content/mpr.drafts/posts
-
-    Args:
-        cli_dir: Directory specified via command-line argument
-
-    Returns:
-        Path object for the output directory
+    Refreshes the draft-branch hook guards first, since another tool may
+    have rewritten the hooks since they were installed.
     """
-    if cli_dir:
-        return Path(cli_dir)
+    hooks = subprocess.run(
+        [str(REPO_ROOT / "install-draft-hooks.sh")], cwd=REPO_ROOT, check=False
+    )
+    if hooks.returncode != 0:
+        fail("could not install the draft-branch hook guards")
 
-    env_dir = os.environ.get("DRAFTPOST_OUTPUT_DIR")
-    if env_dir:
-        return Path(env_dir)
+    if git("diff", "--quiet", check=False).returncode or git(
+        "diff", "--cached", "--quiet", check=False
+    ).returncode:
+        fail("the working tree has uncommitted changes; commit or stash them first")
 
-    # Default location
-    repo_root = Path(__file__).parent
-    return repo_root / "content" / "mpr.drafts" / "posts"
+    exists = git("rev-parse", "--verify", "--quiet", f"refs/heads/{branch}", check=False)
+    if exists.returncode == 0:
+        fail(f"branch {branch} already exists")
+
+    if git("remote", "get-url", DRAFTS_REMOTE, check=False).returncode:
+        fail(
+            f"no '{DRAFTS_REMOTE}' remote; add it with: "
+            f"git remote add {DRAFTS_REMOTE} git@github.com:crossjam/mpr.drafts.git"
+        )
+
+
+def start_draft_branch(branch: str, filepath: Path, title: str) -> None:
+    """Commit the new post on its own branch and push it to the drafts remote."""
+    git("add", str(filepath.relative_to(REPO_ROOT)))
+    git("commit", "-q", "-m", f"Start draft: {title}")
+
+    push = git("push", "-q", "-u", DRAFTS_REMOTE, branch, check=False)
+    if push.returncode:
+        console.print(
+            f"[yellow]Could not push {branch} to {DRAFTS_REMOTE}; "
+            f"push it later with: git push -u {DRAFTS_REMOTE} {branch}[/yellow]"
+        )
+        console.print(f"[dim]{push.stderr.strip()}[/dim]")
+    else:
+        console.print(f"[green]✓[/green] Pushed {branch} to {DRAFTS_REMOTE}")
 
 
 def create_post(
     title: str,
     author: str,
     content: str,
-    slug: Optional[str] = None,
-    output_dir: Optional[Path] = None,
+    slug: str,
 ) -> Path:
     """
-    Create a new post file with YAML frontmatter.
+    Create a new post file with YAML frontmatter in content/.
 
     Args:
         title: Post title
         author: Post author
         content: Post content (markdown)
-        slug: URL slug for the filename (auto-generated from title if not provided)
-        output_dir: Directory to save the post (required)
+        slug: URL slug for the filename
 
     Returns:
         Path to the created post file
     """
-    # Generate slug from title if not provided
-    if not slug:
-        slug = slugify(title)
+    filepath = REPO_ROOT / "content" / f"{slug}.md"
 
-    # Ensure output directory exists
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Create filename from slug
-    filename = f"{slug}.md"
-    filepath = output_dir / filename
-
-    # Check if file already exists
+    # The branch starts from main, so an existing file is a published post
     if filepath.exists():
-        overwrite = Confirm.ask(
-            f"[yellow]File {filename} already exists. Overwrite?[/yellow]"
-        )
-        if not overwrite:
-            console.print("[red]Aborted.[/red]")
-            sys.exit(1)
+        fail(f"{filepath.relative_to(REPO_ROOT)} already exists on {BASE_BRANCH}")
 
     # Get current date and time in the format YYYY-MM-DD HH:MM
     date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -265,6 +289,7 @@ def create_post(
 title: "{title}"
 date: {date_str}
 author: "{author}"
+status: draft
 ---
 
 {content}
@@ -285,34 +310,24 @@ def print_help():
   ./draftpost.py [options]
   ./draftpost.py --help
   ./draftpost.py --file <filename>
-  ./draftpost.py --output-dir <directory>
   cat content.txt | ./draftpost.py --file -
 
 [bold]Description:[/bold]
-  Creates a new blog post draft in the mpr.drafts submodule with proper YAML
-  metadata headers. The script provides interactive prompts for post metadata
-  and can obtain content from multiple sources.
+  Starts a draft/<slug> branch from main, writes the post to
+  content/<slug>.md with YAML metadata (status: draft), commits it, and
+  pushes the branch to the private drafts remote. The script provides
+  interactive prompts for post metadata and can obtain content from
+  multiple sources. The working tree must be clean.
 
 [bold]Options:[/bold]
   -h, --help            Show this help message and exit
   -f, --file FILE       Read post content from FILE (use '-' for stdin)
                         If not specified, tries clipboard on macOS, then
                         falls back to Lorem Ipsum placeholder
-  -o, --output-dir DIR  Output directory for the post
-                        Default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR
   -q, --quote           Format content as a markdown blockquote
                         Prefixes each line with '> ' per markdown syntax
   -e, --edit            Open the draft post in the default editor after creation
                         Uses $EDITOR environment variable or system default
-
-[bold]Environment Variables:[/bold]
-  DRAFTPOST_OUTPUT_DIR  Set default output directory for posts
-                        Overridden by --output-dir option
-
-[bold]Output Directory Priority:[/bold]
-  1. Command-line argument (--output-dir)
-  2. Environment variable ($DRAFTPOST_OUTPUT_DIR)
-  3. Default: content/mpr.drafts/posts
 
 [bold]Content Sources (in priority order):[/bold]
   1. File specified with --file option (or stdin with --file -)
@@ -340,20 +355,14 @@ def print_help():
   ./draftpost.py --edit
   ./draftpost.py --file my-content.txt --edit
 
-  # Specify custom output directory
-  ./draftpost.py --output-dir /path/to/drafts
-
-  # Use environment variable for output directory
-  export DRAFTPOST_OUTPUT_DIR=/path/to/drafts
-  ./draftpost.py
-
 [bold]Output:[/bold]
-  Posts are created in: content/mpr.drafts/posts/
-  Format: YAML metadata header + Markdown content
+  Branch: draft/<slug>, pushed to the drafts remote
+  File:   content/<slug>.md (YAML metadata header + Markdown content)
 
 [bold]Next Steps:[/bold]
-  After creating a draft, use ./pubmove.sh to publish it:
-  ./pubmove.sh <slug>.md
+  Edit and commit on the branch; git push sends it to the drafts remote.
+  When ready, publish it from main:
+  ./publishpost.py <slug>
 """
     console.print(help_text)
     sys.exit(0)
@@ -374,13 +383,6 @@ def parse_args():
         type=str,
         metavar="FILE",
         help='Read post content from FILE (use "-" for stdin)',
-    )
-    parser.add_argument(
-        "-o",
-        "--output-dir",
-        type=str,
-        metavar="DIR",
-        help="Output directory for the post (default: content/mpr.drafts/posts or $DRAFTPOST_OUTPUT_DIR)",
     )
     parser.add_argument(
         "-q",
@@ -414,7 +416,7 @@ def main():
     console.print(
         Panel.fit(
             "[bold cyan]Draft Post Creator[/bold cyan]\n"
-            "Create a new blog post in the mpr.drafts submodule",
+            "Start a new blog post on its own draft branch",
             border_style="cyan",
         )
     )
@@ -435,9 +437,12 @@ def main():
         default=False,
     )
 
-    slug = None
+    slug = default_slug
     if use_custom_slug:
         slug = Prompt.ask("[cyan]Custom slug[/cyan]", default=default_slug)
+
+    branch = f"draft/{slug}"
+    check_git_ready(branch)
 
     # Get content
     console.print("\n[bold]Post Content[/bold]")
@@ -454,17 +459,14 @@ def main():
 
     content = get_post_content(use_clipboard, args.file, args.quote)
 
-    # Determine output directory
-    output_dir = get_output_directory(args.output_dir)
-
     # Show preview
     console.print("\n[bold]Preview[/bold]")
     console.print(
         Panel(
             f"[bold]Title:[/bold] {title}\n"
             f"[bold]Author:[/bold] {author}\n"
-            f"[bold]Slug:[/bold] {slug or default_slug}\n"
-            f"[bold]Output:[/bold] {output_dir}\n"
+            f"[bold]Slug:[/bold] {slug}\n"
+            f"[bold]Branch:[/bold] {branch} (from {BASE_BRANCH})\n"
             f"[bold]Content:[/bold] {content[:100]}{'...' if len(content) > 100 else ''}",
             border_style="cyan",
         )
@@ -475,16 +477,17 @@ def main():
         console.print("[red]Aborted.[/red]")
         sys.exit(1)
 
-    # Create the post
+    # Create the post on its own branch
     try:
+        git("switch", "-q", "-c", branch, BASE_BRANCH)
+        console.print(f"[green]✓[/green] Switched to new branch {branch}")
+
         filepath = create_post(
             title=title,
             author=author,
             content=content,
             slug=slug,
-            output_dir=output_dir,
         )
-
         console.print(f"\n[bold green]✓[/bold green] Post created successfully!")
         console.print(f"[cyan]Location:[/cyan] {filepath}")
 
@@ -500,17 +503,21 @@ def main():
                     f"[dim]Tip: Set the EDITOR environment variable or check file permissions[/dim]"
                 )
 
-        console.print(f"\n[dim]Next steps:[/dim]")
-        if not args.edit:
-            console.print(f"  1. Review and edit: [cyan]{filepath}[/cyan]")
-            console.print(
-                f"  2. When ready to publish, use: [cyan]./pubmove.sh {filepath.name}[/cyan]"
-            )
-        else:
-            console.print(
-                f"  1. When ready to publish, use: [cyan]./pubmove.sh {filepath.name}[/cyan]"
-            )
+        start_draft_branch(branch, filepath, title)
 
+        console.print(f"\n[dim]Next steps:[/dim]")
+        console.print(
+            f"  1. Edit [cyan]{filepath.relative_to(REPO_ROOT)}[/cyan], commit, "
+            f"and [cyan]git push[/cyan] (goes to {DRAFTS_REMOTE})"
+        )
+        console.print(
+            f"  2. When ready to publish, from {BASE_BRANCH}: "
+            f"[cyan]./publishpost.py {shlex.quote(slug)}[/cyan]"
+        )
+
+    except subprocess.CalledProcessError as e:
+        console.print(f"[bold red]git {e.cmd[1]} failed:[/bold red] {e.stderr.strip()}")
+        sys.exit(1)
     except Exception as e:
         console.print(f"[bold red]Error creating post:[/bold red] {e}")
         sys.exit(1)
