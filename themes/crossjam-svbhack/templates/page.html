@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}&ndash; {{ page.title }}{% endblock %}
+
+{% block content %}
+<article data-pagefind-body>
+  <div class="article_title">
+    <h1><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></h1>
+  </div>
+  <div class="article_text">
+    {{ page.content }}
+  </div>
+  <div class="article_meta">
+    <p>Posted on: <time datetime="{{ page.date.isoformat() }}" data-pagefind-meta="date" data-pagefind-sort="date[datetime]">{{ page.locale_date }}</time></p>
+    {% if page.modified and page.modified != page.date %}
+    <p>Last updated: {{ page.locale_modified }}</p>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

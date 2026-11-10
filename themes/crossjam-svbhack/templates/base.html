@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="{{ SITEURL }}/theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/pygments.css">
+  {% if not USE_GENERIC_FONT_FAMILIES %}
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  {% endif %}
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="{{ AUTHOR }}">
+  <meta name="description" content="Posts and writings by {{ AUTHOR }}">
+
+  {% if FEED_ALL_ATOM %}
+  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom" />
+  {% endif %}
+  {% if FEED_ALL_RSS %}
+  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS" />
+  {% endif %}
+  {% if FEED_ALL_JSON %}
+  <link rel="alternate" type="application/json" title="{{ SITENAME }} JSON Feed" href="{{ FEED_DOMAIN }}/{{ FEED_ALL_JSON }}" />
+  {% endif %}
+  
+  {% block head %}
+  {% endblock %}
+
+  <title data-pagefind-body>
+    {{ SITENAME }}
+    {% block title %}{% endblock %}
+  </title>
+
+  {% include "modules/analytics.html" %}
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      {% if not HIDE_USER_LOGO %}
+      <a href="{{ SITEURL }}">
+        {% if USER_LOGO_URL %}
+        <img src="{{ USER_LOGO_URL }}" alt="logo"
+        {%- if ROUND_USER_LOGO %} class="round-img"{% endif %}>
+        {% else %}
+        <img src="{{ SITEURL }}/theme/images/logo.png" alt="logo">
+        {% endif %}
+      </a>
+      {% endif %}
+      <h3><a href="{{ SITEURL }}">{{ SITENAME }}</a></h3>
+      <p>{{ TAGLINE }}</p>
+      <ul>
+        {% for title, link in MENUITEMS %}
+        <li><a href="{{ link }}">{{ title }}</a></li>
+        {% endfor %}
+        {% if DISPLAY_PAGES_ON_MENU %}{% for p in pages %}
+        <li><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+        {% endfor %}{% endif %}
+        {% if DISPLAY_CATEGORIES_ON_MENU %}{% for c, _ in categories %}
+        <li><a href="{{ SITEURL }}/{{ c.url }}">{{ c }}</a></li>
+        {% endfor %}{% endif %}
+        {% for name, link in LINKS %}
+        <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+        {% endfor %}
+        {% for name, link in SOCIAL %}
+        <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% include "includes/archives_sidebar.html" %}
+    
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="{{ SITEURL }}">home</a> &brvbar; <a href="{{ SITEURL }}/archives.html">Archives</a>
+      {% if FEED_ALL_ATOM %}
+      &brvbar; <a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}">Atom</a>
+      {% endif %}
+      {% if FEED_ALL_RSS %}
+      &brvbar; <a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}">RSS</a>
+      {% endif %}
+      {% block header %}
+      {% endblock header %}
+      </p>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+
+    <div id="ending_message">
+      <p>&copy; 2008-2025 {{ AUTHOR }}.
+	Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+	BY-NC-SA
+	4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+	alt="" style="max-width: 1em;max-height:1em;margin-left:
+	.2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg"
+	alt="" style="max-width: 1em;max-height:1em;margin-left:
+	.2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg"
+	alt="" style="max-width: 1em;max-height:1em;margin-left:
+	.2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg"
+	alt="" style="max-width: 1em;max-height:1em;margin-left:
+	.2em;"> Built using <a href="http://getpelican.com"
+	target="_blank">Pelican</a>. Theme based upon Giulio
+	Fidente’s <a href="https://github.com/gfidente/pelican-svbhack"
+	target="_blank">original svbhack</a>,
+	and <a href="https://github.com/crossjam/pelican-svbhack/tree/crossjam/mpr">slightly
+	modified</a>
+	by <a href="https://github.com/crossjam/">crossjam</a>.
+	{% if INTERNET_DEFENSE_LEAGUE %}Member of the <a href="http://internetdefenseleague.org">Internet Defense League</a>.{% endif %}</p>
+    </div>
+  </main>
+  {% include "modules/idl.html" %}
+</body>
+</html>
