@@ -8,7 +8,9 @@
 #   post-commit  skips automatic review of commits on draft/* branches
 #
 # The guards are inserted as marked blocks right after the shebang, so
-# hooks installed by other tools keep working. Re-running is safe, and
+# hooks installed by other tools stay in place and keep running, except
+# that on draft/* branches the post-commit guard ends the hook before
+# anything else in it runs. Re-running is safe, and
 # draftpost.py runs this on every invocation in case another tool has
 # rewritten a hook since.
 

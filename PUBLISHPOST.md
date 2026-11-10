@@ -23,11 +23,13 @@ git fetch drafts
 
 - **pre-push**: refuses to push any `draft/*` branch to a remote other
   than the drafts repository
-- **post-commit**: skips the automatic review hook for commits on
-  `draft/*` branches, so unpublished prose stays local
+- **post-commit**: ends the hook before anything else in it runs for
+  commits on `draft/*` branches, so the automatic review (or anything
+  else hooked there) never sees unpublished prose
 
 The guards are inserted as marked blocks after the shebang, so hooks
-installed by other tools keep working. `draftpost.py` re-runs the
+installed by other tools stay in place and run as before everywhere
+except that post-commit case. `draftpost.py` re-runs the
 installer every time, in case another tool has rewritten a hook since.
 
 To work on an existing draft from another machine:

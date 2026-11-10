@@ -230,9 +230,10 @@ def check_git_ready(branch: str) -> None:
     ).returncode:
         fail("the working tree has uncommitted changes; commit or stash them first")
 
-    exists = git("rev-parse", "--verify", "--quiet", f"refs/heads/{branch}", check=False)
-    if exists.returncode == 0:
-        fail(f"branch {branch} already exists")
+    for ref in (f"refs/heads/{branch}", f"refs/remotes/{DRAFTS_REMOTE}/{branch}"):
+        exists = git("rev-parse", "--verify", "--quiet", ref, check=False)
+        if exists.returncode == 0:
+            fail(f"{ref} already exists; to resume it: git switch {branch}")
 
     if git("remote", "get-url", DRAFTS_REMOTE, check=False).returncode:
         fail(
@@ -439,7 +440,7 @@ def main():
 
     slug = default_slug
     if use_custom_slug:
-        slug = Prompt.ask("[cyan]Custom slug[/cyan]", default=default_slug)
+        slug = slugify(Prompt.ask("[cyan]Custom slug[/cyan]", default=default_slug))
 
     branch = f"draft/{slug}"
     check_git_ready(branch)
