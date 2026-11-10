@@ -96,7 +96,7 @@ class AutoDiscoverer(PyEmbedDiscoverer):
 
     def get_oembed_urls(self, url, oembed_format=None):
         media_type = self.__get_type(oembed_format)
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self.headers, timeout=10)
 
         if response.ok:
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -223,7 +223,7 @@ class UrlDiscoverer(StaticDiscoverer):
 
     def get_oembed_urls(self, url, oembed_format=None):
         if not self.endpoints:
-            response = requests.get(self.url, headers=self.headers)
+            response = requests.get(self.url, headers=self.headers, timeout=10)
             try:
                 providers = response.json()
             except ValueError:

@@ -9,3 +9,7 @@ module, which `pyembed/core/discovery.py` imported to locate its bundled
 `config/providers.json`. Patched that one call to use `os.path.dirname(__file__)`
 instead, so this package no longer depends on `pkg_resources` at all and we
 can keep setuptools current.
+
+The discovery requests in `pyembed/core/discovery.py` also had no timeout,
+so one unresponsive host could hang a site build indefinitely. They now use
+the same 10 second timeout as the consumer requests.
