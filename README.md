@@ -16,8 +16,8 @@ remote; see `DRAFTPOST.md` and `PUBLISHPOST.md`.
 TODO
 
 - [x] Investigate removing submodules
-- [ ] figure out regex syntax warnings with Python 3.13
+- [x] figure out regex syntax warnings with Python 3.13
 - [ ] Generation performance or caching improvements
-- [ ] Integrate Poe the Poet task running to replace make
+- [x] Integrate Poe the Poet task running to replace make
 
 

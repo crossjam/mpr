@@ -1,8 +1,0 @@
-pelican
-Markdown<3.2
-git+https://github.com/jaywink/pyembed.git
-pyembed-markdown
-typogrify
-smartypants
-pelican-drafts
-

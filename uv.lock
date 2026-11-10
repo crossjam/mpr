@@ -596,7 +596,7 @@ requires-dist = [
 [[package]]
 name = "pyembed-markdown"
 version = "1.1.0"
-source = { git = "https://github.com/crossjam/pyembed-markdown.git#65d09094bfb47a4fe1d39decb99bf300ad509dee" }
+source = { git = "https://github.com/crossjam/pyembed-markdown.git#c8025b0f3707757f391e9aeb83bc30021cb206c6" }
 dependencies = [
     { name = "markdown" },
     { name = "pyembed" },
