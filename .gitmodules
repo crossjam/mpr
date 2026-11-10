@@ -2,13 +2,6 @@
 	path = themes/crossjam-svbhack
 	url = git@github.com:crossjam/pelican-svbhack.git
 	branch = crossjam/mpr
-[submodule "plugins/pelican-plugins"]
-	path = plugins/pelican-plugins
-	url = git@github.com:crossjam/pelican-plugins.git
-[submodule "plugins/pelican_json_feed"]
-	path = plugins/pelican_json_feed
-	url = https://github.com/crossjam/pelican_json_feed.git
-	branch = crossjam/mpr
 [submodule "mpr.drafts"]
 	path = content/mpr.drafts
 	url = git@github.com:crossjam/mpr.drafts.git

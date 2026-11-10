@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 
 
-PLUGIN_PATHS = ["plugins/pelican-plugins", "plugins", "plugins/pelican_json_feed"]
+PLUGIN_PATHS = ["plugins"]
 # PLUGINS = ["summary", "period"]
 
 
