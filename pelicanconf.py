@@ -27,8 +27,7 @@ SITEURL = ""
 SITESUBTITLE = "information informs. analysis enlightens."
 TAGLINE = "information informs. analysis enlightens."
 
-# ARTICLE_PATHS = [".", "mpr.drafts/posts"]
-ARTICLE_PATHS = [".", "mpr.drafts/posts"]
+ARTICLE_PATHS = ["."]
 
 TIMEZONE = "America/New_York"
 DEFAULT_LANG = "en"
