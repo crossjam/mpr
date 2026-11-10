@@ -442,6 +442,9 @@ def main():
     if use_custom_slug:
         slug = slugify(Prompt.ask("[cyan]Custom slug[/cyan]", default=default_slug))
 
+    if not slug:
+        fail("the slug is empty after slugify; use letters or digits")
+
     branch = f"draft/{slug}"
     check_git_ready(branch)
 
