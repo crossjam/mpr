@@ -43,10 +43,10 @@ OUTPUT_DIR = "output"
 DEV_OUTPUT_DIR = "devoutput"
 CONF_FILE = "pelicanconf.py"
 PUBLISH_CONF = "publishconf.py"
-SSH_HOST = "caddy.crossjam.net"
+SSH_HOST = "pirateninja-websites.exe.xyz"
 SSH_PORT = "22"
-SSH_USER = "crossjam"
-SSH_TARGET_DIR = "/var/www/html/wp/mpr"
+SSH_USER = "exedev"
+SSH_TARGET_DIR = "/var/www/crossjam.net/html/wp/mpr/"
 
 [tool.poe.tasks.html]
 help = "(Re)generate the web site"
@@ -243,9 +243,9 @@ OPTS=""
 pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$PUBLISH_CONF" $OPTS
 python -m pagefind --site "$OUTPUT_DIR"
 if [ -n "$SSH_KEY" ]; then
-  rsync -e "ssh -i $SSH_KEY -p $SSH_PORT" -P -rvzc --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
+  rsync -e "ssh -i $SSH_KEY -p $SSH_PORT" -P -rvzcO --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
 else
-  rsync -e "ssh -p $SSH_PORT" -P -rvzc --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
+  rsync -e "ssh -p $SSH_PORT" -P -rvzcO --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
 fi
 """
   [[tool.poe.tasks.rsync_upload.args]]
