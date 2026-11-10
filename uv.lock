@@ -350,7 +350,7 @@ requires-dist = [
     { name = "pelican-drafts", specifier = ">=0.1.1" },
     { name = "pelican-yaml-metadata", specifier = ">=2.1.2" },
     { name = "pyembed", directory = "vendor/pyembed" },
-    { name = "pyembed-markdown", git = "https://github.com/crossjam/pyembed-markdown.git" },
+    { name = "pyembed-markdown", directory = "vendor/pyembed-markdown" },
     { name = "setuptools", specifier = ">=76.0.0" },
     { name = "smartypants", specifier = ">=2.0.1" },
     { name = "typogrify", specifier = ">=2.1.0" },
@@ -647,8 +647,14 @@ requires-dist = [
 [[package]]
 name = "pyembed-markdown"
 version = "1.1.0"
-source = { git = "https://github.com/crossjam/pyembed-markdown.git#c8025b0f3707757f391e9aeb83bc30021cb206c6" }
+source = { directory = "vendor/pyembed-markdown" }
 dependencies = [
+    { name = "markdown" },
+    { name = "pyembed" },
+]
+
+[package.metadata]
+requires-dist = [
     { name = "markdown" },
     { name = "pyembed" },
 ]
