@@ -259,3 +259,151 @@ def test_publish_refuses_a_symlinked_parent_directory(blog, tmp_path):
     assert result.exit_code == 1
     assert "WARNING: content/newdir/nested.md resolves outside the repository" in result.output
     assert list(outside.iterdir()) == []
+
+
+def test_drop_deletes_a_pushed_draft_from_the_draft_itself(blog):
+    start_draft("Abandon")
+    result = CliRunner().invoke(cli, ["draft", "drop", "abandon", "--yes"])
+    assert result.exit_code == 0, result.output
+    assert run("git", "branch", "--show-current", cwd=blog).strip() == "main"
+    assert run("git", "branch", "--list", "draft/*", cwd=blog) == ""
+    assert run("git", "ls-remote", "--heads", "drafts", cwd=blog) == ""
+
+
+def test_drop_refuses_unpushed_commits_without_force(blog):
+    start_draft("Unsaved")
+    post = blog / "content" / "unsaved.md"
+    post.write_text(post.read_text() + "\nLocal only.\n")
+    run("git", "commit", "-q", "-am", "Local edit", cwd=blog)
+
+    refused = CliRunner().invoke(cli, ["draft", "drop", "unsaved", "--yes"])
+    assert refused.exit_code == 1
+    assert "commits that are not on drafts" in refused.output
+    assert "draft/unsaved" in run("git", "branch", "--list", "draft/*", cwd=blog)
+
+    forced = CliRunner().invoke(cli, ["draft", "drop", "unsaved", "--yes", "--force"])
+    assert forced.exit_code == 0, forced.output
+    assert run("git", "branch", "--list", "draft/*", cwd=blog) == ""
+    assert run("git", "ls-remote", "--heads", "drafts", cwd=blog) == ""
+
+
+def test_commands_recreate_a_missing_local_main(blog):
+    start_draft("No Main")
+    run("git", "branch", "-q", "-D", "main", cwd=blog)
+
+    result = CliRunner().invoke(cli, ["draft", "new", "--title", "Second", "--yes"])
+    assert result.exit_code == 0, result.output
+    assert run("git", "rev-parse", "main", cwd=blog) == run(
+        "git", "rev-parse", "origin/main", cwd=blog
+    )
+    assert (
+        run("git", "rev-parse", "--abbrev-ref", "main@{upstream}", cwd=blog).strip()
+        == "origin/main"
+    )
+
+
+def test_setup_adds_a_drafts_remote_git_can_use(blog, monkeypatch):
+    from mpr import repo
+
+    url = run("git", "remote", "get-url", "drafts", cwd=blog).strip()
+    run("git", "remote", "remove", "drafts", cwd=blog)
+    monkeypatch.setattr(repo, "DRAFTS_URL", url)
+
+    result = CliRunner().invoke(cli, ["setup"])
+    assert result.exit_code == 0, result.output
+    assert (
+        run("git", "config", "remote.drafts.fetch", cwd=blog).strip()
+        == "+refs/heads/*:refs/remotes/drafts/*"
+    )
+    start_draft("Tracked")
+    assert (
+        run("git", "rev-parse", "--abbrev-ref", "@{upstream}", cwd=blog).strip()
+        == "drafts/draft/tracked"
+    )
+
+
+def snapshot(blog: Path) -> tuple[str, ...]:
+    """Everything a command could change: refs, branch, working tree, both remotes."""
+    return (
+        run("git", "show-ref", cwd=blog),
+        run("git", "branch", "--show-current", cwd=blog),
+        run("git", "status", "--porcelain", "--untracked-files=all", cwd=blog),
+        run("git", "ls-remote", "origin", cwd=blog),
+        run("git", "ls-remote", "drafts", cwd=blog),
+        run("git", "config", "--list", "--local", cwd=blog),
+    )
+
+
+@pytest.mark.parametrize(
+    ("setup", "args", "listed"),
+    [
+        (
+            None,
+            ["draft", "new", "-t", "Dry", "-y"],
+            [
+                "would Switch to new branch draft/dry",
+                'would Commit "Start draft: Dry"',
+                "would Push draft/dry to drafts",
+            ],
+        ),
+        (
+            "Dry",
+            ["publish", "draft", "dry", "--push"],
+            [
+                "would Switch to main",
+                "would Write content/dry.md, marked published",
+                'would Commit "Publish Dry" on main',
+                "would Push main to origin",
+                "would Delete draft/dry on drafts",
+                "would Delete local branch draft/dry",
+            ],
+        ),
+        (
+            "Dry",
+            ["draft", "drop", "dry", "-y"],
+            [
+                "would fetch drafts",
+                "would Switch to main",
+                "would Delete draft/dry on drafts",
+                "would Delete local branch draft/dry",
+            ],
+        ),
+        ("Dry", ["draft", "save"], ["would Push draft/dry to drafts"]),
+    ],
+)
+def test_dry_run_lists_operations_and_changes_nothing(blog, setup, args, listed):
+    if setup:
+        start_draft(setup)
+    before = snapshot(blog)
+
+    result = CliRunner().invoke(cli, [*args, "--dry-run"])
+    assert result.exit_code == 0, result.output
+    for line in listed:
+        assert line in result.output
+    assert "✓" not in result.output
+    assert snapshot(blog) == before
+
+
+def test_dry_run_still_refuses(blog):
+    start_draft("Not Yet")
+    result = CliRunner().invoke(cli, ["publish", "finish", "not-yet", "--dry-run"])
+    assert result.exit_code == 1
+    assert "does not have content/not-yet.md published" in result.output
+
+
+def test_save_ignores_tracked_symlinked_directories(blog):
+    (blog / "content" / "wp" / "media").mkdir(parents=True)
+    (blog / "content" / "wp" / "media" / "image.png").write_bytes(b"png")
+    (blog / "content" / "media").symlink_to("wp/media")
+    run("git", "add", "-A", cwd=blog)
+    run("git", "commit", "-q", "-m", "Media link", cwd=blog)
+    start_draft("Linked Media")
+    post = blog / "content" / "linked-media.md"
+    post.write_text(post.read_text() + "\nMore.\n")
+
+    result = CliRunner().invoke(cli, ["draft", "save"])
+    assert result.exit_code == 0, result.output
+    assert "Stage content/linked-media.md" in result.output
+    assert "Stage content/media" not in result.output
+    committed = run("git", "show", "--name-only", "--format=", "HEAD", cwd=blog).split()
+    assert committed == ["content/linked-media.md"]

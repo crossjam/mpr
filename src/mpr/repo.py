@@ -45,7 +45,18 @@ def commit_at(repo: Repo, sha: ObjectID) -> Commit:
 
 
 def branch_commit(repo: Repo, branch: str) -> Commit:
-    return commit_at(repo, repo.refs[head_ref(branch)])
+    """The tip of branch; for main, origin's copy when there is no local one yet."""
+    ref = head_ref(branch)
+    if branch == BASE_BRANCH and ref not in repo.refs:
+        ref = to_ref(f"refs/remotes/{PUBLIC_REMOTE}/{BASE_BRANCH}")
+    if ref not in repo.refs:
+        raise click.ClickException(f"no branch {branch}")
+    return commit_at(repo, repo.refs[ref])
+
+
+def merge_base(repo: Repo, a: Commit, b: Commit) -> Commit | None:
+    bases = porcelain.merge_base(repo, [a.id.decode(), b.id.decode()])
+    return commit_at(repo, bases[0]) if bases else None
 
 
 def blob_data(repo: Repo, sha: ObjectID) -> bytes:
@@ -99,14 +110,22 @@ def require_clean(repo: Repo) -> None:
         )
 
 
-def on_branch(repo: Repo, branch: str, path: str) -> bool:
-    """Whether path exists in the tip of branch."""
-    tree = branch_commit(repo, branch).tree
+def in_tree(repo: Repo, tree: ObjectID, path: str) -> bool:
     try:
         tree_lookup_path(repo.__getitem__, tree, path.encode())
     except KeyError:
         return False
     return True
+
+
+def on_branch(repo: Repo, branch: str, path: str) -> bool:
+    """Whether path exists in the tip of branch."""
+    return in_tree(repo, branch_commit(repo, branch).tree, path)
+
+
+def in_head(repo: Repo, path: str) -> bool:
+    """Whether path is tracked in the checked-out commit."""
+    return in_tree(repo, commit_at(repo, repo.head()).tree, path)
 
 
 def remote_url(repo: Repo, remote: str) -> str | None:
@@ -123,6 +142,16 @@ def fetch(repo: Repo, remote: str) -> None:
         raise click.ClickException(f"fetching {remote} failed: {e}") from e
 
 
+def add_remote(repo: Repo, remote: str, url: str) -> None:
+    """Add a remote with git's default fetch refspec, which dulwich's remote_add leaves out."""
+    porcelain.remote_add(repo, remote, url)
+    config = repo.get_config()
+    config.set(
+        (b"remote", remote.encode()), b"fetch", f"+refs/heads/*:refs/remotes/{remote}/*".encode()
+    )
+    config.write_to_path()
+
+
 def track(repo: Repo, branch: str, remote: str) -> None:
     """Set branch's upstream, so a plain pull or push goes to remote."""
     config = repo.get_config()
@@ -130,6 +159,22 @@ def track(repo: Repo, branch: str, remote: str) -> None:
     config.set(section, b"remote", remote.encode())
     config.set(section, b"merge", head_ref(branch))
     config.write_to_path()
+
+
+def base_branch_source(repo: Repo) -> str | None:
+    """origin's main when there is no local main yet, to create it from; else None."""
+    if ref_exists(repo, f"refs/heads/{BASE_BRANCH}"):
+        return None
+    tracking = f"refs/remotes/{PUBLIC_REMOTE}/{BASE_BRANCH}"
+    if not ref_exists(repo, tracking):
+        raise click.ClickException(f"no {BASE_BRANCH} branch here or on {PUBLIC_REMOTE}")
+    return tracking
+
+
+def create_branch(repo: Repo, branch: str, start: str, remote: str) -> None:
+    """Create branch at start, tracking remote, as git switch does for a remote branch."""
+    porcelain.branch_create(repo, branch, start)
+    track(repo, branch, remote)
 
 
 def draft_branch(name: str) -> str:

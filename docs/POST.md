@@ -19,6 +19,26 @@ uv run post publish draft <slug> --push   # squash onto main, push, clean up
 uv run poe rsync_upload                   # deploy
 ```
 
+## Dry Runs
+
+Every command that changes anything takes `-n, --dry-run`, which lists
+the operations it would perform without performing any:
+
+```console
+$ uv run post publish draft my-post --push --dry-run
+would Switch to main
+would Write content/my-post.md, marked published
+would Commit "Publish My Post" on main
+would Push main to origin
+would Delete draft/my-post on drafts
+would Delete local branch draft/my-post
+```
+
+The checks still run, so a dry run also shows whether the real command
+would refuse. Fetches are listed rather than run, so what follows one
+reflects the remote as of the last fetch. A real run prints the same
+operations, each with a ✓ as it completes.
+
 ## One-Time Setup per Clone
 
 ```bash
@@ -102,6 +122,14 @@ on the current one.
 
 `post draft switch <slug>` checks a draft out. A draft started on
 another machine is fetched from `drafts` and set to track it.
+
+### `post draft drop`
+
+`post draft drop <slug>` abandons a draft: it deletes the branch on
+`drafts` and locally, after asking to confirm (skip with `--yes`). It
+refuses when the local branch has commits that were never pushed,
+unless `--force` is given. Run on the draft itself, it switches to
+`main` first.
 
 Preview while writing with `uv run poe devserver`; drafts render at
 `/drafts/<slug>.html` with a Draft badge, and do not appear on the front
