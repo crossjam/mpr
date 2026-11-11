@@ -15,6 +15,7 @@ does not shell out to `git`.
 ```bash
 uv run post draft new --edit              # start draft/<slug> from main
 uv run post draft save -m "First pass"    # commit and push to drafts
+uv run post draft switch <slug>           # resume a draft, merging main into it
 uv run post publish draft <slug> --push   # squash onto main, push, clean up
 uv run poe rsync_upload                   # deploy
 ```
@@ -121,7 +122,25 @@ every draft, marking whether it is here, on `drafts`, or both, with `*`
 on the current one.
 
 `post draft switch <slug>` checks a draft out. A draft started on
-another machine is fetched from `drafts` and set to track it.
+another machine is fetched from `drafts` and set to track it. Then it
+updates the draft as `post draft update` does (skip with `--no-update`);
+if that would conflict, it warns and leaves the draft as it was.
+
+### `post draft update`
+
+A draft branch keeps the `main` it started from, so as `main` moves on
+(templates, plugins, dependencies) an old draft can stop building, or
+`uv run post` itself can vanish when `uv sync` follows the draft's older
+`pyproject.toml`. On a draft branch, `post draft update` merges the
+local `main` into it, commits as `Merge main into draft/<slug>`, and
+pushes the branch to `drafts`. The merge is worked out in memory first,
+so a conflict, or a file it would write over that git does not track,
+changes nothing. A draft already up to date is left alone.
+
+First it fetches `origin` and warns when `origin/main` has commits the
+local `main` lacks, since the draft would not get them; pull them into
+`main` and update again. If the fetch fails (offline, say), it warns and
+checks against `origin` as last fetched.
 
 ### `post draft drop`
 

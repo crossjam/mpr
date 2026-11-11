@@ -59,6 +59,14 @@ def merge_base(repo: Repo, a: Commit, b: Commit) -> Commit | None:
     return commit_at(repo, bases[0]) if bases else None
 
 
+def commits_missing(repo: Repo, ref: str, other: str) -> int:
+    """How many commits ref has that other does not; 0 when either ref is missing."""
+    if not (ref_exists(repo, ref) and ref_exists(repo, other)):
+        return 0
+    walker = repo.get_walker(include=[repo.refs[to_ref(ref)]], exclude=[repo.refs[to_ref(other)]])
+    return sum(1 for _ in walker)
+
+
 def blob_data(repo: Repo, sha: ObjectID) -> bytes:
     obj = repo[sha]
     if not isinstance(obj, Blob):

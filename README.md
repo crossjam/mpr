@@ -16,6 +16,7 @@ Writing a post:
 
 - `uv run post draft new --edit` from a clean `main` starts `draft/<slug>`
 - Write, preview with `uv run poe devserver`, save with `uv run post draft save`
+- `uv run post draft switch <slug>` resumes a draft, bringing in `main`'s changes
 - `uv run post publish draft <slug> --push` publishes it
 - `uv run poe rsync_upload` deploys the site
 
