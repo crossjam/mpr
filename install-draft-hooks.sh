@@ -11,8 +11,8 @@
 # hooks installed by other tools stay in place and keep running, except
 # that on draft/* branches the post-commit guard ends the hook before
 # anything else in it runs. Re-running is safe, and
-# draftpost.py runs this on every invocation in case another tool has
-# rewritten a hook since.
+# `post draft new` runs this on every invocation in case another tool
+# has rewritten a hook since.
 
 set -euo pipefail
 
