@@ -10,7 +10,7 @@ uv run poe html
 ```
 
 Drafts live on per-post `draft/*` branches in the private `drafts`
-remote; see `POST.md`.
+remote; see `docs/POST.md`.
 
 Writing a post:
 
