@@ -204,3 +204,28 @@ def test_publish_then_finish(blog):
     assert run("git", "rev-parse", "main", cwd=blog) == run(
         "git", "rev-parse", "origin/main", cwd=blog
     )
+
+
+def test_publish_refuses_to_overwrite_an_untracked_file(blog):
+    start_draft("Collide")
+    run("git", "switch", "-q", "main", cwd=blog)
+    notes = blog / "content" / "collide.md"
+    notes.write_text("Local notes, never committed.\n")
+
+    result = CliRunner().invoke(cli, ["publish", "draft", "collide"])
+    assert result.exit_code == 1
+    assert "content/collide.md" in result.output
+    assert notes.read_text() == "Local notes, never committed.\n"
+    assert run("git", "log", "-1", "--format=%s", cwd=blog).strip() == "Initial"
+
+
+def test_publish_commits_only_the_merged_paths(blog):
+    start_draft("Tidy")
+    run("git", "switch", "-q", "main", cwd=blog)
+    (blog / "content" / "half-written.md").write_text("Not ready.\n")
+
+    result = CliRunner().invoke(cli, ["publish", "draft", "tidy"])
+    assert result.exit_code == 0, result.output
+    committed = run("git", "show", "--name-only", "--format=", "HEAD", cwd=blog).split()
+    assert committed == ["content/tidy.md"]
+    assert run("git", "status", "--porcelain", cwd=blog) == "?? content/half-written.md\n"

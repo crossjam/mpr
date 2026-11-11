@@ -276,7 +276,19 @@ def squash_merge(r: Repo, branch: str) -> list[Path]:
     if not posts:
         raise click.ClickException(f"{branch} has no post marked status: draft under content/")
 
+    # The clean check ignores untracked files, so refuse to write over one, as git merge does
     top = repo.root(r)
+    untracked = [
+        path.decode()
+        for path, _, _ in updated
+        if not repo.on_branch(r, BASE_BRANCH, path.decode()) and (top / path.decode()).exists()
+    ]
+    if untracked:
+        raise click.ClickException(
+            f"publishing {branch} would overwrite untracked {', '.join(untracked)}; "
+            "move or remove them first; nothing was changed"
+        )
+
     written = []
     for path, sha, mode in updated:
         dest = top / path.decode()
@@ -363,12 +375,14 @@ def publish_draft(name, redate, push):
         top = repo.root(r)
         now = datetime.now()
         titles = []
-        for path in squash_merge(r, branch):
+        # Stage only what the merge produced, never other untracked files
+        posts = squash_merge(r, branch)
+        for path in posts:
             text = metadata.publish_text(path.read_text(), redate, now)
             path.write_text(text)
             titles.append(metadata.title_of(text) or path.stem)
             done(f"Published {path.relative_to(top)}")
-        porcelain.add(r, [str(top / "content")])
+        porcelain.add(r, [str(path) for path in posts])
 
         message = f"Publish {', '.join(titles)}"
         sha = porcelain.commit(r, message=message.encode())
