@@ -1,33 +1,40 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build>=0.13.5,<0.14"]
+build-backend = "uv_build"
 
 [project]
 name = "mpr"
 version = "0.1.0"
-description = "Add your description here"
+description = "Content, configuration, and tools for the Mass Programming Resistance blog"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.15.0",
+    "click>=8.5.1",
+    "dulwich>=1.2.21",
     "markdown>=3.7",
+    "merge3>=1.0.0",
     "pagefind[bin]>=1.3.0",
     "pelican>=4.11.0",
     "pelican-drafts>=0.1.1",
     "pelican-yaml-metadata>=2.1.2",
     "pyembed",
     "pyembed-markdown>=1.1.0",
+    "pypandoc>=1.17",
+    "python-slugify>=9.1.3",
     "setuptools>=76.0.0",
     "smartypants>=2.0.1",
     "typogrify>=2.1.0",
 ]
+
+[project.scripts]
+post = "mpr.cli:cli"
 
 [tool.uv.sources]
 pyembed = { path = "vendor/pyembed" }
 pyembed-markdown = { path = "vendor/pyembed-markdown" }
 
 [tool.uv]
-package = false
 override-dependencies = [
     "pygments>=2.20.0",
 ]
@@ -37,7 +44,17 @@ dev = [
     "bandit>=1.9.4",
     "pip-audit>=2.7.3",
     "poethepoet>=0.32.0",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+    "ty>=0.0.100",
 ]
+
+[tool.pytest.ini_options]
+# anyio's plugin is pulled in by a dependency, unused here, and warns on every run
+addopts = ["-p", "no:anyio"]
+
+[tool.ruff]
+line-length = 100
 
 [tool.bandit]
 # The scripts shell out to git with fixed argument lists and no shell
@@ -78,7 +95,33 @@ shell = 'rm -rf "$OUTPUT_DIR"'
 
 [tool.poe.tasks.bandit]
 help = "Scan the repository's own Python code for security issues"
-shell = 'bandit -q -c pyproject.toml -r *.py plugins vendor/pyembed/pyembed vendor/pyembed-markdown/pyembed'
+shell = 'bandit -q -c pyproject.toml -r *.py src plugins vendor/pyembed/pyembed vendor/pyembed-markdown/pyembed'
+
+[tool.poe.tasks.lint]
+help = "Lint the post CLI and its tests with ruff"
+cmd = "ruff check src tests"
+
+[tool.poe.tasks.format]
+help = "Format the post CLI and its tests with ruff"
+cmd = "ruff format src tests"
+
+[tool.poe.tasks.typecheck]
+help = "Type-check the post CLI and its tests with ty"
+cmd = "ty check src tests"
+
+[tool.poe.tasks.test]
+help = "Run the test suite"
+cmd = "pytest -q"
+
+[tool.poe.tasks.qa]
+help = "Run every code check: format, lint, types, security, tests"
+sequence = [
+  { cmd = "ruff format --check src tests" },
+  "lint",
+  "typecheck",
+  "bandit",
+  "test",
+]
 
 [tool.poe.tasks.regenerate]
 help = "Regenerate files upon modification"
