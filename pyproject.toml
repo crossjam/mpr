@@ -24,7 +24,7 @@ dependencies = [
 
 [tool.uv.sources]
 pyembed = { path = "vendor/pyembed" }
-pyembed-markdown = { git = "https://github.com/crossjam/pyembed-markdown.git" }
+pyembed-markdown = { path = "vendor/pyembed-markdown" }
 
 [tool.uv]
 package = false
@@ -34,9 +34,14 @@ override-dependencies = [
 
 [dependency-groups]
 dev = [
+    "bandit>=1.9.4",
     "pip-audit>=2.7.3",
     "poethepoet>=0.32.0",
 ]
+
+[tool.bandit]
+# The scripts shell out to git with fixed argument lists and no shell
+skips = ["B404", "B603", "B607"]
 
 [tool.poe.env]
 INPUT_DIR = "content"
@@ -70,6 +75,10 @@ pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$CONF_FILE" $OPTS
 [tool.poe.tasks.clean]
 help = "Remove the generated output directory"
 shell = 'rm -rf "$OUTPUT_DIR"'
+
+[tool.poe.tasks.bandit]
+help = "Scan the repository's own Python code for security issues"
+shell = 'bandit -q -c pyproject.toml -r *.py plugins vendor/pyembed/pyembed vendor/pyembed-markdown/pyembed'
 
 [tool.poe.tasks.regenerate]
 help = "Regenerate files upon modification"

@@ -15,11 +15,13 @@ from operator import attrgetter
 from pelican import signals, generators, writers
 
 
+# Markup(...).striptags() below turns HTML into plain text for the JSON
+# feed; nothing is rendered unescaped, so bandit's B704 is suppressed.
 class JSONFeed(object):
     TOP_LEVEL_TRANS = {
         "link": {"key": "home_page_url"},
         "feed_url": {"key": "feed_url"},
-        "description": {"key": "description", "tr": lambda v: Markup(v).striptags()},
+        "description": {"key": "description", "tr": lambda v: Markup(v).striptags()},  # nosec B704
         "favicon": {"key": "favicon"},
         "icon": {"key": "icon"},
         "author": {"key": "author", "tr": lambda n: {"name": str(n)}},
@@ -28,7 +30,7 @@ class JSONFeed(object):
         "link": {"key": "url"},
         "title": {"key": "title"},
         "content": {"key": "content_html"},
-        "description": {"key": "description", "tr": lambda v: Markup(v).striptags()},
+        "description": {"key": "description", "tr": lambda v: Markup(v).striptags()},  # nosec B704
         "pubdate": {"key": "date_published", "tr": datetime.isoformat},
         "updateddate": {"key": "date_modified", "tr": datetime.isoformat},
         "categories": {"key": "tags", "tr": lambda c: [str(t) for t in c]},
@@ -150,7 +152,7 @@ class JSONFeedWriter(writers.Writer, object):
             feed_title = context["SITENAME"]
 
         feed = JSONFeed(
-            title=Markup(feed_title).striptags(),
+            title=Markup(feed_title).striptags(),  # nosec B704
             link=(self.site_url + "/"),
             feed_url=self.feed_url,
             author=context.get("AUTHOR"),
