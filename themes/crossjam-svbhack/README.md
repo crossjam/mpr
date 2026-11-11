@@ -63,7 +63,8 @@ When developing locally, you may want to set the following variable: `SITEURL = 
 
 ## AUTHOR
 
-pelican-svbhack is authored by Giulio Fidente.
+pelican-svbhack is authored by Giulio Fidente. This fork is modified
+for Mass Programming Resistance by Brian M. Dennis.
 
 ## LICENSE
 
