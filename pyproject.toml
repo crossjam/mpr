@@ -7,6 +7,9 @@ name = "mpr"
 version = "0.1.0"
 description = "Content, configuration, and tools for the Mass Programming Resistance blog"
 readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Brian M. Dennis" }]
 requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.15.0",

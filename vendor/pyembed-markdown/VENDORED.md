@@ -14,3 +14,9 @@ That fork carries two changes on top of the last upstream release
 
 Keeping it here alongside pyembed puts both packages under the repo's
 `poe bandit` scan, and lets fixes land in this repo directly.
+
+## License
+
+MIT, copyright 2013 Matt Thomson and 2026 Brian M. Dennis, per `LICENSE.txt` (also declared in
+`setup.py`). The original copyright and permission notice stay in place, as the
+MIT license requires, with a line added for Brian M. Dennis's changes. The fork's changes are under the same license.

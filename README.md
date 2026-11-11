@@ -20,6 +20,14 @@ Writing a post:
 - `uv run post publish draft <slug> --push` publishes it
 - `uv run poe rsync_upload` deploys the site
 
+## License
+
+Blog content is licensed under [CC BY-NC-SA
+4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), and the code
+under the Apache License 2.0 (`LICENSE`); `LICENSE.md` says which is
+which. Vendored third-party code keeps its own license; see
+`THIRD_PARTY_NOTICES.md`.
+
 TODO
 
 - [x] Investigate removing submodules

@@ -13,3 +13,9 @@ can keep setuptools current.
 The discovery requests in `pyembed/core/discovery.py` also had no timeout,
 so one unresponsive host could hang a site build indefinitely. They now use
 the same 10 second timeout as the consumer requests.
+
+## License
+
+MIT, copyright 2013 Matt Thomson and 2026 Brian M. Dennis, per `LICENSE.txt` (also declared in
+`setup.py`). The original copyright and permission notice stay in place, as the
+MIT license requires, with a line added for Brian M. Dennis's changes. The local patches above are under the same license.
