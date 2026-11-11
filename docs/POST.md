@@ -215,8 +215,10 @@ Pagefind index, then rsync `output/` to the web root with `--delete`.
   the same web root `rsync_upload` uses). `drafts/` is never copied,
   and any copy already in the target is removed.
 
-Before building, `rsync_local` checks the target: it must exist, every
-directory in it must be writable by you, and the web server account
+Before building, `rsync_local` checks the target: it must exist, and
+every directory in it must be writable by you through its owner or
+group permissions. World-writable directories don't count, and the task
+refuses to run as root. The web server account
 (`--WEB_USER`, default `caddy`) must be able to reach and read it,
 including the files rsync will create under your umask. Any problem
 stops the deploy with a list of what to fix, so it never syncs

@@ -45,6 +45,10 @@ class Account:
     def can_path(self, st: os.stat_result, want: int) -> bool:
         return self.can(st.st_mode, st.st_uid, st.st_gid, want)
 
+    def owns_or_shares(self, st: os.stat_result, want: int) -> bool:
+        """Like can_path, but only through owner or group bits, never other."""
+        return (st.st_uid == self.uid or st.st_gid in self.gids) and self.can_path(st, want)
+
 
 def owner(st: os.stat_result) -> str:
     try:
@@ -87,6 +91,8 @@ def check_target(target: Path, deployer: Account, web: Account, umask: int) -> l
     """
     if not target.exists():
         return [f"{target} does not exist; create it first, owned by the deploying user"]
+    if deployer.uid == 0:
+        return ["running as root; deploy as an account with owner or group write on the target"]
     if not target.is_dir():
         return [f"{target} is not a directory"]
 
@@ -99,11 +105,16 @@ def check_target(target: Path, deployer: Account, web: Account, umask: int) -> l
 
     unwritable = []
     unreadable = []
-    for root, dirs, files in os.walk(target):
+    # A directory os.walk cannot list hides everything in it from this check
+    unscannable: list[Path] = []
+    for root, dirs, files in os.walk(
+        target, onerror=lambda err: unscannable.append(Path(err.filename))
+    ):
         root_path = Path(root)
         root_st = root_path.stat()
-        # rsync --delete has to add and remove entries in every directory
-        if not deployer.can_path(root_st, 2 | 1):
+        # rsync --delete has to add and remove entries in every directory,
+        # and the deploying account gets that from owner or group write only
+        if not deployer.owns_or_shares(root_st, 2 | 1):
             unwritable.append(root_path)
         if not web.can_path(root_st, 4 | 1):
             unreadable.append(root_path)
@@ -113,11 +124,13 @@ def check_target(target: Path, deployer: Account, web: Account, umask: int) -> l
                 unreadable.append(path)
         dirs.sort()
 
+    if unscannable:
+        problems.append(summarize(f"{deployer.name} cannot scan", unscannable))
     if unwritable:
         problems.append(
             summarize(
-                f"{deployer.name} cannot write to (owner {owner(target_st)}; "
-                "run as that user or with sudo, or fix ownership)",
+                f"{deployer.name} has no owner or group write on (target is "
+                f"{owner(target_st)}:{group(target_st.st_gid)}; fix ownership or mode)",
                 unwritable,
             )
         )

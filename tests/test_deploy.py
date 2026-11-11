@@ -60,6 +60,28 @@ def test_account_permission_rules(mode, uid, gid, want, expected):
     assert WEB.can(mode, uid, gid, want) is expected
 
 
+def fake_stat(mode, uid, gid):
+    return os.stat_result((mode, 0, 0, 1, uid, gid, 0, 0, 0, 0))
+
+
+@pytest.mark.parametrize(
+    ("mode", "uid", "gid", "expected"),
+    [
+        (0o755, 99999, 1, True),  # owner write
+        (0o775, 1, 99999, True),  # group write
+        (0o755, 1, 99999, False),  # group without write
+        (0o777, 1, 1, False),  # world-writable does not count
+    ],
+)
+def test_deployer_writes_only_as_owner_or_group(mode, uid, gid, expected):
+    assert WEB.owns_or_shares(fake_stat(mode, uid, gid), 2 | 1) is expected
+
+
+def test_running_as_root_fails(target):
+    [problem] = check_target(target, Account("root", 0, frozenset({0})), WEB, 0o022)
+    assert "running as root" in problem
+
+
 def test_root_can_do_anything():
     assert Account("root", 0, frozenset({0})).can(0o000, 1, 1, 7)
 
@@ -81,7 +103,7 @@ def test_file_target_fails(target, deployer):
 def test_unwritable_subdirectory_fails(target, deployer):
     (target / "2026").chmod(0o555)
     [problem] = check_target(target, deployer, WEB, 0o022)
-    assert "cannot write" in problem
+    assert "no owner or group write" in problem
     assert str(target / "2026") in problem
 
 
@@ -135,3 +157,9 @@ def test_cli_reports_problems(tmp_path, deployer):
     result = CliRunner().invoke(cli, [str(tmp_path / "nope"), "--web-user", deployer.name])
     assert result.exit_code == 1
     assert "does not exist" in result.output
+
+
+def test_unscannable_subdirectory_fails(target, deployer):
+    (target / "2026").chmod(0o000)
+    problems = check_target(target, deployer, WEB, 0o022)
+    assert any("cannot scan" in p and str(target / "2026") in p for p in problems)
