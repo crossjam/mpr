@@ -19,7 +19,7 @@ announce I completed reading all of Mick Herron’s [Slow Horses /
 Slough House][slough-house] works on offer. Even got all of the
 novellas.
 
-<!-- PELICAN_END_SJMMARY -->
+<!-- PELICAN_END_SUMMARY -->
 
 <table>
 <tr> <td>Slow Horses	</td> <td> 2010	</td> <td> novel </td> </tr>	
