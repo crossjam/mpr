@@ -1,5 +1,6 @@
 """post: start draft branches and publish them onto main."""
 
+import os
 import shlex
 from datetime import datetime
 from pathlib import Path
@@ -278,11 +279,16 @@ def squash_merge(r: Repo, branch: str) -> list[Path]:
 
     # The clean check ignores untracked files, so refuse to write over one, as git merge does
     top = repo.root(r)
+    # lexists, so a dangling symlink counts too: writing would follow it out of the tree
     untracked = [
         path.decode()
         for path, _, _ in updated
-        if not repo.on_branch(r, BASE_BRANCH, path.decode()) and (top / path.decode()).exists()
+        if not repo.on_branch(r, BASE_BRANCH, path.decode())
+        and os.path.lexists(top / path.decode())
     ]
+    for name in untracked:
+        if (top / name).is_symlink():
+            warn(f"WARNING: {name} is a symlink to {os.readlink(top / name)}")
     if untracked:
         raise click.ClickException(
             f"publishing {branch} would overwrite untracked {', '.join(untracked)}; "

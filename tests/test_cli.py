@@ -229,3 +229,15 @@ def test_publish_commits_only_the_merged_paths(blog):
     committed = run("git", "show", "--name-only", "--format=", "HEAD", cwd=blog).split()
     assert committed == ["content/tidy.md"]
     assert run("git", "status", "--porcelain", cwd=blog) == "?? content/half-written.md\n"
+
+
+def test_publish_warns_about_a_dangling_symlink(blog, tmp_path):
+    start_draft("Linked")
+    run("git", "switch", "-q", "main", cwd=blog)
+    outside = tmp_path / "outside.md"
+    (blog / "content" / "linked.md").symlink_to(outside)
+
+    result = CliRunner().invoke(cli, ["publish", "draft", "linked"])
+    assert result.exit_code == 1
+    assert "WARNING: content/linked.md is a symlink" in result.output
+    assert not outside.exists()
