@@ -277,22 +277,24 @@ def squash_merge(r: Repo, branch: str) -> list[Path]:
     if not posts:
         raise click.ClickException(f"{branch} has no post marked status: draft under content/")
 
-    # The clean check ignores untracked files, so refuse to write over one, as git merge does
     top = repo.root(r)
-    # lexists, so a dangling symlink counts too: writing would follow it out of the tree
+    names = [path.decode() for path, _, _ in updated]
+    # The clean check ignores untracked files, so refuse to write over one, as git merge
+    # does; lexists so that a dangling symlink counts too
     untracked = [
-        path.decode()
-        for path, _, _ in updated
-        if not repo.on_branch(r, BASE_BRANCH, path.decode())
-        and os.path.lexists(top / path.decode())
+        name
+        for name in names
+        if not repo.on_branch(r, BASE_BRANCH, name) and os.path.lexists(top / name)
     ]
-    for name in untracked:
-        if (top / name).is_symlink():
-            warn(f"WARNING: {name} is a symlink to {os.readlink(top / name)}")
-    if untracked:
+    # Never write through a symlink, at the path or any parent, that leads out of the tree
+    inside = top.resolve()
+    escaping = [name for name in names if not (top / name).resolve().is_relative_to(inside)]
+    for name in escaping:
+        warn(f"WARNING: {name} resolves outside the repository, to {(top / name).resolve()}")
+    if blocked := sorted(set(untracked) | set(escaping)):
         raise click.ClickException(
-            f"publishing {branch} would overwrite untracked {', '.join(untracked)}; "
-            "move or remove them first; nothing was changed"
+            f"publishing {branch} would write over untracked or outside paths "
+            f"{', '.join(blocked)}; move or remove them first; nothing was changed"
         )
 
     written = []

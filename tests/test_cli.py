@@ -239,5 +239,23 @@ def test_publish_warns_about_a_dangling_symlink(blog, tmp_path):
 
     result = CliRunner().invoke(cli, ["publish", "draft", "linked"])
     assert result.exit_code == 1
-    assert "WARNING: content/linked.md is a symlink" in result.output
+    assert "WARNING: content/linked.md resolves outside the repository" in result.output
     assert not outside.exists()
+
+
+def test_publish_refuses_a_symlinked_parent_directory(blog, tmp_path):
+    start_draft("Nested")
+    post = blog / "content" / "nested.md"
+    (blog / "content" / "newdir").mkdir()
+    post.rename(blog / "content" / "newdir" / "nested.md")
+    run("git", "add", "-A", cwd=blog)
+    run("git", "commit", "-q", "-m", "Move into newdir", cwd=blog)
+    run("git", "switch", "-q", "main", cwd=blog)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (blog / "content" / "newdir").symlink_to(outside)
+
+    result = CliRunner().invoke(cli, ["publish", "draft", "nested"])
+    assert result.exit_code == 1
+    assert "WARNING: content/newdir/nested.md resolves outside the repository" in result.output
+    assert list(outside.iterdir()) == []
