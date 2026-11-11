@@ -1,6 +1,6 @@
 ---
 title: "Back At It"
-date: 2026-11-11 10:30
+date: 2026-11-11 17:15
 author: "C. Ross Jam"
 status: published
 ---
