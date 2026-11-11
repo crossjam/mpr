@@ -73,6 +73,8 @@ SSH_HOST = "pirateninja-websites.exe.xyz"
 SSH_PORT = "22"
 SSH_USER = "exedev"
 SSH_TARGET_DIR = "/var/www/crossjam.net/html/wp/mpr/"
+LOCAL_TARGET_DIR = "/var/www/crossjam.net/html/wp/mpr/"
+WEB_USER = "caddy"
 
 [tool.poe.tasks.html]
 help = "(Re)generate the web site"
@@ -291,19 +293,17 @@ scp -P "$SSH_PORT" -r "$OUTPUT_DIR"/* "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
 
 [tool.poe.tasks.rsync_upload]
 help = "Generate using production settings and upload the web site via rsync+ssh"
-shell = """
+sequence = [
+  { ref = "publish --DEBUG ${DEBUG} --RELATIVE ${RELATIVE}" },
+  { shell = """
 set -e
-OPTS=""
-[ "$DEBUG" = "1" ] && OPTS="$OPTS -D"
-[ "$RELATIVE" = "1" ] && OPTS="$OPTS --relative-urls"
-pelican "$INPUT_DIR" -o "$OUTPUT_DIR" -s "$PUBLISH_CONF" $OPTS
-python -m pagefind --site "$OUTPUT_DIR"
 if [ -n "$SSH_KEY" ]; then
   rsync -e "ssh -i $SSH_KEY -p $SSH_PORT" -P -rvzcO --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
 else
   rsync -e "ssh -p $SSH_PORT" -P -rvzcO --cvs-exclude --delete "$OUTPUT_DIR"/ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR"
 fi
-"""
+""" },
+]
   [[tool.poe.tasks.rsync_upload.args]]
   name = "DEBUG"
   default = "0"
@@ -316,3 +316,40 @@ fi
   name = "SSH_KEY"
   default = ""
   help = "Path to an SSH private key to use for rsync"
+
+[tool.poe.tasks.rsync_local]
+help = "Generate using production settings and rsync the web site into a directory on this machine"
+# For running on the host that serves the site. The target check runs
+# first, so a permissions problem stops the deploy before the build. The
+# -s filter keeps drafts/ out of the transfer but still lets --delete
+# remove any copy already in the target.
+sequence = [
+  { cmd = "python -m mpr.deploy ${TARGET} --web-user ${WEB_USER}" },
+  { ref = "publish --DEBUG ${DEBUG} --RELATIVE ${RELATIVE}" },
+  { shell = """
+set -e
+OPTS=""
+[ "$DRY_RUN" = "1" ] && OPTS="$OPTS --dry-run"
+rsync $OPTS -P -rvzcO --cvs-exclude --filter='-s /drafts/' --delete "$OUTPUT_DIR"/ "$TARGET"
+""" },
+]
+  [[tool.poe.tasks.rsync_local.args]]
+  name = "DEBUG"
+  default = "0"
+  help = "Set to 1 to enable Pelican debug output"
+  [[tool.poe.tasks.rsync_local.args]]
+  name = "RELATIVE"
+  default = "0"
+  help = "Set to 1 to enable relative urls"
+  [[tool.poe.tasks.rsync_local.args]]
+  name = "TARGET"
+  default = "${LOCAL_TARGET_DIR}"
+  help = "Directory to sync the site into"
+  [[tool.poe.tasks.rsync_local.args]]
+  name = "WEB_USER"
+  default = "${WEB_USER}"
+  help = "Account the web server runs as; it must be able to read the synced files"
+  [[tool.poe.tasks.rsync_local.args]]
+  name = "DRY_RUN"
+  default = "0"
+  help = "Set to 1 to show what rsync would change without writing to the target"
