@@ -163,3 +163,11 @@ def test_unscannable_subdirectory_fails(target, deployer):
     (target / "2026").chmod(0o000)
     problems = check_target(target, deployer, WEB, 0o022)
     assert any("cannot scan" in p and str(target / "2026") in p for p in problems)
+
+
+def test_cli_judges_the_effective_user(target, monkeypatch):
+    # rsync writes with the effective UID, which a setuid or sudo wrapper may change
+    monkeypatch.setattr(os, "geteuid", lambda: 0)
+    result = CliRunner().invoke(cli, [str(target), "--web-user", "root"])
+    assert result.exit_code == 1
+    assert "running as root" in result.output

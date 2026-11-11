@@ -164,7 +164,7 @@ def current_umask() -> int:
 )
 def cli(target: Path, web_user: str) -> None:
     """Check TARGET before a local deploy rsyncs the site into it."""
-    deployer = Account.lookup(pwd.getpwuid(os.getuid()).pw_name)
+    deployer = Account.lookup(pwd.getpwuid(os.geteuid()).pw_name)
     try:
         web = Account.lookup(web_user)
     except KeyError:
