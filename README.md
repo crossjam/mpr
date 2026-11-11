@@ -13,6 +13,13 @@ uv run poe html
 Drafts live on per-post `draft/*` branches in the private `drafts`
 remote; see `DRAFTPOST.md` and `PUBLISHPOST.md`.
 
+Writing a post:
+
+- `./draftpost.py --edit` from a clean `main` starts `draft/<slug>`
+- Write, preview with `uv run poe devserver`, then commit and `git push`
+- `git switch main && ./publishpost.py <slug> --push` publishes it
+- `uv run poe rsync_upload` deploys the site
+
 TODO
 
 - [x] Investigate removing submodules
