@@ -11,6 +11,7 @@ from dulwich import porcelain
 from dulwich.diff_tree import CHANGE_DELETE, tree_changes
 from dulwich.merge import three_way_merge
 from dulwich.object_store import tree_lookup_path
+from dulwich.objects import Commit, ObjectID
 from dulwich.repo import Repo
 from slugify import slugify
 
@@ -58,6 +59,17 @@ def complete_drafts(ctx, param, incomplete: str) -> list[str]:
 def require_drafts_remote(r: Repo) -> None:
     if repo.remote_url(r, DRAFTS_REMOTE) is None:
         raise click.ClickException(f"no '{DRAFTS_REMOTE}' remote; run: post setup")
+
+
+def require_draft_branch(r: Repo) -> str:
+    """The checked-out branch, which must be a draft."""
+    branch = repo.current_branch(r)
+    if not branch.startswith(DRAFT_PREFIX):
+        raise click.ClickException(
+            f"not on a draft branch (on {branch or 'a detached HEAD'}); "
+            "switch to one with: post draft switch SLUG"
+        )
+    return branch
 
 
 def slug_argument(f):
@@ -239,24 +251,124 @@ def draft_list(fetch):
 
 @draft.command("switch")
 @slug_argument
+@click.option(
+    "--update/--no-update",
+    default=True,
+    show_default=True,
+    help=f"Merge {BASE_BRANCH} into the draft after switching.",
+)
 @dry_run_option
-def draft_switch(name, dry_run):
-    """Check out draft/SLUG, fetching it from the drafts remote if it is not here yet."""
+def draft_switch(name, update, dry_run):
+    """Check out draft/SLUG, fetching it from the drafts remote if it is not here yet.
+
+    Then, unless --no-update is given, merges main into it as
+    `post draft update` does, so the draft builds with the current
+    templates and plugins. A conflict leaves the draft as it was.
+    """
     branch = repo.draft_branch(name)
     plan = Plan(dry_run)
     with repo.open_repo() as r:
         repo.require_clean(r)
-        if not repo.ref_exists(r, f"refs/heads/{branch}"):
+        # Files tracked here are the checkout's to deal with, not untracked ones in the way
+        before = repo.commit_at(r, r.head()).tree
+        tip = f"refs/heads/{branch}"
+        if not repo.ref_exists(r, tip):
             require_drafts_remote(r)
             plan.fetch(r, DRAFTS_REMOTE)
-            tracking = f"refs/remotes/{DRAFTS_REMOTE}/{branch}"
-            if not repo.ref_exists(r, tracking):
+            tip = f"refs/remotes/{DRAFTS_REMOTE}/{branch}"
+            if not repo.ref_exists(r, tip):
                 raise click.ClickException(f"no draft {branch} here or on {DRAFTS_REMOTE}")
             plan(
                 f"Create {branch} from {DRAFTS_REMOTE}",
-                lambda: repo.create_branch(r, branch, tracking, DRAFTS_REMOTE),
+                lambda: repo.create_branch(r, branch, tip, DRAFTS_REMOTE),
             )
         plan(f"Switch to {branch}", lambda: porcelain.checkout(r, branch))
+        if update:
+            tip_commit = repo.commit_at(r, r.refs[repo.to_ref(tip)])
+            try:
+                update_draft(plan, r, branch, tip_commit, [before])
+            except click.ClickException as e:
+                switched = "Would switch" if dry_run else "Switched"
+                warn(f"{e.message}\n{switched} to {branch} without updating it")
+
+
+def update_draft(
+    plan: Plan, r: Repo, branch: str, tip: Commit, tracked: list[ObjectID] | None = None
+) -> None:
+    """
+    Merge main into the checked-out draft, then push it; tip is the draft's commit.
+
+    The merge is worked out in memory first, so a conflict changes nothing.
+    Paths in the tracked trees, besides the draft's own, may be written over.
+    """
+    warn_if_main_behind(plan, r)
+    main = repo.branch_commit(r, BASE_BRANCH)
+    base = repo.merge_base(r, tip, main)
+    if base is not None and base.id == main.id:
+        click.echo(f"{branch} is up to date with {BASE_BRANCH}")
+        return
+    merged, conflicts = three_way_merge(r.object_store, base, tip, main)
+    if conflicts:
+        names = ", ".join(path.decode() for path in conflicts)
+        raise click.ClickException(
+            f"{BASE_BRANCH} conflicts with {branch} in {names}; nothing was changed"
+        )
+    # The merge stores the subtrees it builds, but not the root tree
+    r.object_store.add_object(merged)
+
+    writes, removes = {}, []
+    for change in tree_changes(r.object_store, tip.tree, merged.id):
+        new, old = change.new, change.old
+        if change.type == CHANGE_DELETE or new is None:
+            if old is not None:
+                removes.append(old.path.decode())
+        else:
+            writes[new.path.decode()] = (repo.blob_data(r, new.sha), new.mode)
+    refuse_blocked_writes(r, list(writes), f"merging {BASE_BRANCH}", [tip.tree, *(tracked or [])])
+
+    for path, (data, mode) in writes.items():
+        plan(f"Write {path}", lambda p=path, d=data, m=mode: write_file(r, p, d, m))
+    for path in removes:
+        plan(f"Remove {path}", lambda p=path: porcelain.remove(r, [str(repo.root(r) / p)]))
+    message = f"Merge {BASE_BRANCH} into {branch}"
+    plan(
+        f'Commit "{message}"',
+        lambda: r.get_worktree().commit(message=message.encode(), merge_heads=[main.id]),
+    )
+    push_draft(plan, r, branch)
+
+
+def warn_if_main_behind(plan: Plan, r: Repo) -> None:
+    """Fetch origin, then warn when its main has commits the local main lacks."""
+    try:
+        plan.fetch(r, PUBLIC_REMOTE)
+    except click.ClickException as e:
+        warn(f"{e.message}\nChecking {BASE_BRANCH} against {PUBLIC_REMOTE} as last fetched")
+    tracking = f"refs/remotes/{PUBLIC_REMOTE}/{BASE_BRANCH}"
+    if behind := repo.commits_missing(r, tracking, f"refs/heads/{BASE_BRANCH}"):
+        commits = "commit" if behind == 1 else "commits"
+        warn(
+            f"WARNING: {PUBLIC_REMOTE}/{BASE_BRANCH} has {behind} {commits} that local "
+            f"{BASE_BRANCH} does not; pull them into {BASE_BRANCH} first, "
+            "or the draft will not get them"
+        )
+
+
+@draft.command("update")
+@dry_run_option
+def draft_update(dry_run):
+    """Merge main into the current draft and push it to the drafts remote.
+
+    Keeps the draft building with main's current templates, plugins, and
+    dependencies. The merge is worked out in memory first, so a conflict
+    changes nothing.
+    """
+    plan = Plan(dry_run)
+    with repo.open_repo() as r:
+        branch = require_draft_branch(r)
+        require_drafts_remote(r)
+        repo.require_clean(r)
+        update_draft(plan, r, branch, repo.commit_at(r, r.head()))
 
 
 @draft.command("save")
@@ -271,12 +383,7 @@ def draft_save(message, dry_run):
     """
     plan = Plan(dry_run)
     with repo.open_repo() as r:
-        branch = repo.current_branch(r)
-        if not branch.startswith(DRAFT_PREFIX):
-            raise click.ClickException(
-                f"not on a draft branch (on {branch or 'a detached HEAD'}); "
-                "switch to one with: post draft switch SLUG"
-            )
+        branch = require_draft_branch(r)
         require_drafts_remote(r)
 
         top = repo.root(r)
@@ -413,28 +520,36 @@ def plan_squash(r: Repo, branch: str, redate: bool, now: datetime) -> Squash:
     if not squash.posts:
         raise click.ClickException(f"{branch} has no post marked status: draft under content/")
 
+    # A file tracked in the current checkout is not untracked: switching to main deals with it
+    tracked = [ours.tree, repo.commit_at(r, r.head()).tree]
+    refuse_blocked_writes(r, list(squash.writes), f"publishing {branch}", tracked)
+    return squash
+
+
+def refuse_blocked_writes(r: Repo, names: list[str], doing: str, tracked: list[ObjectID]) -> None:
+    """
+    Refuse writes over untracked files, or through a symlink that leads out of the tree.
+
+    A path in any of the tracked trees is not untracked, so it is fair to write.
+    """
     top = repo.root(r)
     # The clean check ignores untracked files, so refuse to write over one, as git merge
-    # does; lexists so that a dangling symlink counts too. A file tracked in the current
-    # checkout is not untracked: switching to main deals with it.
+    # does; lexists so that a dangling symlink counts too
     untracked = [
         name
-        for name in squash.writes
-        if not repo.in_head(r, name)
-        and not repo.on_branch(r, BASE_BRANCH, name)
-        and os.path.lexists(top / name)
+        for name in names
+        if not any(repo.in_tree(r, tree, name) for tree in tracked) and os.path.lexists(top / name)
     ]
     # Never write through a symlink, at the path or any parent, that leads out of the tree
     inside = top.resolve()
-    escaping = [name for name in squash.writes if not (top / name).resolve().is_relative_to(inside)]
+    escaping = [name for name in names if not (top / name).resolve().is_relative_to(inside)]
     for name in escaping:
         warn(f"WARNING: {name} resolves outside the repository, to {(top / name).resolve()}")
     if blocked := sorted(set(untracked) | set(escaping)):
         raise click.ClickException(
-            f"publishing {branch} would write over untracked or outside paths "
+            f"{doing} would write over untracked or outside paths "
             f"{', '.join(blocked)}; move or remove them first; nothing was changed"
         )
-    return squash
 
 
 def write_file(r: Repo, name: str, data: bytes, mode: int) -> None:

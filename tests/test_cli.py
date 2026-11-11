@@ -407,3 +407,130 @@ def test_save_ignores_tracked_symlinked_directories(blog):
     assert "Stage content/media" not in result.output
     committed = run("git", "show", "--name-only", "--format=", "HEAD", cwd=blog).split()
     assert committed == ["content/linked-media.md"]
+
+
+def behind_main(blog: Path, title: str) -> str:
+    """Start a draft, then move main on with a new and an edited file; return the branch."""
+    start_draft(title)
+    branch = run("git", "branch", "--show-current", cwd=blog).strip()
+    commit_on_main(blog, "old.md", "Title: Old\nStatus: published\n\nOld post, edited.\n")
+    (blog / "theme.css").write_text("body {}\n")
+    run("git", "add", "theme.css", cwd=blog)
+    run("git", "commit", "-q", "-m", "Add theme", cwd=blog)
+    return branch
+
+
+def test_update_merges_main_into_the_draft(blog):
+    branch = behind_main(blog, "Behind")
+    run("git", "switch", "-q", branch, cwd=blog)
+
+    result = CliRunner().invoke(cli, ["draft", "update"])
+    assert result.exit_code == 0, result.output
+    assert "Write theme.css" in result.output
+    assert run("git", "log", "-1", "--format=%s", cwd=blog).strip() == f"Merge main into {branch}"
+    parents = run("git", "log", "-1", "--format=%P", cwd=blog).split()
+    assert parents[1] == run("git", "rev-parse", "main", cwd=blog).strip()
+    assert run("git", "status", "--porcelain", cwd=blog) == ""
+    assert "edited" in (blog / "content" / "old.md").read_text()
+    assert (blog / "content" / "behind.md").exists()
+    remote_tip = run("git", "ls-remote", "drafts", f"refs/heads/{branch}", cwd=blog).split()[0]
+    assert remote_tip == run("git", "rev-parse", "HEAD", cwd=blog).strip()
+
+    again = CliRunner().invoke(cli, ["draft", "update"])
+    assert again.exit_code == 0, again.output
+    assert "up to date with main" in again.output
+
+
+def test_switch_updates_the_draft(blog):
+    branch = behind_main(blog, "Switched")
+
+    result = CliRunner().invoke(cli, ["draft", "switch", "switched"])
+    assert result.exit_code == 0, result.output
+    assert run("git", "branch", "--show-current", cwd=blog).strip() == branch
+    assert (blog / "theme.css").exists()
+    assert run("git", "log", "-1", "--format=%s", cwd=blog).strip() == f"Merge main into {branch}"
+
+
+def test_switch_without_update_leaves_the_draft(blog):
+    branch = behind_main(blog, "Left")
+    tip = run("git", "rev-parse", branch, cwd=blog)
+
+    result = CliRunner().invoke(cli, ["draft", "switch", "left", "--no-update"])
+    assert result.exit_code == 0, result.output
+    assert run("git", "rev-parse", "HEAD", cwd=blog) == tip
+    assert not (blog / "theme.css").exists()
+
+
+def test_update_conflict_changes_nothing(blog):
+    start_draft("Clash")
+    (blog / "content" / "old.md").write_text("Title: Old\n\nDraft side.\n")
+    run("git", "commit", "-q", "-am", "Draft edit", cwd=blog)
+    commit_on_main(blog, "old.md", "Title: Old\n\nMain side.\n")
+
+    run("git", "switch", "-q", "draft/clash", cwd=blog)
+    head = run("git", "rev-parse", "HEAD", cwd=blog)
+    result = CliRunner().invoke(cli, ["draft", "update"])
+    assert result.exit_code == 1
+    assert "conflicts with draft/clash in content/old.md" in result.output
+    assert run("git", "rev-parse", "HEAD", cwd=blog) == head
+    assert run("git", "status", "--porcelain", cwd=blog) == ""
+
+    # Switching still switches, and says the update was skipped
+    run("git", "switch", "-q", "main", cwd=blog)
+    switched = CliRunner().invoke(cli, ["draft", "switch", "clash"])
+    assert switched.exit_code == 0, switched.output
+    assert "without updating it" in switched.output
+    assert run("git", "rev-parse", "HEAD", cwd=blog) == head
+
+
+def test_update_refuses_to_overwrite_an_untracked_file(blog):
+    branch = behind_main(blog, "Untracked")
+    run("git", "switch", "-q", branch, cwd=blog)
+    (blog / "theme.css").write_text("mine\n")
+
+    result = CliRunner().invoke(cli, ["draft", "update"])
+    assert result.exit_code == 1
+    assert "would write over untracked or outside paths theme.css" in result.output
+    assert (blog / "theme.css").read_text() == "mine\n"
+
+
+@pytest.mark.parametrize(
+    "args", [["draft", "update"], ["draft", "switch", "dry-update"]], ids=["update", "switch"]
+)
+def test_dry_run_update_changes_nothing(blog, args):
+    branch = behind_main(blog, "Dry Update")
+    if args[1] == "update":
+        run("git", "switch", "-q", branch, cwd=blog)
+    before = snapshot(blog)
+
+    result = CliRunner().invoke(cli, [*args, "--dry-run"])
+    assert result.exit_code == 0, result.output
+    assert "would Write theme.css" in result.output
+    assert f'would Commit "Merge main into {branch}"' in result.output
+    assert f"would Push {branch} to drafts" in result.output
+    assert "✓" not in result.output
+    assert snapshot(blog) == before
+
+
+def test_update_warns_when_origin_main_is_ahead(blog):
+    branch = behind_main(blog, "Stale Main")
+    run("git", "push", "-q", "origin", "main", cwd=blog)
+    run("git", "switch", "-q", branch, cwd=blog)
+    run("git", "branch", "-f", "main", "main~1", cwd=blog)
+    run("git", "update-ref", "refs/remotes/origin/main", "main", cwd=blog)
+
+    result = CliRunner().invoke(cli, ["draft", "update"])
+    assert result.exit_code == 0, result.output
+    assert "Fetch origin" in result.output
+    assert "WARNING: origin/main has 1 commit that local main does not" in result.output
+    assert "git " not in result.output
+
+
+def test_update_does_not_warn_when_main_is_current(blog):
+    branch = behind_main(blog, "Current Main")
+    run("git", "push", "-q", "origin", "main", cwd=blog)
+    run("git", "switch", "-q", branch, cwd=blog)
+
+    result = CliRunner().invoke(cli, ["draft", "update"])
+    assert result.exit_code == 0, result.output
+    assert "WARNING" not in result.output
