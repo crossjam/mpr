@@ -1,4 +1,5 @@
 Title: Yeah, What Thomas Said
+Date: 2025-06-07
 Status: published
 
 It’s a sort of classic Internet, spicy hot take, grenade in the hole

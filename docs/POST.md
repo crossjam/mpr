@@ -203,6 +203,37 @@ bash:
 eval "$(_POST_COMPLETE=bash_source .venv/bin/post)"
 ```
 
+## Deploying
+
+Both deploy tasks build the site with `publishconf.py`, build the
+Pagefind index, then rsync `output/` to the web root with `--delete`.
+
+- `uv run poe rsync_upload` deploys over ssh to `SSH_HOST`, from any
+  machine. `--SSH_KEY <path>` picks the key.
+- `uv run poe rsync_local` deploys on the machine that serves the
+  site, rsyncing straight into `--TARGET` (default `LOCAL_TARGET_DIR`,
+  the same web root `rsync_upload` uses). `drafts/` is never copied,
+  and any copy already in the target is removed.
+
+Before building, `rsync_local` checks the target: it must exist, and
+every directory in it must be writable by you through its owner or
+group permissions. World-writable directories don't count, and the task
+refuses to run as root. The web server account
+(`--WEB_USER`, default `caddy`) must be able to reach and read it,
+including the files rsync will create under your umask. Any problem
+stops the deploy with a list of what to fix, so it never syncs
+partway. The check is also available on its own as
+`uv run python -m mpr.deploy <dir> --web-user <user>`.
+
+`--DRY_RUN 1` still runs the check and the build, then has rsync list
+what it would transfer and delete without writing to the target:
+
+```bash
+uv run poe rsync_local --DRY_RUN 1
+```
+
+The defaults live under `[tool.poe.env]` in `pyproject.toml`.
+
 ## Configuration
 
 The branch and remote names are constants in `src/mpr/repo.py`:

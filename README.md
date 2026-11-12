@@ -18,7 +18,9 @@ Writing a post:
 - Write, preview with `uv run poe devserver`, save with `uv run post draft save`
 - `uv run post draft switch <slug>` resumes a draft, bringing in `main`'s changes
 - `uv run post publish draft <slug> --push` publishes it
-- `uv run poe rsync_upload` deploys the site
+- `uv run poe rsync_upload` deploys the site over ssh; on the serving
+  host itself, `uv run poe rsync_local` syncs into the web root
+  (`--DRY_RUN 1` to preview; see `docs/POST.md`)
 
 ## License
 

@@ -5,6 +5,9 @@ RELATIVE ?= 0
 PORT ?= 0
 SERVER ?= 0.0.0.0
 SSH_KEY ?=
+LOCAL_TARGET_DIR ?=
+WEB_USER ?=
+DRY_RUN ?= 0
 
 # This Makefile is a thin compatibility wrapper. The real task
 # definitions live under [tool.poe.tasks] in pyproject.toml -- run
@@ -43,4 +46,8 @@ ssh_upload:
 rsync_upload:
 	$(POE) rsync_upload --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --SSH_KEY "$(SSH_KEY)"
 
-.PHONY: help html clean regenerate serve serve-global devserver devserver-global publish ssh_upload rsync_upload
+rsync_local:
+	$(POE) rsync_local --DEBUG $(DEBUG) --RELATIVE $(RELATIVE) --DRY_RUN $(DRY_RUN) \
+		$(if $(LOCAL_TARGET_DIR),--TARGET "$(LOCAL_TARGET_DIR)") $(if $(WEB_USER),--WEB_USER "$(WEB_USER)")
+
+.PHONY: help html clean regenerate serve serve-global devserver devserver-global publish ssh_upload rsync_upload rsync_local
