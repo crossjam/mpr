@@ -534,3 +534,39 @@ def test_update_does_not_warn_when_main_is_current(blog):
     result = CliRunner().invoke(cli, ["draft", "update"])
     assert result.exit_code == 0, result.output
     assert "WARNING" not in result.output
+
+
+def test_draft_new_wraps_the_body(blog):
+    long = " ".join(["word"] * 40)
+    result = CliRunner().invoke(
+        cli,
+        ["draft", "new", "--title", "Wrapped", "--file", "-", "--yes"],
+        input=f"{long}\n\n> {long}\n",
+    )
+    assert result.exit_code == 0, result.output
+    text = (blog / "content" / "wrapped.md").read_text()
+    body = text.split("---\n", 2)[2]
+    paragraph, quote = body.strip().split("\n\n")
+    assert all(len(line) <= 88 for line in paragraph.splitlines())
+    assert len(paragraph.splitlines()) > 1
+    assert quote == f"> {long}"
+
+
+def test_lint_reports_then_fixes_drafts(blog):
+    long = " ".join(["word"] * 40)
+    draft = blog / "content" / "new.md"
+    draft.write_text(f"Title: New\nStatus: draft\n\n{long}\n")
+    # Published posts are left alone unless named
+    (blog / "content" / "old.md").write_text(f"Title: Old\nStatus: published\n\n{long}\n")
+    runner = CliRunner()
+
+    check = runner.invoke(cli, ["lint"])
+    assert check.exit_code != 0
+    assert "new.md needs formatting" in check.output
+    assert "old.md" not in check.output
+
+    fixed = runner.invoke(cli, ["lint", "--fix"])
+    assert fixed.exit_code == 0, fixed.output
+    assert all(len(line) <= 88 for line in draft.read_text().splitlines())
+    assert runner.invoke(cli, ["lint"]).exit_code == 0
+    assert runner.invoke(cli, ["lint", "content/old.md"]).exit_code != 0

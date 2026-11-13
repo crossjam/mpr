@@ -5,6 +5,7 @@ import shlex
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
 
 import click
 from dulwich import porcelain
@@ -15,7 +16,7 @@ from dulwich.objects import Commit, ObjectID
 from dulwich.repo import Repo
 from slugify import slugify
 
-from . import metadata, repo
+from . import formatting, metadata, repo
 from .content import post_body, warn
 from .repo import BASE_BRANCH, DRAFT_PREFIX, DRAFTS_REMOTE, PUBLIC_REMOTE
 
@@ -158,7 +159,8 @@ def draft_new(title, author, slug, source, clipboard, quote, edit, yes, dry_run)
     Creates the branch from main, writes content/<slug>.md marked
     status: draft, commits it, and pushes the branch to the drafts remote.
     The body comes from --file or --clipboard, or is Lorem Ipsum
-    placeholder text. When the body comes from stdin, pass --title and
+    placeholder text, with its paragraphs wrapped as `post lint --fix`
+    wraps them. When the body comes from stdin, pass --title and
     --yes so no prompt competes for it.
     """
     if source is not None and clipboard:
@@ -182,7 +184,7 @@ def draft_new(title, author, slug, source, clipboard, quote, edit, yes, dry_run)
             raise click.ClickException(f"{relpath} is already a published post on {BASE_BRANCH}")
         require_drafts_remote(r)
 
-        body = post_body(source, clipboard, quote)
+        body = formatting.format_body(post_body(source, clipboard, quote))
 
         preview = body[:100] + ("..." if len(body) > 100 else "")
         click.echo(f"\nTitle:   {title}\nAuthor:  {author}\nBranch:  {branch} (from {BASE_BRANCH})")
@@ -463,6 +465,54 @@ def draft_drop(name, force, yes, dry_run):
             )
         if local:
             plan(f"Delete local branch {branch}", lambda: porcelain.branch_delete(r, branch))
+
+
+@cli.command()
+@click.argument("files", nargs=-1, type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--fix", is_flag=True, help="Rewrite the files that need it instead of listing them.")
+def lint(files, fix):
+    """Check that posts have their paragraphs wrapped to 88 characters.
+
+    Checks FILES, or with none every post under content/ marked
+    status: draft. Blockquotes, code, lists, tables, HTML, and the
+    metadata header are never rewrapped. Exits non-zero when any file
+    needs formatting, unless --fix rewrote it.
+    """
+    if not files:
+        with repo.open_repo() as r:
+            files = draft_posts(repo.root(r) / "content")
+    unformatted = []
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        try:
+            formatted = formatting.format_post(text)
+        except ValueError as e:
+            raise click.ClickException(f"{path}: {e}") from None
+        if formatted == text:
+            continue
+        if fix:
+            path.write_text(formatted, encoding="utf-8")
+            click.echo(click.style("✓ ", fg="green") + f"Formatted {path}")
+        else:
+            unformatted.append(path)
+            click.echo(f"{path} needs formatting")
+    if unformatted:
+        raise click.ClickException(
+            f"{len(unformatted)} file(s) need formatting; run: post lint --fix"
+        )
+
+
+def draft_posts(content: Path) -> list[Path]:
+    """The posts under content/ marked status: draft."""
+    posts = []
+    for path in sorted(content.rglob("*.md")):
+        try:
+            status = metadata.get_field(path.read_text(encoding="utf-8"), "status")
+        except ValueError:
+            status = None
+        if (status or "").lower() == "draft":
+            posts.append(path)
+    return posts
 
 
 @cli.group()
