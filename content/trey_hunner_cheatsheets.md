@@ -3,7 +3,7 @@ title: Trey Hunner Cheatsheets
 date: 2025-10-04
 author: C. Ross Jam
 status: published
-...
+---
 
 
 Link parkin, from Trey Hunner’s site: [Python Articles on Cheat Sheets][1]

@@ -3,7 +3,7 @@ title: Pelican YAML Metadata
 date: 2025-10-06
 author: C. Ross Jam
 status: published
-...
+---
 
 Link parkin’: a Pelican plugin that [enables YAML formatted front matter][1]
 

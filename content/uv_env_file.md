@@ -3,7 +3,7 @@ title: uv and .env
 date: 2025-10-05
 author: C. Ross Jam
 status: published
-...
+---
 
 From Daniel Roy Greenfeld, ["TIL: Loading .env files with uv run"][1]
 
