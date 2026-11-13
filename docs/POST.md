@@ -16,6 +16,7 @@ does not shell out to `git`.
 uv run post draft new --edit              # start draft/<slug> from main
 uv run post draft save -m "First pass"    # commit and push to drafts
 uv run post draft switch <slug>           # resume a draft, merging main into it
+uv run post lint --fix                    # wrap draft paragraphs to 88 characters
 uv run post publish draft <slug> --push   # squash onto main, push, clean up
 uv run poe rsync_upload                   # deploy
 ```
@@ -84,7 +85,8 @@ branch already exists locally or on `drafts`, or the slug matches a post
 already published on `main`. Then it:
 
 1. Creates and switches to `draft/<slug>`, starting from `main`
-2. Writes `content/<slug>.md` with YAML front matter marked `status: draft`
+2. Writes `content/<slug>.md` with YAML front matter marked `status: draft`,
+   its paragraphs wrapped to 88 characters as `post lint --fix` wraps them
 3. Opens it in `$EDITOR`, with `--edit`
 4. Commits it as `Start draft: <title>`
 5. Pushes the branch to `drafts` and sets it as the upstream
@@ -191,6 +193,28 @@ deleted.
 Both metadata styles are handled throughout: YAML front matter
 (`status: draft` between `---` fences) and Pelican's `Key: value` header
 lines.
+
+## Formatting: `post lint`
+
+```bash
+uv run post lint                     # check every post marked status: draft
+uv run post lint content/my-post.md  # check particular files, drafts or not
+uv run post lint --fix               # rewrite the ones that need it
+```
+
+`post lint` checks that paragraphs are wrapped to 88 characters, listing
+each file that is not and exiting non-zero if any are. `--fix` rewraps
+them in place instead. Wrapping uses
+[flowmark](https://github.com/jlevy/flowmark)'s Markdown-aware filler,
+so only line breaks move: links, code spans, and HTML tags are never
+split, and the Markdown itself is left as written.
+
+Only plain paragraphs are rewrapped. The metadata header, blockquotes,
+code, lists, tables, footnotes, HTML (including the
+`<!-- PELICAN_END_SUMMARY -->` marker), and paragraphs with hard line
+breaks keep their lines exactly. Python-Markdown reads some of those
+differently from the CommonMark flowmark renders, so they are left
+alone rather than risk changing the page.
 
 ## Shell Completion
 
